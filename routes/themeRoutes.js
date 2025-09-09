@@ -22,13 +22,15 @@ router.post('/', async (req, res) => {
     const { rlNo, primaryColor, primaryBgColor, sidebarBgColor, sidebarTabsBgColor, sidebarTabsTextColor, selectedTheme } = req.body;
 
     if (!rlNo) return res.status(400).json({ message: 'rlNo is required' });
-
+    console.log('Finding The Record');
     try {
-        const updatedTheme = await UserTheme.findOneAndUpdate(
+        const updatedTheme = await Theme.findOneAndUpdate(
             { rlNo },
             { primaryColor, primaryBgColor, sidebarBgColor, sidebarTabsBgColor, sidebarTabsTextColor, selectedTheme, updatedAt: new Date() },
             { upsert: true, new: true }
+            
         );
+        console.log('Record Updated');
         res.json({ message: 'Theme saved successfully', theme: updatedTheme });
     } catch (err) {
         res.status(500).json({ message: 'Server error', error: err });
