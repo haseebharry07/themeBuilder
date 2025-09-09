@@ -7,6 +7,7 @@ const Theme = require('../models/UserTheme');
 router.get('/:rlNo', async (req, res) => {
   try {
     const theme = await Theme.findOne({ rlNo: req.params.rlNo });
+    console.log("Finding Record");
     if (!theme) {
       return res.status(404).json({ message: "Theme not found" });
     }
