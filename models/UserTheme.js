@@ -8,7 +8,8 @@ const themeSchema = new mongoose.Schema({
   sidebarTabsBgColor: String,
   sidebarTabsTextColor: String,
   selectedTheme: String,
-  updatedAt: { type: Date, default: Date.now }
+  updatedAt: { type: Date, default: Date.now },
+  isActive: { type: Boolean, default: true } 
 }, { collection: 'userThemes' }); // 👈 force correct collection name
 
 module.exports = mongoose.model('Theme', themeSchema);
