@@ -1,10 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const themeRoutes = require('./routes/themeRoutes');
+const cors = require('cors');   // ✅ import cors
+
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(cors({
+    origin: "https://app.glitchgone.com",   // allow only your frontend
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"]
+}));
 // Middleware
 app.use(express.json());
 
