@@ -49,6 +49,7 @@ router.post('/', async (req, res) => {
         existingTheme.sidebarTabsBgColor = sidebarTabsBgColor;
         existingTheme.sidebarTabsTextColor = sidebarTabsTextColor;
         existingTheme.selectedTheme = selectedTheme;
+        existingTheme.fontfamily = fontfamily;
         existingTheme.updatedAt = new Date();
         
         const updatedTheme = await existingTheme.save();
