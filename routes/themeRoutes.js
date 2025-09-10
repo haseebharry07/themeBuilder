@@ -27,7 +27,7 @@ router.get('/:rlNo', async (req, res) => {
 
 // Save or update theme for a user
 router.post('/', async (req, res) => {
-    const { rlNo, primaryColor, primaryBgColor, sidebarBgColor, sidebarTabsBgColor, sidebarTabsTextColor, selectedTheme,fontfamily } = req.body;
+    const { rlNo, primaryColor, primaryBgColor, sidebarBgColor, sidebarTabsBgColor, sidebarTabsTextColor, selectedTheme,bodyFont } = req.body;
 
     if (!rlNo) return res.status(400).json({ message: 'rlNo is required' });
     try {
@@ -47,7 +47,7 @@ router.post('/', async (req, res) => {
         existingTheme.sidebarTabsBgColor = sidebarTabsBgColor;
         existingTheme.sidebarTabsTextColor = sidebarTabsTextColor;
         existingTheme.selectedTheme = selectedTheme;
-        existingTheme.fontfamily = fontfamily;
+        existingTheme.bodyFont  = bodyFont ;
         existingTheme.updatedAt = new Date();
         const updatedTheme = await existingTheme.save();
         res.json({ message: 'Theme saved successfully', theme: updatedTheme });
