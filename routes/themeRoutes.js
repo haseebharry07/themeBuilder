@@ -27,33 +27,47 @@ router.get('/:rlNo', async (req, res) => {
 
 // Save or update theme for a user
 router.post('/', async (req, res) => {
-    const { rlNo, primaryColor, primaryBgColor, sidebarBgColor, sidebarTabsBgColor, sidebarTabsTextColor, selectedTheme,bodyFont } = req.body;
+    const { rlNo, themeData, selectedTheme, bodyFont } = req.body;
 
     if (!rlNo) return res.status(400).json({ message: 'rlNo is required' });
+
     try {
         // Find the theme document first
-        const existingTheme = await Theme.findOne({ rlNo });
+        let existingTheme = await Theme.findOne({ rlNo });
+
         if (!existingTheme) {
-            return res.status(404).json({ message: 'Theme not found for this user' });
+            // Create a new record if none exists
+            const newTheme = new Theme({
+                rlNo,
+                themeData,
+                selectedTheme,
+                bodyFont,
+                updatedAt: new Date(),
+                isActive: true   // 👈 always true for a new record
+            });
+
+            const savedTheme = await newTheme.save();
+            return res.status(201).json({ message: 'New theme created successfully', theme: savedTheme });
         }
-        // Check if the user is eligible (isActive === true)
+
+        // If record exists, check eligibility
         if (!existingTheme.isActive) {
             return res.status(403).json({ message: 'User is not eligible to update the theme' });
         }
-        // Update the theme
-        existingTheme.primaryColor = primaryColor;
-        existingTheme.primaryBgColor = primaryBgColor;
-        existingTheme.sidebarBgColor = sidebarBgColor;
-        existingTheme.sidebarTabsBgColor = sidebarTabsBgColor;
-        existingTheme.sidebarTabsTextColor = sidebarTabsTextColor;
+
+        // Update existing record
+        existingTheme.themeData = themeData;
         existingTheme.selectedTheme = selectedTheme;
-        existingTheme.bodyFont  = bodyFont ;
+        existingTheme.bodyFont = bodyFont;
         existingTheme.updatedAt = new Date();
+
         const updatedTheme = await existingTheme.save();
-        res.json({ message: 'Theme saved successfully', theme: updatedTheme });
+        res.json({ message: 'Theme updated successfully', theme: updatedTheme });
+
     } catch (err) {
-        res.status(500).json({ message: 'Server error', error: err });
+        res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
+
 
 module.exports = router;

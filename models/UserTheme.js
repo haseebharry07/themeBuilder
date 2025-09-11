@@ -2,15 +2,11 @@ const mongoose = require('mongoose');
 
 const themeSchema = new mongoose.Schema({
   rlNo: { type: String, required: true, unique: true },
-  primaryColor: String,
-  primaryBgColor: String,
-  sidebarBgColor: String,
-  sidebarTabsBgColor: String,
-  sidebarTabsTextColor: String,
+  themeData: { type: Object, default: {} },  // stores all CSS variables dynamically
   selectedTheme: String,
   bodyFont: String,
   updatedAt: { type: Date, default: Date.now },
   isActive: { type: Boolean, default: true } 
-}, { collection: 'userThemes' }); // 👈 force correct collection name
+}, { collection: 'userThemes' });
 
 module.exports = mongoose.model('Theme', themeSchema);
