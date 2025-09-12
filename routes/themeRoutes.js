@@ -5,20 +5,15 @@ const Theme = require('../models/UserTheme');
 
 // Get theme for a user
 router.get('/:rlNo', async (req, res) => {
-    console.log('rlNo', req.params.rlNo);
     try {
         // Only pick the record if isActive is explicitly true
         const theme = await Theme.findOne({ 
             rlNo: req.params.rlNo, 
             isActive: { $eq: true } 
         });
-
-        console.log("Record",theme);
-
         if (!theme) {
             return res.status(404).json({ message: "Theme not found or user is not eligible" });
         }
-
         res.json(theme);
     } catch (err) {
         res.status(500).json({ message: err.message });
