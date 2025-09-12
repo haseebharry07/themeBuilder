@@ -13,7 +13,7 @@ router.get('/:rlNo', async (req, res) => {
             isActive: { $eq: true } 
         });
 
-        console.log("Finding Record");
+        console.log("Record",theme);
 
         if (!theme) {
             return res.status(404).json({ message: "Theme not found or user is not eligible" });
