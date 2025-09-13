@@ -81,6 +81,36 @@ router.post('/', async (req, res) => {
     }
 });
 
+const fs = require('fs');
+const path = require('path');
+
+// Get encoded CSS file for a user (email or rlNo)
+router.get('/file/:identifier', async (req, res) => {
+    try {
+        const identifier = req.params.identifier.toLowerCase();
+        // Find user eligibility
+        const theme = await Theme.findOne({
+            $or: [
+                { rlNo: identifier },
+                { email: identifier }
+            ],
+            isActive: true
+        });
+
+        if (!theme) {
+            return res.status(403).json({ message: "❌ Not authorized to get CSS file" });
+        }
+
+        // Read the CSS base64 file
+        const filePath = path.join(__dirname, '../public/style-base64.txt');
+        const encodedCSS = fs.readFileSync(filePath, 'utf8');
+
+        res.type('text/plain').send(encodedCSS.trim());
+    } catch (err) {
+        console.error("Error fetching file:", err);
+        res.status(500).json({ message: "Server error", error: err.message });
+    }
+});
 
 
 module.exports = router;
