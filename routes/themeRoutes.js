@@ -4,41 +4,55 @@ const router = express.Router();
 const Theme = require('../models/UserTheme');
 
 // Get theme for a user
-router.get('/:rlNo', async (req, res) => {
+router.get('/:identifier', async (req, res) => {
     try {
-        // Only pick the record if isActive is explicitly true
+        const identifier = req.params.identifier;
+
+        // Find theme where rlNo OR email matches AND isActive = true
         const theme = await Theme.findOne({ 
-            rlNo: req.params.rlNo, 
-            isActive: { $eq: true } 
+            $or: [
+                { rlNo: identifier }, 
+                { email: identifier }
+            ],
+            isActive: true
         });
+
         if (!theme) {
             return res.status(404).json({ message: "Theme not found or user is not eligible" });
         }
+
         res.json(theme);
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
 });
-
 // Save or update theme for a user
 router.post('/', async (req, res) => {
-    const { rlNo, themeData, selectedTheme, bodyFont } = req.body;
+    let { rlNo, email, themeData, selectedTheme, bodyFont } = req.body;
 
-    if (!rlNo) return res.status(400).json({ message: 'rlNo is required' });
+    if (!email && !rlNo) {
+        return res.status(400).json({ message: 'Either email or rlNo is required' });
+    }
+
+    // Normalize email if provided
+    if (email) email = email.toLowerCase();
 
     try {
-        // Find the theme document first
-        let existingTheme = await Theme.findOne({ rlNo });
+        // ✅ Prefer email for lookup, fallback to rlNo
+        let query = email ? { email } : { rlNo };
+
+        let existingTheme = await Theme.findOne(query);
 
         if (!existingTheme) {
             // Create a new record if none exists
             const newTheme = new Theme({
                 rlNo,
+                email,
                 themeData,
                 selectedTheme,
                 bodyFont,
                 updatedAt: new Date(),
-                isActive: true   // 👈 always true for a new record
+                isActive: true
             });
 
             const savedTheme = await newTheme.save();
@@ -50,7 +64,10 @@ router.post('/', async (req, res) => {
             return res.status(403).json({ message: 'User is not eligible to update the theme' });
         }
 
-        // Update existing record
+        // ✅ Update existing record
+        if (email) existingTheme.email = email;   // always prioritize email
+        if (rlNo) existingTheme.rlNo = rlNo;      // save rlNo if provided
+
         existingTheme.themeData = themeData;
         existingTheme.selectedTheme = selectedTheme;
         existingTheme.bodyFont = bodyFont;
@@ -63,6 +80,7 @@ router.post('/', async (req, res) => {
         res.status(500).json({ message: 'Server error', error: err.message });
     }
 });
+
 
 
 module.exports = router;
