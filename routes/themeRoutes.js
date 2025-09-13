@@ -81,36 +81,28 @@ router.post('/', async (req, res) => {
     }
 });
 
-const fs = require('fs');
-const path = require('path');
+// routes/themeRoutes.js
+const fs = require("fs");
+const path = require("path");
 
-// Get encoded CSS file for a user (email or rlNo)
-router.get('/file/:identifier', async (req, res) => {
+router.get("/file/:identifier", async (req, res) => {
     try {
-        const identifier = req.params.identifier.toLowerCase();
-        // Find user eligibility
-        const theme = await Theme.findOne({
-            $or: [
-                { rlNo: identifier },
-                { email: identifier }
-            ],
-            isActive: true
-        });
+        const filePath = path.join(__dirname, "../public/style-base64.txt");
 
-        if (!theme) {
-            return res.status(403).json({ message: "❌ Not authorized to get CSS file" });
-        }
+        // Read Base64
+        const encodedCSS = fs.readFileSync(filePath, "utf8");
 
-        // Read the CSS base64 file
-        const filePath = path.join(__dirname, '../public/style-base64.txt');
-        const encodedCSS = fs.readFileSync(filePath, 'utf8');
+        // Decode
+        const cssContent = Buffer.from(encodedCSS.trim(), "base64").toString("utf-8");
 
-        res.type('text/plain').send(encodedCSS.trim());
+        res.setHeader("Content-Type", "text/css");
+        res.send(cssContent);
     } catch (err) {
-        console.error("Error fetching file:", err);
-        res.status(500).json({ message: "Server error", error: err.message });
+        console.error("❌ API error:", err.message);
+        res.status(500).send("Error loading CSS");
     }
 });
+
 
 
 module.exports = router;
