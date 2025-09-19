@@ -6,28 +6,28 @@ const fs = require("fs");
 const path = require("path");
 
 // Get theme for a user
-// router.get('/:identifier', async (req, res) => {
-//     try {
-//         const identifier = req.params.identifier;
+router.get('/code/:identifier', async (req, res) => {
+    try {
+        const identifier = req.params.identifier;
 
-//         // Find theme where rlNo OR email matches AND isActive = true
-//         const theme = await Theme.findOne({ 
-//             $or: [
-//                 { rlNo: identifier }, 
-//                 { email: identifier }
-//             ],
-//             isActive: true
-//         });
+        // Find theme where rlNo OR email matches AND isActive = true
+        const theme = await Theme.findOne({ 
+            $or: [
+                { rlNo: identifier }, 
+                { email: identifier }
+            ],
+            isActive: true
+        });
 
-//         if (!theme) {
-//             return res.status(404).json({ message: "Theme not found or user is not eligible" });
-//         }
+        if (!theme) {
+            return res.status(404).json({ message: "Theme not found or user is not eligible" });
+        }
 
-//         res.json(theme);
-//     } catch (err) {
-//         res.status(500).json({ message: err.message });
-//     }
-// });
+        res.json(theme);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+});
 // Save or update theme for a user
 router.post("/", async (req, res) => {
     let { rlNo, email, themeData, selectedTheme, bodyFont } = req.body;
