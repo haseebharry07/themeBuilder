@@ -2,36 +2,38 @@
 const express = require('express');
 const router = express.Router();
 const Theme = require('../models/UserTheme');
+const fs = require("fs");
+const path = require("path");
 
 // Get theme for a user
-router.get('/:identifier', async (req, res) => {
-    try {
-        const identifier = req.params.identifier;
+// router.get('/:identifier', async (req, res) => {
+//     try {
+//         const identifier = req.params.identifier;
 
-        // Find theme where rlNo OR email matches AND isActive = true
-        const theme = await Theme.findOne({ 
-            $or: [
-                { rlNo: identifier }, 
-                { email: identifier }
-            ],
-            isActive: true
-        });
+//         // Find theme where rlNo OR email matches AND isActive = true
+//         const theme = await Theme.findOne({ 
+//             $or: [
+//                 { rlNo: identifier }, 
+//                 { email: identifier }
+//             ],
+//             isActive: true
+//         });
 
-        if (!theme) {
-            return res.status(404).json({ message: "Theme not found or user is not eligible" });
-        }
+//         if (!theme) {
+//             return res.status(404).json({ message: "Theme not found or user is not eligible" });
+//         }
 
-        res.json(theme);
-    } catch (err) {
-        res.status(500).json({ message: err.message });
-    }
-});
+//         res.json(theme);
+//     } catch (err) {
+//         res.status(500).json({ message: err.message });
+//     }
+// });
 // Save or update theme for a user
-router.post('/', async (req, res) => {
+router.post("/", async (req, res) => {
     let { rlNo, email, themeData, selectedTheme, bodyFont } = req.body;
 
     if (!email && !rlNo) {
-        return res.status(400).json({ message: 'Either email or rlNo is required' });
+        return res.status(400).json({ message: "Either email or rlNo is required" });
     }
 
     // Normalize email if provided
@@ -52,21 +54,25 @@ router.post('/', async (req, res) => {
                 selectedTheme,
                 bodyFont,
                 updatedAt: new Date(),
-                isActive: true
+                isActive: true,
             });
 
             const savedTheme = await newTheme.save();
-            return res.status(201).json({ message: 'New theme created successfully', theme: savedTheme });
+
+            // Also update CSS file
+            await updateCSSFile(themeData, bodyFont);
+
+            return res.status(201).json({ message: "New theme created successfully", theme: savedTheme });
         }
 
         // If record exists, check eligibility
         if (!existingTheme.isActive) {
-            return res.status(403).json({ message: 'User is not eligible to update the theme' });
+            return res.status(403).json({ message: "User is not eligible to update the theme" });
         }
 
         // ✅ Update existing record
-        if (email) existingTheme.email = email;   // always prioritize email
-        if (rlNo) existingTheme.rlNo = rlNo;      // save rlNo if provided
+        if (email) existingTheme.email = email; // always prioritize email
+        if (rlNo) existingTheme.rlNo = rlNo; // save rlNo if provided
 
         existingTheme.themeData = themeData;
         existingTheme.selectedTheme = selectedTheme;
@@ -74,34 +80,111 @@ router.post('/', async (req, res) => {
         existingTheme.updatedAt = new Date();
 
         const updatedTheme = await existingTheme.save();
-        res.json({ message: 'Theme updated successfully', theme: updatedTheme });
 
+        // Also update CSS file
+        await updateCSSFile(themeData, bodyFont);
+
+        res.json({ message: "Theme updated successfully", theme: updatedTheme });
     } catch (err) {
-        res.status(500).json({ message: 'Server error', error: err.message });
+        res.status(500).json({ message: "Server error", error: err.message });
     }
 });
 
-// routes/themeRoutes.js
-const fs = require("fs");
-const path = require("path");
 
-router.get("/file/:identifier", async (req, res) => {
+router.get("/file", async (req, res) => {
     try {
-        const filePath = path.join(__dirname, "../public/style-base64.txt");
+        const cssFilePath = path.join(__dirname, "../public/style.css");
 
-        // Read Base64
-        const encodedCSS = fs.readFileSync(filePath, "utf8");
+        // Read CSS file
+        const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
 
-        // Decode
-        const cssContent = Buffer.from(encodedCSS.trim(), "base64").toString("utf-8");
+        // Encode in Base64
+        const encodedCSS = Buffer.from(cssContent, "utf-8").toString("base64");
 
-        res.setHeader("Content-Type", "text/css");
-        res.send(cssContent);
+        res.json({ css: encodedCSS }); // send encoded string
     } catch (err) {
         console.error("❌ API error:", err.message);
-        res.status(500).send("Error loading CSS");
+        res.status(500).json({ message: "Error loading CSS" });
     }
 });
+
+
+async function updateCSSFile(themeData, bodyFont) {
+    const cssFilePath = path.join(__dirname, "..", "public", "style.css");
+
+    // 1️⃣ Read existing CSS
+    let cssContent = "";
+    try {
+        cssContent = await fs.promises.readFile(cssFilePath, "utf8");
+    } catch {
+        console.log("No existing CSS, starting fresh.");
+    }
+
+    // 2️⃣ Function to update/add variables inside a :root block
+    function updateRootBlock(block, updates) {
+    let lines = block.split("\n").map(line => line.trim());
+    let vars = {};
+
+    // Collect existing variables safely
+    lines.forEach(line => {
+        if (line.startsWith("--")) {
+            const index = line.lastIndexOf(":"); // ✅ FIX
+            if (index > -1) {
+                const prop = line.slice(0, index).trim();
+                const val = line.slice(index + 1).trim().replace(/;$/, "");
+                vars[prop] = val;
+            }
+        }
+    });
+
+    // Apply updates
+    for (const [key, value] of Object.entries(updates)) {
+        vars[key] = value;
+    }
+
+    // Rebuild block safely
+    let newBlock = ":root {\n";
+    for (const [prop, val] of Object.entries(vars)) {
+        newBlock += `  ${prop}: ${val};\n`;
+    }
+    newBlock += "}";
+
+    return newBlock;
+}
+
+    // 3️⃣ Match :root blocks
+    const rootRegex = /:root\s*{[^}]*}/gm;
+    let rootBlocks = cssContent.match(rootRegex);
+
+    if (rootBlocks && rootBlocks.length > 0) {
+        cssContent = cssContent.replace(
+            rootBlocks[0],
+            updateRootBlock(rootBlocks[0], {
+                ...themeData,
+                "--body-font": bodyFont || "Arial, sans-serif"
+            })
+        );
+    } else {
+        // No :root → create new
+        let newRootBlock = updateRootBlock(":root {}", {
+            ...themeData,
+            "--body-font": bodyFont || "Arial, sans-serif"
+        });
+        cssContent = newRootBlock + "\n\n" + cssContent;
+    }
+
+    // 4️⃣ Ensure body font rule exists
+    if (!/body\s*{[^}]*font-family:/m.test(cssContent)) {
+        cssContent += `
+body {
+  font-family: var(--body-font, Arial, sans-serif);
+}
+`;
+    }
+
+    // 5️⃣ Save back
+    await fs.promises.writeFile(cssFilePath, cssContent, "utf8");
+}
 
 
 
