@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
             });
 
             const savedTheme = await newTheme.save();
-            console.log('here updated themeadata',themeData,bodyFont);
+            console.log('here updated themeadataas',themeData,bodyFont);
             // Also update CSS file
             await updateCSSFile(themeData, bodyFont);
 
