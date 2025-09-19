@@ -93,88 +93,15 @@ router.post("/", async (req, res) => {
 
 router.get("/file", async (req, res) => {
     try {
-        const agencyId = req.query.agencyId; // get agencyId from query params
-
-        if (!agencyId) {
-            return res.status(400).json({ message: "agencyId is required" });
-        }
-
-        // ✅ Find the theme for this agencyId
-        const theme = await Theme.findOne({ agencyId, isActive: true });
-
-        if (!theme) {
-            return res.status(403).json({ message: "Invalid or inactive agencyId" });
-        }
-
-        // ✅ Read base CSS file
         const cssFilePath = path.join(__dirname, "../public/style.css");
-        let cssContent = await fs.promises.readFile(cssFilePath, "utf8");
 
-        // ✅ Inject themeData variables into CSS
-        if (theme.themeData) {
-            let themeVars;
-            try {
-                themeVars = JSON.parse(theme.themeData);
-            } catch (e) {
-                console.error("ThemeData parse error:", e.message);
-                themeVars = {};
-            }
+        // Read CSS file
+        const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
 
-            // Function to update a single :root block
-            function updateRootBlock(block, updates) {
-                const lines = block.split("\n");
-                const existingVars = {};
-                const otherLines = [];
-
-                lines.forEach(line => {
-                    const trimmed = line.trim();
-                    if (trimmed.startsWith("--")) {
-                        const index = trimmed.indexOf(":");
-                        if (index > -1) {
-                            const prop = trimmed.slice(0, index).trim();
-                            const val = trimmed.slice(index + 1).trim().replace(/;$/, "");
-                            existingVars[prop] = val;
-                        }
-                    } else {
-                        otherLines.push(line);
-                    }
-                });
-
-                // Merge/update variables
-                for (const [key, value] of Object.entries(updates)) {
-                    existingVars[key] = value;
-                }
-
-                // Rebuild :root block
-                let newBlock = ":root {\n";
-                for (const [prop, val] of Object.entries(existingVars)) {
-                    newBlock += `  ${prop}: ${val};\n`;
-                }
-                newBlock += "}\n";
-
-                return newBlock;
-            }
-
-            // Find all :root blocks
-            const rootRegex = /:root\s*{[^}]*}/gm;
-            const rootBlocks = cssContent.match(rootRegex);
-
-            if (rootBlocks && rootBlocks.length > 0) {
-                rootBlocks.forEach(block => {
-                    const newBlock = updateRootBlock(block, themeVars);
-                    cssContent = cssContent.replace(block, newBlock);
-                });
-            } else {
-                // No :root block, create one
-                const newRoot = updateRootBlock(":root {}", themeVars);
-                cssContent = newRoot + "\n\n" + cssContent;
-            }
-        }
-
-        // Encode CSS in Base64
+        // Encode in Base64
         const encodedCSS = Buffer.from(cssContent, "utf-8").toString("base64");
 
-        res.json({ css: encodedCSS });
+        res.json({ css: encodedCSS }); // send encoded string
     } catch (err) {
         console.error("❌ API error:", err.message);
         res.status(500).json({ message: "Error loading CSS" });
