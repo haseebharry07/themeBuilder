@@ -9,6 +9,7 @@ async function applyCSSFile() {
         if (!res.ok) throw new Error("Failed to load file");
         const { css, themeData } = await res.json();
         const cssText = decodeBase64Utf8(css);
+        console.log("Decoded CSS:", cssText);
         localStorage.setItem("themeCSS", css);
         if (!cachedCSS) injectCSS(cssText);
         injectThemeData(themeData);
@@ -27,7 +28,6 @@ function injectCSS(cssText) {
 }
 
 function injectThemeData(themeData) {
-    localStorage.setItem("userTheme", themeData);
     if (!themeData || typeof themeData !== "object") return;
     const oldTheme = document.getElementById("theme-vars");
     if (oldTheme) oldTheme.remove();
@@ -40,6 +40,7 @@ function injectThemeData(themeData) {
     vars += "}";
     style.innerHTML = vars;
     document.head.appendChild(style);
+    localStorage.setItem("userTheme", JSON.stringify({ themeData }));
 }
 
 function decodeBase64Utf8(base64) {
