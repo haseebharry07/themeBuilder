@@ -89,24 +89,44 @@ router.post("/", async (req, res) => {
         res.status(500).json({ message: "Server error", error: err.message });
     }
 });
-
-
 router.get("/file", async (req, res) => {
     try {
-        const cssFilePath = path.join(__dirname, "../public/style.css");
+        const agencyId = req.query.agencyId;
 
-        // Read CSS file
+        if (!agencyId) {
+            return res.status(400).json({ message: "agencyId is required" });
+        }
+
+        const theme = await Theme.findOne({ agencyId, isActive: true });
+
+        if (!theme) {
+            return res.status(403).json({ message: "Invalid or inactive agencyId" });
+        }
+
+        console.log("Got the theme ", theme);
+
+        // Read base CSS file
+        const cssFilePath = path.join(__dirname, "../public/style.css");
         const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
 
-        // Encode in Base64
+        // Encode only CSS content in Base64
         const encodedCSS = Buffer.from(cssContent, "utf-8").toString("base64");
 
-        res.json({ css: encodedCSS }); // send encoded string
+        // themeData is already an object, no need to parse
+        const themeData = theme.themeData || {};
+
+        // Return separate objects
+        res.json({
+            css: encodedCSS,      // encoded CSS file content
+            themeData: themeData  // plain themeData object
+        });
     } catch (err) {
         console.error("❌ API error:", err.message);
         res.status(500).json({ message: "Error loading CSS" });
     }
 });
+
+
 
 
 async function updateCSSFile(themeData, bodyFont) {
