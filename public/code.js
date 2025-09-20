@@ -3,34 +3,20 @@ const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2Z
 async function applyCSSFile() {
     try {
         const url = atob(cde);
-
-        // Check cached CSS first
         const cachedCSS = localStorage.getItem("themeCSS");
         if (cachedCSS) injectCSS(decodeBase64Utf8(cachedCSS));
-
-        // Fetch API
         const res = await fetch(url);
         if (!res.ok) throw new Error("Failed to load file");
-
         const { css, themeData } = await res.json();
-
-        // Decode CSS properly
         const cssText = decodeBase64Utf8(css);
-        console.log("Decoded CSS:", cssText);
-
         localStorage.setItem("themeCSS", css);
-
         if (!cachedCSS) injectCSS(cssText);
-
-        // Inject themeData variables
         injectThemeData(themeData);
-
     } catch (err) {
         console.error("❌ Failed to apply CSS:", err.message);
     }
 }
 
-// Inject CSS into DOM
 function injectCSS(cssText) {
     const oldStyle = document.getElementById("theme-css");
     if (oldStyle) oldStyle.remove();
@@ -40,8 +26,8 @@ function injectCSS(cssText) {
     document.head.appendChild(style);
 }
 
-// Inject themeData variables as :root
 function injectThemeData(themeData) {
+    localStorage.setItem("userTheme", themeData);
     if (!themeData || typeof themeData !== "object") return;
     const oldTheme = document.getElementById("theme-vars");
     if (oldTheme) oldTheme.remove();
@@ -56,7 +42,6 @@ function injectThemeData(themeData) {
     document.head.appendChild(style);
 }
 
-// Decode Base64 UTF-8 properly
 function decodeBase64Utf8(base64) {
     const binary = atob(base64);
     const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
