@@ -12,6 +12,7 @@ async function applyCSSFile() {
         const { css, themeData } = await res.json();
         // Inject CSS
         const cssText = atob(css);
+        console.log('css code here',cssText);
         localStorage.setItem("themeCSS", css);
         if (!cachedCSS) injectCSS(cssText);
         // Inject themeData as CSS variables
