@@ -85,7 +85,7 @@ router.post("/", async (req, res) => {
         // Also update CSS file
         // await updateCSSFile(themeData, bodyFont);
 
-        res.json({ message: "Theme updated successfully", theme: updatedTheme });
+        res.json({ message: "Theme updated successfully"});
     } catch (err) {
         res.status(500).json({ message: "Server error", error: err.message });
     }
