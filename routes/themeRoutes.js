@@ -104,8 +104,6 @@ router.get("/file", originCheck, async (req, res) => {
       return res.status(403).json({ message: "Invalid or inactive agencyId" });
     }
 
-    console.log("Got the theme ", theme);
-
     const cssFilePath = path.join(__dirname, "../public/style.css");
     const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
 
