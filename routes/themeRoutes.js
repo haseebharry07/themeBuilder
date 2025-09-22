@@ -83,7 +83,7 @@ router.post("/", async (req, res) => {
         const updatedTheme = await existingTheme.save();
 
         // Also update CSS file
-        await updateCSSFile(themeData, bodyFont);
+        // await updateCSSFile(themeData, bodyFont);
 
         res.json({ message: "Theme updated successfully", theme: updatedTheme });
     } catch (err) {
