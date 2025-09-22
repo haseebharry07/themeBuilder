@@ -5,7 +5,8 @@
 }
 
 .hl_login::after {
-  display: none !important;
+  /* display: none !important; */
+  background-image: var(--login-background-gradient-color) !important;
 }
   
 :root {
