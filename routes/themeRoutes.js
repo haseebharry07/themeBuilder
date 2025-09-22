@@ -202,6 +202,25 @@ body {
     await fs.promises.writeFile(cssFilePath, cssContent, "utf8");
 }
 
+// ✅ New API: Find theme by email
+router.get("/:email", async (req, res) => {
+    try {
+        const email = req.params.email;
 
+        if (!email) {
+            return res.status(400).json({ success: false, message: "Email is required" });
+        }
 
+        const theme = await Theme.findOne({ email: email, isActive: true });
+
+        if (!theme) {
+            return res.json({ success: false }); // ❌ Not found or inactive
+        }
+
+        return res.json({ success: true }); // ✅ Found and active
+    } catch (err) {
+        console.error("❌ API Error:", err.message);
+        res.status(500).json({ success: false, message: "Server error" });
+    }
+});
 module.exports = router;
