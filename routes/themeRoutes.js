@@ -31,7 +31,7 @@ router.get('/code/:identifier', async (req, res) => {
 });
 // Save or update theme for a user
 router.post("/", async (req, res) => {
-    let { rlNo, email, themeData, selectedTheme, bodyFont } = req.body;
+    let { rlNo, email, themeData, selectedTheme, bodyFont,agencyId } = req.body;
 
     if (!email && !rlNo) {
         return res.status(400).json({ message: "Either email or rlNo is required" });
@@ -39,7 +39,6 @@ router.post("/", async (req, res) => {
 
     // Normalize email if provided
     if (email) email = email.toLowerCase();
-
     try {
         // ✅ Prefer email for lookup, fallback to rlNo
         let query = email ? { email } : { rlNo };
@@ -52,6 +51,7 @@ router.post("/", async (req, res) => {
                 rlNo,
                 email,
                 themeData,
+                agencyId,
                 selectedTheme,
                 bodyFont,
                 updatedAt: new Date(),
