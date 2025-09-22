@@ -4,6 +4,7 @@ const router = express.Router();
 const Theme = require('../models/UserTheme');
 const fs = require("fs");
 const path = require("path");
+const originCheck = require("../middleware/originCheck");
 
 // Get theme for a user
 router.get('/code/:identifier', async (req, res) => {
@@ -89,41 +90,36 @@ router.post("/", async (req, res) => {
         res.status(500).json({ message: "Server error", error: err.message });
     }
 });
-router.get("/file", async (req, res) => {
-    try {
-        const agencyId = req.query.agencyId;
+router.get("/file", originCheck, async (req, res) => {
+  try {
+    const agencyId = req.query.agencyId;
 
-        if (!agencyId) {
-            return res.status(400).json({ message: "agencyId is required" });
-        }
-
-        const theme = await Theme.findOne({ agencyId, isActive: true });
-
-        if (!theme) {
-            return res.status(403).json({ message: "Invalid or inactive agencyId" });
-        }
-
-        console.log("Got the theme ", theme);
-
-        // Read base CSS file
-        const cssFilePath = path.join(__dirname, "../public/style.css");
-        const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
-
-        // Encode only CSS content in Base64
-        const encodedCSS = Buffer.from(cssContent, "utf-8").toString("base64");
-
-        // themeData is already an object, no need to parse
-        const themeData = theme.themeData || {};
-
-        // Return separate objects
-        res.json({
-            css: encodedCSS,      // encoded CSS file content
-            themeData: themeData  // plain themeData object
-        });
-    } catch (err) {
-        console.error("❌ API error:", err.message);
-        res.status(500).json({ message: "Error loading CSS" });
+    if (!agencyId) {
+      return res.status(400).json({ message: "agencyId is required" });
     }
+
+    const theme = await Theme.findOne({ agencyId, isActive: true });
+
+    if (!theme) {
+      return res.status(403).json({ message: "Invalid or inactive agencyId" });
+    }
+
+    console.log("Got the theme ", theme);
+
+    const cssFilePath = path.join(__dirname, "../public/style.css");
+    const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
+
+    const encodedCSS = Buffer.from(cssContent, "utf-8").toString("base64");
+    const themeData = theme.themeData || {};
+
+    res.json({
+      css: encodedCSS,
+      themeData: themeData
+    });
+  } catch (err) {
+    console.error("❌ API error:", err.message);
+    res.status(500).json({ message: "Error loading CSS" });
+  }
 });
 
 
