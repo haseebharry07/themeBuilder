@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const themeSchema = new mongoose.Schema({
   rlNo: { type: String, required: true, unique: true },
   email: { type: String, required: true, unique: true },
-  agencyId: { type: String, required: true, unique: true },
+  agencyId: { type: String, required: true, unique: false },
   themeData: { type: Object, default: {} },  // stores all CSS variables dynamically
   selectedTheme: String,
   bodyFont: String,
