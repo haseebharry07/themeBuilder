@@ -40,6 +40,12 @@ function injectThemeData(themeData) {
     style.innerHTML = vars;
     document.head.appendChild(style);
     localStorage.setItem("userTheme", JSON.stringify({ themeData }));
+     if (themeData["--login-headline-text"]) {
+        const heading = document.querySelector(".hl_login .hl_login--body .login-card-heading h2");
+        if (heading) {
+            heading.textContent = themeData["--login-headline-text"];
+        }
+    }
 }
 
 function decodeBase64Utf8(base64) {
