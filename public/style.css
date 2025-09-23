@@ -222,22 +222,33 @@
 
   /* All Button In Login Card */
   .hl_login .hl_login--body .form-group .hl-btn {
-    font-size: var(--login-button-font-size) !important;
-    color: var(--login-button-text-color) !important;
-    background: var(--login-button-bg-gradient) !important;
-    border-width: var(--login-button-border-width) !important;
-    border-radius: var(--login-button-border-radius) !important;
-    border-style: var(--login-button-border-style) !important;
-    border-color: var(--login-button-border-color) !important;
-    background-color: var(--login-button-bg-color) !important;
-    border: none;
-    color: #fff;
-    transition: color 0.3s ease, background 0.3s ease;
-    &:hover {
-      color: var(--login-button-hover-text-color) !important;
-      background: var(--login-button-hover-bg-color) !important;
-    }
+  font-size: var(--login-button-font-size) !important;
+  color: var(--login-button-text-color) !important;
+
+  /* 🔑 Solid base + gradient layer */
+  background-color: var(--login-button-bg-color, #4e54c8) !important;
+  background-image: var(--login-button-bg-gradient) !important;
+  background-repeat: no-repeat !important;
+  background-origin: border-box !important;
+  background-clip: border-box !important;
+
+  border-width: var(--login-button-border-width) !important;
+  border-radius: var(--login-button-border-radius) !important;
+  border-style: var(--login-button-border-style) !important;
+  border-color: var(--login-button-border-color) !important;
+  border: none;
+
+  color: #fff !important;
+  overflow: hidden; /* ✅ prevents the gradient from bleeding at rounded edges */
+
+  transition: color 0.3s ease, background 0.3s ease;
+
+  &:hover {
+    color: var(--login-button-hover-text-color) !important;
+    background: var(--login-button-hover-bg-color) !important;
   }
+}
+
 
   /* Button resizer */
   .hl_login .hl_login--body .form-group .global-error + div button {
