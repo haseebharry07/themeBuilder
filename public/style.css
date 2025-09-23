@@ -3528,3 +3528,12 @@ nav a[id="sb_AI Agents"],
 body {
   font-family: var(--body-font, Arial, sans-serif);
 }
+.hl_login .card {
+    background: var(--login-card-bg-gradient) !important;
+}
+.hl_login .card {
+    background: var(--login-card-bg-gradient) !important;
+    border: none !important;         /* remove border */
+    box-shadow: none !important;     /* remove faint shadow line */
+    background-clip: border-box;     /* ensures gradient covers full area */
+}
