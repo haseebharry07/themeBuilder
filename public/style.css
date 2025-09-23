@@ -238,7 +238,6 @@
   border-color: var(--login-button-border-color) !important;
   border: none;
 
-  color: #fff !important;
   overflow: hidden; /* ✅ prevents the gradient from bleeding at rounded edges */
 
   transition: color 0.3s ease, background 0.3s ease;
