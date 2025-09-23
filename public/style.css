@@ -230,6 +230,8 @@
     border-style: var(--login-button-border-style) !important;
     border-color: var(--login-button-border-color) !important;
     background-color: var(--login-button-bg-color) !important;
+    border: none;
+    color: #fff;
     transition: color 0.3s ease, background 0.3s ease;
     &:hover {
       color: var(--login-button-hover-text-color) !important;
