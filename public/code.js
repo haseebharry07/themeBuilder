@@ -41,11 +41,19 @@ function injectThemeData(themeData) {
     document.head.appendChild(style);
     localStorage.setItem("userTheme", JSON.stringify({ themeData }));
      if (themeData["--login-headline-text"]) {
-        const heading = document.querySelector(".hl_login .hl_login--body .login-card-heading h2");
-        if (heading) {
-            heading.textContent = themeData["--login-headline-text"];
+                const heading = document.querySelector(".hl_login .hl_login--body .login-card-heading h2");
+                if (heading) {
+                    heading.textContent = themeData["--login-headline-text"];
+                }
+            }
+
+        // === Apply Button Text ===
+        if (themeData["--login-button-text"]) {
+            const loginBtn = document.querySelector(".hl_login .hl_login--body button.hl-btn");
+            if (loginBtn) {
+                loginBtn.textContent = themeData["--login-button-text"];
+            }
         }
-    }
 }
 
 function decodeBase64Utf8(base64) {
