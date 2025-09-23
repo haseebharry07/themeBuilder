@@ -134,7 +134,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: var(--login-background-gradient-color), var(--login-background-image);
+    background: var(--login-background-gradient-color) !important;
+    background-image: var(--login-background-gradient-color) !important;
     background-size: cover;
     background-position: center center;
   }
