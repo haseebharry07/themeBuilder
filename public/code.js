@@ -27,7 +27,6 @@ function injectCSS(cssText) {
 }
 
 function injectThemeData(themeData) {
-    console.log('ThemeData is here:',themeData);
     if (!themeData || typeof themeData !== "object") return;
     const oldTheme = document.getElementById("theme-vars");
     if (oldTheme) oldTheme.remove();
