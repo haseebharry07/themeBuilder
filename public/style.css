@@ -3549,3 +3549,10 @@ body {
     box-shadow: none !important;     /* remove faint shadow line */
     background-clip: border-box;     /* ensures gradient covers full area */
 }
+.tb-lock-icon {
+  font-size: 14px;
+  color: #f87171; /* red-400 */
+  margin-left: 6px;
+  display: inline-block;
+  flex-shrink: 0;
+}
