@@ -3556,3 +3556,28 @@ body {
   display: inline-block;
   flex-shrink: 0;
 }
+/* Lock icon style */
+.tb-lock-icon {
+  font-size: 14px;
+  color: #f87171; /* red-500 */
+  margin-left: auto;
+  margin-right: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Make sure the sidebar <a> uses space for the lock */
+.hl_nav-header a,
+nav.flex-1.w-full a {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between; /* ✅ push icon to right side */
+}
+
+/* Make sure the text span doesn't overflow and hide the icon */
+.hl_nav-header a span.nav-title,
+nav.flex-1.w-full a span.nav-title {
+  overflow: visible !important;
+  flex-shrink: 0;
+}
