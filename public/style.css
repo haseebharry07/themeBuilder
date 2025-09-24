@@ -3560,3 +3560,6 @@ nav.flex-1.w-full a .tb-lock-icon {
 nav.flex-1.w-full a {
     align-items: center !important;
 }
+.d-none {
+  display: none !important;
+}
