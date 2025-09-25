@@ -54,6 +54,41 @@ function injectThemeData(themeData) {
                 loginBtn.textContent = themeData["--login-button-text"];
             }
         }
+        // 📁 3. Apply Agency Sidebar Order
+    if (themeData["--agencyMenuOrder"]) {
+        try {
+            const order = JSON.parse(themeData["--agencyMenuOrder"]); // Should be array of IDs
+            const sidebar = document.querySelector(
+                ".hl_nav-header nav.flex-1.w-full"
+            );
+            if (sidebar && Array.isArray(order)) {
+                order.forEach(menuId => {
+                    const item = sidebar.querySelector(`#${menuId}`);
+                    if (item) sidebar.appendChild(item); // Move to end in correct order
+                });
+                console.log("✅ Applied agency menu order:", order);
+            }
+        } catch (e) {
+            console.error("❌ Failed to apply agency menu order:", e);
+        }
+    }
+
+    // 📂 4. Apply Sub-Account Sidebar Order (optional, if you have a sub-account section)
+    if (themeData["--subMenuOrder"]) {
+        try {
+            const order = JSON.parse(themeData["--subMenuOrder"]);
+            const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
+            if (sidebar && Array.isArray(order)) {
+                order.forEach(menuId => {
+                    const item = sidebar.querySelector(`#${menuId}`);
+                    if (item) sidebar.appendChild(item);
+                });
+                console.log("✅ Applied sub-account menu order:", order);
+            }
+        } catch (e) {
+            console.error("❌ Failed to apply sub menu order:", e);
+        }
+    }
 }
 
 function decodeBase64Utf8(base64) {
