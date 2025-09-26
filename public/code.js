@@ -66,7 +66,6 @@ function injectThemeData(themeData) {
                     const item = sidebar.querySelector(`#${menuId}`);
                     if (item) sidebar.appendChild(item); // Move to end in correct order
                 });
-                console.log("✅ Applied agency menu order:", order);
             }
         } catch (e) {
             console.error("❌ Failed to apply agency menu order:", e);
@@ -83,7 +82,6 @@ function injectThemeData(themeData) {
                     const item = sidebar.querySelector(`#${menuId}`);
                     if (item) sidebar.appendChild(item);
                 });
-                console.log("✅ Applied sub-account menu order:", order);
             }
         } catch (e) {
             console.error("❌ Failed to apply sub menu order:", e);
