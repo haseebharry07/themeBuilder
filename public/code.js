@@ -8,6 +8,7 @@ function applySubMenuOrder(order) {
     console.log(`🎨 Set ${varName} = ${index}`);
   });
 }
+applySubMenuOrder();
 
 async function applyCSSFile() {
     try {
