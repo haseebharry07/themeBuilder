@@ -28,6 +28,8 @@ function injectCSS(cssText) {
 
 function injectThemeData(themeData) {
     if (!themeData || typeof themeData !== "object") return;
+        console.log("🎨 Theme Data received:", themeData); // ✅ DEBUG LOG
+
     const oldTheme = document.getElementById("theme-vars");
     if (oldTheme) oldTheme.remove();
     const style = document.createElement("style");
@@ -58,12 +60,16 @@ function injectThemeData(themeData) {
     if (themeData["--agencyMenuOrder"]) {
         try {
             const order = JSON.parse(themeData["--agencyMenuOrder"]); // Should be array of IDs
-            const sidebar = document.querySelector(
-                ".hl_nav-header nav.flex-1.w-full"
-            );
+                        console.log("🏢 Agency Menu Order from DB:", order); // ✅ DEBUG LOG
+
+            const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
+                        console.log("📁 Agency Sidebar Element:", sidebar); // ✅ DEBUG LOG
+
             if (sidebar && Array.isArray(order)) {
                 order.forEach(menuId => {
                     const item = sidebar.querySelector(`#${menuId}`);
+                                        console.log(`🔁 Agency Item Found (${menuId}):`, !!item); // ✅ DEBUG LOG
+
                     if (item) sidebar.appendChild(item); // Move to end in correct order
                 });
             }
@@ -73,13 +79,24 @@ function injectThemeData(themeData) {
     }
 
     // 📂 4. Apply Sub-Account Sidebar Order (optional, if you have a sub-account section)
+      // 📂 4. Apply Sub-Account Sidebar Order
     if (themeData["--subMenuOrder"]) {
         try {
             const order = JSON.parse(themeData["--subMenuOrder"]);
+            console.log("📂 Sub-Account Menu Order from DB:", order); // ✅ DEBUG LOG
+
             const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
+            console.log("📁 Sub-Account Sidebar Element:", sidebar); // ✅ DEBUG LOG
+
+            if (sidebar) {
+                const allItems = sidebar.querySelectorAll("a");
+                console.log("📜 Total Sub-Account Menu Items Found:", allItems.length); // ✅ DEBUG LOG
+            }
+
             if (sidebar && Array.isArray(order)) {
                 order.forEach(menuId => {
                     const item = sidebar.querySelector(`#${menuId}`);
+                    console.log(`🔁 Sub-Account Item Found (${menuId}):`, !!item); // ✅ DEBUG LOG
                     if (item) sidebar.appendChild(item);
                 });
             }
