@@ -1,5 +1,14 @@
 const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
 
+function applySubMenuOrder(order) {
+  const root = document.documentElement; // :root for CSS vars
+  order.forEach((menuId, index) => {
+    const varName = `--${menuId.replace("sb_", "")}-order`;
+    root.style.setProperty(varName, index);
+    console.log(`🎨 Set ${varName} = ${index}`);
+  });
+}
+
 async function applyCSSFile() {
     try {
         const url = atob(cde);
