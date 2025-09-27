@@ -67,8 +67,6 @@ function injectThemeData(themeData) {
         if (Array.isArray(order)) {
           order.forEach(menuId => {
             const item = sidebar.querySelector(`#${menuId}`);
-            if (item) sidebar.appendChild(item);
-            else console.warn(`⚠️ Menu item ${menuId} not found in DOM`);
           });
         }
 
