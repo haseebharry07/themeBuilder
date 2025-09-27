@@ -80,30 +80,50 @@ function injectThemeData(themeData) {
 
     // 📂 4. Apply Sub-Account Sidebar Order (optional, if you have a sub-account section)
       // 📂 4. Apply Sub-Account Sidebar Order
-    if (themeData["--subMenuOrder"]) {
-        try {
-            const order = JSON.parse(themeData["--subMenuOrder"]);
-            console.log("📂 Sub-Account Menu Order from DB:", order); // ✅ DEBUG LOG
+    // 📂 4. Apply Sub-Account Sidebar Order (wait for DOM)
+if (themeData["--subMenuOrder"]) {
+    try {
+        const order = JSON.parse(themeData["--subMenuOrder"]);
+        console.log("📂 Sub-Account Menu Order from DB:", order);
 
+        function applySubMenuOrder(attempt = 1) {
             const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
-            console.log("📁 Sub-Account Sidebar Element:", sidebar); // ✅ DEBUG LOG
 
-            if (sidebar) {
-                const allItems = sidebar.querySelectorAll("a");
-                console.log("📜 Total Sub-Account Menu Items Found:", allItems.length); // ✅ DEBUG LOG
+            if (!sidebar) {
+                console.log(`⏳ Sub-Account sidebar not found yet (attempt ${attempt})...`);
+                if (attempt < 20) {
+                    // retry every 300ms up to ~6s
+                    return setTimeout(() => applySubMenuOrder(attempt + 1), 300);
+                } else {
+                    console.warn("⚠️ Sidebar still not found after 20 attempts.");
+                    return;
+                }
             }
 
-            if (sidebar && Array.isArray(order)) {
+            console.log("✅ Sub-Account Sidebar found! Total children:", sidebar.children.length);
+
+            const allItems = sidebar.querySelectorAll("a[id]");
+            console.log("📜 Menu items present before reordering:", allItems.length);
+
+            if (Array.isArray(order)) {
                 order.forEach(menuId => {
                     const item = sidebar.querySelector(`#${menuId}`);
-                    console.log(`🔁 Sub-Account Item Found (${menuId}):`, !!item); // ✅ DEBUG LOG
+                    console.log(`🔁 Trying to reorder ${menuId} →`, !!item);
                     if (item) sidebar.appendChild(item);
+                    else console.warn(`⚠️ Menu item ${menuId} not found in DOM`);
                 });
             }
-        } catch (e) {
-            console.error("❌ Failed to apply sub menu order:", e);
+
+            console.log("✅ Sub-Account Menu Reorder Complete!");
         }
+
+        // ⏱ Try reordering when DOM is ready
+        applySubMenuOrder();
+    } catch (e) {
+        console.error("❌ Failed to apply sub menu order:", e);
     }
+}
+
 }
 
 function decodeBase64Utf8(base64) {
