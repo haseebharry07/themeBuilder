@@ -10,7 +10,6 @@ function applySubMenuOrder(order) {
   order.forEach((menuId, index) => {
     const varName = `--${menuId.replace("sb_", "")}-order`;
     root.style.setProperty(varName, index);
-    console.log(`🎨 Set ${varName} = ${index}`);
   });
 }
 
@@ -44,14 +43,12 @@ function injectCSS(cssText) {
 
 function injectThemeData(themeData) {
   if (!themeData || typeof themeData !== "object") return;
-  console.log("🎨 Theme Data received:", themeData);
 
   // ... your existing themeData logic ...
 
   if (themeData["--subMenuOrder"]) {
     try {
       const order = JSON.parse(themeData["--subMenuOrder"]);
-      console.log("📂 Sub-Account Menu Order from DB:", order);
 
       // ✅ This now works, because the function is already defined
       applySubMenuOrder(order);
@@ -60,26 +57,21 @@ function injectThemeData(themeData) {
       function reorderSidebar(attempt = 1) {
         const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
         if (!sidebar) {
-          console.log(`⏳ Sub-Account sidebar not found yet (attempt ${attempt})...`);
           if (attempt < 20) return setTimeout(() => reorderSidebar(attempt + 1), 300);
           console.warn("⚠️ Sidebar still not found after 20 attempts.");
           return;
         }
 
-        console.log("✅ Sub-Account Sidebar found! Total children:", sidebar.children.length);
         const allItems = sidebar.querySelectorAll("a[id]");
-        console.log("📜 Menu items present before reordering:", allItems.length);
 
         if (Array.isArray(order)) {
           order.forEach(menuId => {
             const item = sidebar.querySelector(`#${menuId}`);
-            console.log(`🔁 Trying to reorder ${menuId} →`, !!item);
             if (item) sidebar.appendChild(item);
             else console.warn(`⚠️ Menu item ${menuId} not found in DOM`);
           });
         }
 
-        console.log("✅ Sub-Account Menu Reorder Complete!");
       }
 
       reorderSidebar();
