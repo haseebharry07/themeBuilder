@@ -89,36 +89,11 @@ function decodeBase64Utf8(base64) {
   const decoder = new TextDecoder("utf-8");
   return decoder.decode(bytes);
 }
-function applyHiddenMenus() {
-    const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
-    if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
-
-    let hiddenMenus = {};
-    try {
-        hiddenMenus = JSON.parse(saved.themeData["--hiddenMenus"]);
-    } catch (e) {
-        console.warn("❌ Failed to parse --hiddenMenus:", e);
-        return;
-    }
-
-    Object.keys(hiddenMenus).forEach(menuId => {
-        const menuEl = document.getElementById(menuId);
-        const toggleEl = document.getElementById("hide-" + menuId);
-
-        if (!menuEl || !toggleEl) return;
-
-        // ✅ Show or hide menu
-        menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
-
-        // ✅ Sync toggle button properly
-        toggleEl.checked = !!hiddenMenus[menuId].toggleChecked;
-    });
-}
 
 function restoreHiddenMenus() {
     const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
     if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
-
+  
     let hiddenMenus = {};
     try {
         hiddenMenus = JSON.parse(saved.themeData["--hiddenMenus"]);
@@ -130,15 +105,29 @@ function restoreHiddenMenus() {
     Object.keys(hiddenMenus).forEach(menuId => {
         const menuEl = document.getElementById(menuId);
         const toggleEl = document.getElementById("hide-" + menuId);
-
         if (!menuEl || !toggleEl) return;
 
-        // ✅ Restore inline display
+        // ✅ Set menu display based on hidden state
         menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
 
-        // ✅ Restore toggle button
-        toggleEl.checked = !!hiddenMenus[menuId].toggleChecked;
+        // ✅ Set toggle to match hidden state (ON = hidden, OFF = visible)
+        toggleEl.checked = hiddenMenus[menuId].hidden;
+
+        // ✅ Add listener to update hidden state when toggle changes
+        toggleEl.addEventListener("change", () => {
+            hiddenMenus[menuId].hidden = toggleEl.checked; // update hidden state
+            menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
+
+            // save back to localStorage
+            saved.themeData["--hiddenMenus"] = JSON.stringify(hiddenMenus);
+            localStorage.setItem("userTheme", JSON.stringify(saved));
+        });
     });
+}
+
+function applyHiddenMenus() {
+    // ✅ Just call restoreHiddenMenus to unify logic
+    restoreHiddenMenus();
 }
 
 // Save hide toggle change
