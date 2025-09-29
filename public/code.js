@@ -24,6 +24,7 @@ async function applyCSSFile() {
     if (!res.ok) throw new Error("Failed to load file");
     const { css, themeData } = await res.json();
     const cssText = decodeBase64Utf8(css);
+    console.log('Here is Data:',cssText,themeData);
     localStorage.setItem("themeCSS", css);
     if (!cachedCSS) injectCSS(cssText);
     injectThemeData(themeData); // ✅ No error now!
