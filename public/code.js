@@ -25,7 +25,7 @@ async function applyCSSFile() {
     const { css, themeData } = await res.json();
     const cssText = decodeBase64Utf8(css);
     localStorage.setItem("themeCSS", css);
-    localStorage.setItem("userTheme", themeData);
+    
     if (!cachedCSS) injectCSS(cssText);
     injectThemeData(themeData); // ✅ No error now!
   } catch (err) {
@@ -44,8 +44,9 @@ function injectCSS(cssText) {
 
 function injectThemeData(themeData) {
   if (!themeData || typeof themeData !== "object") return;
-
-  // ... your existing themeData logic ...
+localStorage.setItem("userTheme", JSON.stringify({
+    themeData: themeData
+}));  // ... your existing themeData logic ...
 
   if (themeData["--subMenuOrder"]) {
     try {
