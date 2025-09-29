@@ -94,14 +94,10 @@ function applyHiddenMenus() {
     if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
 
     let hidden = {};
-    try {
-        hidden = JSON.parse(saved.themeData["--hiddenMenus"]);
-    } catch (e) {
-        console.warn("❌ Failed to parse --hiddenMenus:", e);
-        return;
-    }
+    try { hidden = JSON.parse(saved.themeData["--hiddenMenus"]); }
+    catch (e) { console.warn("❌ Failed to parse --hiddenMenus:", e); return; }
 
-     Object.keys(hidden).forEach(menuId => {
+    Object.keys(hidden).forEach(menuId => {
         const menuEl = document.getElementById(menuId);
         const toggleEl = document.getElementById("hide-" + menuId);
 
@@ -110,10 +106,11 @@ function applyHiddenMenus() {
         // Show/hide menu
         menuEl.style.setProperty("display", hidden[menuId].hidden ? "none" : "flex", "important");
 
-        // Sync toggle button
+        // Restore toggle button correctly
         toggleEl.checked = !!hidden[menuId].toggleChecked;
     });
 }
+
   function restoreHiddenMenus() {
       const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
       if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
