@@ -101,21 +101,17 @@ function applyHiddenMenus() {
         return;
     }
 
-    Object.keys(hidden).forEach(menuId => {
+     Object.keys(hidden).forEach(menuId => {
         const menuEl = document.getElementById(menuId);
         const toggleEl = document.getElementById("hide-" + menuId);
 
         if (!menuEl || !toggleEl) return;
 
-        if (hidden[menuId].hidden) {
-            // Hide menu and update toggle
-            menuEl.style.setProperty("display", "none", "important");
-            toggleEl.checked = true;
-        } else {
-            // Show menu and update toggle
-            menuEl.style.setProperty("display", "flex", "important");
-            toggleEl.checked = false;
-        }
+        // Show/hide menu
+        menuEl.style.setProperty("display", hidden[menuId].hidden ? "none" : "flex", "important");
+
+        // Sync toggle button
+        toggleEl.checked = !!hidden[menuId].toggleChecked;
     });
 }
   function restoreHiddenMenus() {
