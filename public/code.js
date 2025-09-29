@@ -28,6 +28,7 @@ async function applyCSSFile() {
     
     if (!cachedCSS) injectCSS(cssText);
     injectThemeData(themeData); // ✅ No error now!
+      restoreHiddenMenus();
     applyHiddenMenus();
   } catch (err) {
     console.error("❌ Failed to apply CSS:", err.message);
@@ -117,4 +118,31 @@ function applyHiddenMenus() {
         }
     });
 }
+  function restoreHiddenMenus() {
+      const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+      if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
+
+      let hidden = {};
+      try {
+          hidden = JSON.parse(saved.themeData["--hiddenMenus"]);
+      } catch (e) {
+          console.warn("❌ Failed to parse --hiddenMenus:", e);
+          return;
+      }
+
+      Object.keys(hidden).forEach(menuId => {
+          const menuEl = document.getElementById(menuId);
+          const toggleEl = document.getElementById("hide-" + menuId);
+
+          if (!menuEl || !toggleEl) return;
+
+          // Restore inline display
+          menuEl.style.setProperty("display", hidden[menuId].hidden ? "none" : "flex", "important");
+
+          // Restore toggle button
+          toggleEl.checked = hidden[menuId].toggleChecked;
+      });
+  }
+
+
 applyCSSFile();
