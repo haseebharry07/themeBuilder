@@ -1,5 +1,5 @@
 const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
-
+console.log('Loaded');
 // ✅ 1️⃣ Define this function FIRST
 function applySubMenuOrder(order) {
   if (!Array.isArray(order)) {
