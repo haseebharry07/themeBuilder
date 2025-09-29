@@ -1,5 +1,5 @@
 const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
-console.log('Loaded');
+
 // ✅ 1️⃣ Define this function FIRST
 function applySubMenuOrder(order) {
   if (!Array.isArray(order)) {
@@ -24,8 +24,8 @@ async function applyCSSFile() {
     if (!res.ok) throw new Error("Failed to load file");
     const { css, themeData } = await res.json();
     const cssText = decodeBase64Utf8(css);
-    console.log('Here is Data:',themeData);
     localStorage.setItem("themeCSS", css);
+    localStorage.setItem("userTheme", themeData);
     if (!cachedCSS) injectCSS(cssText);
     injectThemeData(themeData); // ✅ No error now!
   } catch (err) {
