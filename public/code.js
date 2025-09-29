@@ -115,9 +115,10 @@ function restoreHiddenMenus() {
 
         // ✅ Update hidden state when toggle changes
         toggleEl.addEventListener("change", () => {
-            hiddenMenus[menuId].hidden = toggleEl.checked;
+            hiddenMenus[menuId].hidden = toggleEl.checked; // update hidden state
             menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
 
+            // save updated hiddenMenus to localStorage
             saved.themeData["--hiddenMenus"] = JSON.stringify(hiddenMenus);
             localStorage.setItem("userTheme", JSON.stringify(saved));
         });
