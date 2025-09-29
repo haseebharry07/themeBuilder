@@ -3483,7 +3483,6 @@ div.sidebar-v2-location .hl_topbar-tabs.notification-banner-wrapper {
 }
 
 nav a[id="sb_AI Agents"] {
-  display: flex !important;
   align-items: center !important;
   padding-left: 40px !important;
   position: relative !important;
