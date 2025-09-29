@@ -93,7 +93,7 @@ function decodeBase64Utf8(base64) {
 function restoreHiddenMenus() {
     const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
     if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
-  
+
     let hiddenMenus = {};
     try {
         hiddenMenus = JSON.parse(saved.themeData["--hiddenMenus"]);
@@ -107,23 +107,23 @@ function restoreHiddenMenus() {
         const toggleEl = document.getElementById("hide-" + menuId);
         if (!menuEl || !toggleEl) return;
 
-        // ✅ Show/hide menu based on 'hidden'
+        // ✅ Set menu display
         menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
 
-        // ✅ Set toggle to match menu hidden state
+        // ✅ Set toggle to match hidden state
         toggleEl.checked = hiddenMenus[menuId].hidden;
 
-        // ✅ Add listener to update hidden state on toggle change
+        // ✅ Update hidden state when toggle changes
         toggleEl.addEventListener("change", () => {
-            hiddenMenus[menuId].hidden = toggleEl.checked; // only use 'hidden'
+            hiddenMenus[menuId].hidden = toggleEl.checked;
             menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
 
-            // Save updated state
             saved.themeData["--hiddenMenus"] = JSON.stringify(hiddenMenus);
             localStorage.setItem("userTheme", JSON.stringify(saved));
         });
     });
 }
+
 
 
 function applyHiddenMenus() {
@@ -149,7 +149,7 @@ function bindHideToggle(menuId) {
         }
 
         if (hideInput.checked) {
-            hiddenMenus[menuId] = { hidden: true, display: "none !important", toggleChecked: true };
+            // hiddenMenus[menuId] = { hidden: true, display: "none !important", toggleChecked: true };
             menuEl.style.setProperty("display", "none", "important");
         } else {
             hiddenMenus[menuId] = { hidden: false, display: "flex !important", toggleChecked: false };
