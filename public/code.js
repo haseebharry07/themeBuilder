@@ -107,23 +107,24 @@ function restoreHiddenMenus() {
         const toggleEl = document.getElementById("hide-" + menuId);
         if (!menuEl || !toggleEl) return;
 
-        // ✅ Set menu display based on hidden state
+        // ✅ Show/hide menu based on 'hidden'
         menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
 
-        // ✅ Set toggle to match hidden state (ON = hidden, OFF = visible)
+        // ✅ Set toggle to match menu hidden state
         toggleEl.checked = hiddenMenus[menuId].hidden;
 
-        // ✅ Add listener to update hidden state when toggle changes
+        // ✅ Add listener to update hidden state on toggle change
         toggleEl.addEventListener("change", () => {
-            hiddenMenus[menuId].hidden = toggleEl.checked; // update hidden state
+            hiddenMenus[menuId].hidden = toggleEl.checked; // only use 'hidden'
             menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
 
-            // save back to localStorage
+            // Save updated state
             saved.themeData["--hiddenMenus"] = JSON.stringify(hiddenMenus);
             localStorage.setItem("userTheme", JSON.stringify(saved));
         });
     });
 }
+
 
 function applyHiddenMenus() {
     // ✅ Just call restoreHiddenMenus to unify logic
