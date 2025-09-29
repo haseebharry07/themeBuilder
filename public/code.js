@@ -28,6 +28,7 @@ async function applyCSSFile() {
     
     if (!cachedCSS) injectCSS(cssText);
     injectThemeData(themeData); // ✅ No error now!
+    applyHiddenMenus();
   } catch (err) {
     console.error("❌ Failed to apply CSS:", err.message);
   }
@@ -87,5 +88,33 @@ function decodeBase64Utf8(base64) {
   const decoder = new TextDecoder("utf-8");
   return decoder.decode(bytes);
 }
+function applyHiddenMenus() {
+    const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+    if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
 
+    let hidden = {};
+    try {
+        hidden = JSON.parse(saved.themeData["--hiddenMenus"]);
+    } catch (e) {
+        console.warn("❌ Failed to parse --hiddenMenus:", e);
+        return;
+    }
+
+    Object.keys(hidden).forEach(menuId => {
+        const menuEl = document.getElementById(menuId);
+        const toggleEl = document.getElementById("hide-" + menuId);
+
+        if (!menuEl || !toggleEl) return;
+
+        if (hidden[menuId].hidden) {
+            // Hide menu and update toggle
+            menuEl.style.setProperty("display", "none", "important");
+            toggleEl.checked = true;
+        } else {
+            // Show menu and update toggle
+            menuEl.style.setProperty("display", "flex", "important");
+            toggleEl.checked = false;
+        }
+    });
+}
 applyCSSFile();
