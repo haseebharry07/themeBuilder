@@ -1784,14 +1784,14 @@ nav a#sb_location-mobile-app {
 /* Side bar menu icon end */
 
 /* Menu show and hide */
-nav a#sb_app-marketplace,
+/* nav a#sb_app-marketplace,
 .v2-collapse #sidebar-v2 nav a#sb_launchpad {
   display: var(--app-marketplace-display) !important;
 }
 nav a#sb_launchpad,
 .v2-collapse #sidebar-v2 nav a#sb_launchpad {
   display: var(--launchpad-display) !important;
-}
+} */
 nav a#sb_dashboard,
 .v2-collapse #sidebar-v2 nav a#sb_dashboard {
   display: var(--dashboard-display) !important;
