@@ -178,7 +178,7 @@ function bindHideToggle(menuId) {
 function applyMenuCustomizationsFromTheme() {
   const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
   const themeData = saved.themeData || {};
-  
+
   if (!themeData["--menuCustomizations"]) return;
 
   let customizations = {};
@@ -198,41 +198,58 @@ function applyMenuCustomizationsFromTheme() {
 
     const { title, icon } = customizations[menuId] || {};
 
-    // 🏷️ Update the title if provided
+    // 🏷️ ✅ TITLE UPDATE (unchanged - still works exactly like before)
     const titleSpan = menuEl.querySelector(".nav-title");
     if (titleSpan && title) {
       titleSpan.textContent = title;
+      console.log(`✅ Title updated for '${menuId}': ${title}`);
     }
 
-    // 🔄 Remove any existing icon
+    // 🔄 Remove any existing icon (safe clean-up)
     const oldImg = menuEl.querySelector("img");
     const oldI = menuEl.querySelector("i");
     if (oldImg) oldImg.remove();
     if (oldI) oldI.remove();
 
-    // 🎨 Build a new <i> element from Unicode (like f015)
-      if (icon && /^f?[0-9a-f]{3}$/i.test(icon)) {
+    // 🎨 Add new icon if provided
+    if (icon) {
+      const iconEl = document.createElement("i");
+      iconEl.style.fontSize = "16px";
+      iconEl.style.marginRight = "0.5rem";
+      iconEl.style.fontWeight = "900";
+      iconEl.style.fontStyle = "normal";
+      iconEl.style.fontVariant = "normal";
+      iconEl.style.textRendering = "auto";
+      iconEl.style.lineHeight = "1";
+
+      if (/^f[0-9a-f]{3,4}$/i.test(icon)) {
+        // ✅ Unicode icon code (e.g., "f015")
         const cleanIcon = icon.startsWith("f") ? icon : `f${icon}`;
-        const iconEl = document.createElement("i");
-        iconEl.innerHTML = `&#x${menuData.icon};`;
-        iconEl.style.fontFamily = "Font Awesome 5 Free";
-        iconEl.style.fontWeight = "900";
-        iconEl.style.marginRight = "0.5rem";
-        iconEl.style.fontSize = "16px";
-        iconEl.style.fontStyle = "normal";
-        iconEl.style.fontVariant = "normal";
-        iconEl.style.textRendering = "auto";
-        iconEl.style.lineHeight = "1";
-
-        // Insert before the title
-        menuEl.prepend(iconEl);
-
-        console.log(`✅ Icon for '${menuId}' set to: \\u${cleanIcon}`);
+        iconEl.className = "fas";
+        iconEl.style.fontFamily = "Font Awesome 6 Free";
+        iconEl.innerHTML = `&#x${cleanIcon};`;
+        console.log(`✅ Unicode icon applied for '${menuId}': \\u${cleanIcon}`);
+      } else if (icon.startsWith("fa-")) {
+        // ✅ Direct Font Awesome class (e.g., "fa-house")
+        iconEl.className = `fa-solid ${icon}`;
+        iconEl.innerHTML = "";
+        console.log(`✅ FA class icon applied for '${menuId}': ${icon}`);
       } else {
-        console.warn(`⚠️ Icon value for '${menuId}' is invalid or missing:`, icon);
+        // ✅ Fallback: assume it's the name only (e.g., "home")
+        iconEl.className = `fa-solid fa-${icon}`;
+        iconEl.innerHTML = "";
+        console.log(`✅ Fallback icon applied for '${menuId}': fa-${icon}`);
       }
+
+      // 👇 Insert icon before the text
+      menuEl.prepend(iconEl);
+    } else {
+      console.warn(`⚠️ No icon provided for '${menuId}'`);
+    }
   });
 }
+
+
 
 
 applyCSSFile();
