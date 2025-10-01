@@ -12,27 +12,6 @@ function applySubMenuOrder(order) {
     root.style.setProperty(varName, index);
   });
 }
-// ✅ Automatically remove sb_agency-accounts from DOM
-(function removeAgencyAccountsMenu() {
-  // Remove immediately if already in DOM
-  const menuEl = document.getElementById("sb_agency-accounts");
-  if (menuEl) menuEl.remove();
-
-  // Observe for future additions
-  const observer = new MutationObserver(mutations => {
-    mutations.forEach(mutation => {
-      mutation.addedNodes.forEach(node => {
-        if (node.id === "sb_agency-accounts") {
-          node.remove();
-          console.log("Removed sb_agency-accounts menu");
-        }
-      });
-    });
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-  console.log("Observer running to remove sb_agency-accounts menu");
-})();
 // ✅ 2️⃣ Then continue with the rest of your code
 
 async function applyCSSFile() {
