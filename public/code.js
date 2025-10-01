@@ -81,6 +81,36 @@ localStorage.setItem("userTheme", JSON.stringify({
       console.error("❌ Failed to apply sub menu order:", e);
     }
   }
+  if (themeData["--agencyMenuOrder"]) {
+  try {
+    let agencyOrder = JSON.parse(themeData["--agencyMenuOrder"]);
+
+    // ✅ Remove the "App Marketplace" menu from the order
+    agencyOrder = agencyOrder.filter(menuId => menuId !== "sb_app-marketplace");
+
+    // Apply order using existing function
+    applySubMenuOrder(agencyOrder); // can reuse, or create applyAgencyMenuOrder
+
+    function reorderAgencySidebar(attempt = 1) {
+      const sidebar = document.querySelector(".agency-sidebar"); // adjust selector
+      if (!sidebar) {
+        if (attempt < 20) return setTimeout(() => reorderAgencySidebar(attempt + 1), 300);
+        console.warn("⚠️ Agency sidebar still not found after 20 attempts.");
+        return;
+      }
+
+      agencyOrder.forEach(menuId => {
+        const item = sidebar.querySelector(`#${menuId}`);
+        if (item) sidebar.appendChild(item); // reorder in DOM
+      });
+    }
+
+    reorderAgencySidebar();
+  } catch(e) {
+    console.error("❌ Failed to apply agency menu order:", e);
+  }
+}
+
 }
 
 function decodeBase64Utf8(base64) {
