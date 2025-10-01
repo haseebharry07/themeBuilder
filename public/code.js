@@ -214,10 +214,10 @@ function applyMenuCustomizationsFromTheme() {
       if (icon && /^f?[0-9a-f]{3}$/i.test(icon)) {
         const cleanIcon = icon.startsWith("f") ? icon : `f${icon}`;
         const iconEl = document.createElement("i");
-        iconEl.className = "fa-solid";
-        iconEl.innerHTML = `&#x${cleanIcon};`; // ← Correct Unicode usage
-        iconEl.style.fontFamily = "Font Awesome 6 Free";
-        iconEl.style.fontWeight = "900"; // solid icons
+        iconEl.className = "fas"; // <- 'fas' is the Font Awesome 5 solid prefix
+        iconEl.innerHTML = "&#xf015;";
+        iconEl.style.fontFamily = "Font Awesome 5 Free"; // <- important
+        iconEl.style.fontWeight = "900";
         iconEl.style.fontSize = "16px";
         iconEl.style.marginRight = "0.5rem";
         iconEl.style.fontStyle = "normal";
