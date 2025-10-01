@@ -3038,7 +3038,7 @@ button:active {
   --agency-icon-font-size: 18px;
   --agency-icon-color: #6cb6c4;
   --agency-icon-active-color: #fff;
-  --agency-dashboard-icon: "\f6a3";
+  /* --agency-dashboard-icon: "\f6a3"; */
   --agency-sass-configurator-icon: "\f080";
   --agency-prospect-icon: "\f2c2";
   --agency-subaccount-icon: "\f007";
