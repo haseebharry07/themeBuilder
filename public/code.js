@@ -1,3 +1,17 @@
+(function () {
+  if (!document.querySelector('link[href*="font-awesome"]')) {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css";
+    link.crossOrigin = "anonymous";
+    link.referrerPolicy = "no-referrer";
+    document.head.appendChild(link);
+    console.log("✅ Font Awesome CSS loaded dynamically.");
+  } else {
+    console.log("ℹ️ Font Awesome already loaded, skipping...");
+  }
+})();
+
 const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
 
 // ✅ 1️⃣ Define this function FIRST
