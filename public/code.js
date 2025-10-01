@@ -81,6 +81,7 @@ localStorage.setItem("userTheme", JSON.stringify({
       console.error("❌ Failed to apply sub menu order:", e);
     }
   }
+  applyMenuCustomizationsFromTheme();
 }
 
 function decodeBase64Utf8(base64) {
@@ -159,6 +160,71 @@ function bindHideToggle(menuId) {
         saved.themeData["--hiddenMenus"] = JSON.stringify(hiddenMenus);
         localStorage.setItem("userTheme", JSON.stringify(saved));
     });
+}
+function applyMenuCustomizationsFromTheme() {
+  const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+  const themeData = saved.themeData || {};
+  
+  if (!themeData["--menuCustomizations"]) return;
+  
+  let customizations = {};
+  try {
+    customizations = JSON.parse(themeData["--menuCustomizations"]);
+  } catch (e) {
+    console.warn("❌ Failed to parse --menuCustomizations:", e);
+    return;
+  }
+
+  Object.keys(customizations).forEach(menuId => {
+    const menuEl = document.getElementById(menuId);
+    if (!menuEl) return;
+
+    const { title, icon } = customizations[menuId];
+
+    // 🏷️ Apply custom title if any
+    const titleSpan = menuEl.querySelector(".nav-title");
+    if (titleSpan && title) {
+      titleSpan.textContent = title;
+    }
+
+    // 🔄 Remove any old icon
+    const oldImg = menuEl.querySelector("img");
+    const oldI = menuEl.querySelector("i");
+    if (oldImg) oldImg.remove();
+    if (oldI) oldI.remove();
+
+    // 🎨 Build new icon
+    if (icon) {
+      let iconEl;
+      if (/^https?:\/\//.test(icon)) {
+        // ✅ URL icon (image)
+        iconEl = document.createElement("img");
+        iconEl.src = icon;
+        iconEl.alt = title || "icon";
+        iconEl.className = "md:mr-0 h-5 w-5 mr-2 lg:mr-2 xl:mr-2";
+      } else if (/^f[0-9a-f]+$/i.test(icon)) {
+        // ✅ Unicode like "f015"
+        iconEl = document.createElement("i");
+        iconEl.className = "fa-solid";
+        iconEl.innerHTML = `&#x${icon};`;
+        iconEl.style.fontFamily = "Font Awesome 6 Free";
+        iconEl.style.fontWeight = "900";
+        iconEl.style.fontSize = "16px";
+        iconEl.style.marginRight = "0.5rem";
+      } else {
+        // ✅ Font Awesome class (e.g., fa-house)
+        iconEl = document.createElement("i");
+        iconEl.className = icon.includes("fa-") ? icon : `fa-solid ${icon}`;
+        iconEl.style.fontFamily = "Font Awesome 6 Free";
+        iconEl.style.fontWeight = "900";
+        iconEl.style.fontSize = "16px";
+        iconEl.style.marginRight = "0.5rem";
+      }
+
+      // Add icon before the title
+      menuEl.prepend(iconEl);
+    }
+  });
 }
 
 
