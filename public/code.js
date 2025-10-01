@@ -25,7 +25,6 @@ async function applyCSSFile() {
     const { css, themeData } = await res.json();
     const cssText = decodeBase64Utf8(css);
     localStorage.setItem("themeCSS", css);
-    console.log('Here is the Data:',cssText,themeData);
     if (!cachedCSS) injectCSS(cssText);
     injectThemeData(themeData); // ✅ No error now!
       restoreHiddenMenus();
