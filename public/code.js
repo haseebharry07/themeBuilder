@@ -1,17 +1,3 @@
-(function () {
-  if (!document.querySelector('link[href*="font-awesome"]')) {
-    const link = document.createElement("link");
-    link.rel = "stylesheet";
-    link.href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css";
-    link.crossOrigin = "anonymous";
-    link.referrerPolicy = "no-referrer";
-    document.head.appendChild(link);
-    console.log("✅ Font Awesome CSS loaded dynamically.");
-  } else {
-    console.log("ℹ️ Font Awesome already loaded, skipping...");
-  }
-})();
-
 const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
 
 // ✅ 1️⃣ Define this function FIRST
@@ -39,6 +25,7 @@ async function applyCSSFile() {
     const { css, themeData } = await res.json();
     const cssText = decodeBase64Utf8(css);
     localStorage.setItem("themeCSS", css);
+    
     if (!cachedCSS) injectCSS(cssText);
     injectThemeData(themeData); // ✅ No error now!
       restoreHiddenMenus();
@@ -94,8 +81,6 @@ localStorage.setItem("userTheme", JSON.stringify({
       console.error("❌ Failed to apply sub menu order:", e);
     }
   }
-  setTimeout(applyMenuCustomizationsFromTheme, 500);
-
 }
 
 function decodeBase64Utf8(base64) {
@@ -175,81 +160,6 @@ function bindHideToggle(menuId) {
         localStorage.setItem("userTheme", JSON.stringify(saved));
     });
 }
-function applyMenuCustomizationsFromTheme() {
-  const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
-  const themeData = saved.themeData || {};
-
-  if (!themeData["--menuCustomizations"]) return;
-
-  let customizations = {};
-  try {
-    customizations = JSON.parse(themeData["--menuCustomizations"]);
-  } catch (e) {
-    console.warn("❌ Failed to parse --menuCustomizations:", e);
-    return;
-  }
-
-  Object.keys(customizations).forEach(menuId => {
-    const menuEl = document.getElementById(menuId);
-    if (!menuEl) {
-      console.warn(`⚠️ Menu element with ID '${menuId}' not found`);
-      return;
-    }
-
-    const { title, icon } = customizations[menuId] || {};
-
-    // 🏷️ ✅ TITLE UPDATE (unchanged - still works exactly like before)
-    const titleSpan = menuEl.querySelector(".nav-title");
-    if (titleSpan && title) {
-      titleSpan.textContent = title;
-      console.log(`✅ Title updated for '${menuId}': ${title}`);
-    }
-
-    // 🔄 Remove any existing icon (safe clean-up)
-    const oldImg = menuEl.querySelector("img");
-    const oldI = menuEl.querySelector("i");
-    if (oldImg) oldImg.remove();
-    if (oldI) oldI.remove();
-
-    // 🎨 Add new icon if provided
-    if (icon) {
-      const iconEl = document.createElement("i");
-      iconEl.style.fontSize = "16px";
-      iconEl.style.marginRight = "0.5rem";
-      iconEl.style.fontWeight = "900";
-      iconEl.style.fontStyle = "normal";
-      iconEl.style.fontVariant = "normal";
-      iconEl.style.textRendering = "auto";
-      iconEl.style.lineHeight = "1";
-
-      if (/^f[0-9a-f]{3,4}$/i.test(icon)) {
-        // ✅ Unicode icon code (e.g., "f015")
-        const cleanIcon = icon.startsWith("f") ? icon : `f${icon}`;
-        iconEl.className = "fas";
-        iconEl.style.fontFamily = "Font Awesome 6 Free";
-        iconEl.innerHTML = `&#x${cleanIcon};`;
-        console.log(`✅ Unicode icon applied for '${menuId}': \\u${cleanIcon}`);
-      } else if (icon.startsWith("fa-")) {
-        // ✅ Direct Font Awesome class (e.g., "fa-house")
-        iconEl.className = `fa-solid ${icon}`;
-        iconEl.innerHTML = "";
-        console.log(`✅ FA class icon applied for '${menuId}': ${icon}`);
-      } else {
-        // ✅ Fallback: assume it's the name only (e.g., "home")
-        iconEl.className = `fa-solid fa-${icon}`;
-        iconEl.innerHTML = "";
-        console.log(`✅ Fallback icon applied for '${menuId}': fa-${icon}`);
-      }
-
-      // 👇 Insert icon before the text
-      menuEl.prepend(iconEl);
-    } else {
-      console.warn(`⚠️ No icon provided for '${menuId}'`);
-    }
-  });
-}
-
-
 
 
 applyCSSFile();
