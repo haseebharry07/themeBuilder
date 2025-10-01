@@ -180,7 +180,7 @@ function applyMenuCustomizationsFromTheme() {
   const themeData = saved.themeData || {};
   
   if (!themeData["--menuCustomizations"]) return;
-  
+
   let customizations = {};
   try {
     customizations = JSON.parse(themeData["--menuCustomizations"]);
@@ -191,52 +191,45 @@ function applyMenuCustomizationsFromTheme() {
 
   Object.keys(customizations).forEach(menuId => {
     const menuEl = document.getElementById(menuId);
-    if (!menuEl) return;
+    if (!menuEl) {
+      console.warn(`⚠️ Menu element with ID '${menuId}' not found`);
+      return;
+    }
 
-    const { title, icon } = customizations[menuId];
+    const { title, icon } = customizations[menuId] || {};
 
-    // 🏷️ Apply custom title if any
+    // 🏷️ Update the title if provided
     const titleSpan = menuEl.querySelector(".nav-title");
     if (titleSpan && title) {
       titleSpan.textContent = title;
     }
 
-    // 🔄 Remove any old icon
+    // 🔄 Remove any existing icon
     const oldImg = menuEl.querySelector("img");
     const oldI = menuEl.querySelector("i");
     if (oldImg) oldImg.remove();
     if (oldI) oldI.remove();
 
-    // 🎨 Build new icon
-    if (icon) {
-      let iconEl;
-      if (/^https?:\/\//.test(icon)) {
-        // ✅ URL icon (image)
-        iconEl = document.createElement("img");
-        iconEl.src = icon;
-        iconEl.alt = title || "icon";
-        iconEl.className = "md:mr-0 h-5 w-5 mr-2 lg:mr-2 xl:mr-2";
-      } else if (/^f[0-9a-f]+$/i.test(icon)) {
-        // ✅ Unicode like "f015"
-        iconEl = document.createElement("i");
-        iconEl.className = "fa-solid";
-        iconEl.innerHTML = `&#x${icon};`;     // 👈 this is the important part
-        iconEl.style.fontFamily = "Font Awesome 6 Free";
-        iconEl.style.fontWeight = "900";
-        iconEl.style.fontSize = "16px";
-        iconEl.style.marginRight = "0.5rem";
-      } else {
-        // ✅ Font Awesome class (e.g., fa-house)
-        iconEl = document.createElement("i");
-        iconEl.className = icon.includes("fa-") ? icon : `fa-solid ${icon}`;
-        iconEl.style.fontFamily = "Font Awesome 6 Free";
-        iconEl.style.fontWeight = "900";
-        iconEl.style.fontSize = "16px";
-        iconEl.style.marginRight = "0.5rem";
-      }
+    // 🎨 Build a new <i> element from Unicode (like f015)
+    if (icon && /^[0-9a-f]{4}$/i.test(icon)) {
+      const iconEl = document.createElement("i");
+      iconEl.className = "fa-solid";
+      iconEl.innerHTML = `&#x${icon};`; // ← This is key: renders the Unicode glyph
+      iconEl.style.fontFamily = "Font Awesome 6 Free";
+      iconEl.style.fontWeight = "900"; // solid icons
+      iconEl.style.fontSize = "16px";
+      iconEl.style.marginRight = "0.5rem";
+      iconEl.style.fontStyle = "normal";
+      iconEl.style.fontVariant = "normal";
+      iconEl.style.textRendering = "auto";
+      iconEl.style.lineHeight = "1";
 
-      // Add icon before the title
+      // Insert before the title
       menuEl.prepend(iconEl);
+
+      console.log(`✅ Icon for '${menuId}' set to: \\u${icon}`);
+    } else {
+      console.warn(`⚠️ Icon value for '${menuId}' is invalid or missing:`, icon);
     }
   });
 }
