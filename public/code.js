@@ -53,7 +53,8 @@ localStorage.setItem("userTheme", JSON.stringify({
   if (themeData["--subMenuOrder"]) {
     try {
       const order = JSON.parse(themeData["--subMenuOrder"]);
-
+      order = order.filter(menuId => menuId.trim() !== "sb_agency-accounts");
+      console.log('Here is the Data:',order);
       // ✅ This now works, because the function is already defined
       applySubMenuOrder(order);
 
