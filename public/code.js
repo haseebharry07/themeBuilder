@@ -211,26 +211,27 @@ function applyMenuCustomizationsFromTheme() {
     if (oldI) oldI.remove();
 
     // 🎨 Build a new <i> element from Unicode (like f015)
-    if (icon && /^[0-9a-f]{4}$/i.test(icon)) {
-      const iconEl = document.createElement("i");
-      iconEl.className = "fa-solid";
-      iconEl.innerHTML = `&#x${icon};`; // ← This is key: renders the Unicode glyph
-      iconEl.style.fontFamily = "Font Awesome 6 Free";
-      iconEl.style.fontWeight = "900"; // solid icons
-      iconEl.style.fontSize = "16px";
-      iconEl.style.marginRight = "0.5rem";
-      iconEl.style.fontStyle = "normal";
-      iconEl.style.fontVariant = "normal";
-      iconEl.style.textRendering = "auto";
-      iconEl.style.lineHeight = "1";
+      if (icon && /^f?[0-9a-f]{3}$/i.test(icon)) {
+        const cleanIcon = icon.startsWith("f") ? icon : `f${icon}`;
+        const iconEl = document.createElement("i");
+        iconEl.className = "fa-solid";
+        iconEl.innerHTML = `&#x${cleanIcon};`; // ← Correct Unicode usage
+        iconEl.style.fontFamily = "Font Awesome 6 Free";
+        iconEl.style.fontWeight = "900"; // solid icons
+        iconEl.style.fontSize = "16px";
+        iconEl.style.marginRight = "0.5rem";
+        iconEl.style.fontStyle = "normal";
+        iconEl.style.fontVariant = "normal";
+        iconEl.style.textRendering = "auto";
+        iconEl.style.lineHeight = "1";
 
-      // Insert before the title
-      menuEl.prepend(iconEl);
+        // Insert before the title
+        menuEl.prepend(iconEl);
 
-      console.log(`✅ Icon for '${menuId}' set to: \\u${icon}`);
-    } else {
-      console.warn(`⚠️ Icon value for '${menuId}' is invalid or missing:`, icon);
-    }
+        console.log(`✅ Icon for '${menuId}' set to: \\u${cleanIcon}`);
+      } else {
+        console.warn(`⚠️ Icon value for '${menuId}' is invalid or missing:`, icon);
+      }
   });
 }
 
