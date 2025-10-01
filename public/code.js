@@ -214,12 +214,11 @@ function applyMenuCustomizationsFromTheme() {
       if (icon && /^f?[0-9a-f]{3}$/i.test(icon)) {
         const cleanIcon = icon.startsWith("f") ? icon : `f${icon}`;
         const iconEl = document.createElement("i");
-        iconEl.className = "fas"; // <- 'fas' is the Font Awesome 5 solid prefix
-        iconEl.innerHTML = "&#xf015;";
-        iconEl.style.fontFamily = "Font Awesome 5 Free"; // <- important
+        iconEl.innerHTML = `&#x${menuData.icon};`;
+        iconEl.style.fontFamily = "Font Awesome 5 Free";
         iconEl.style.fontWeight = "900";
-        iconEl.style.fontSize = "16px";
         iconEl.style.marginRight = "0.5rem";
+        iconEl.style.fontSize = "16px";
         iconEl.style.fontStyle = "normal";
         iconEl.style.fontVariant = "normal";
         iconEl.style.textRendering = "auto";
