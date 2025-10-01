@@ -80,7 +80,8 @@ localStorage.setItem("userTheme", JSON.stringify({
       console.error("❌ Failed to apply sub menu order:", e);
     }
   }
-  applyMenuCustomizationsFromTheme();
+  setTimeout(applyMenuCustomizationsFromTheme, 500);
+
 }
 
 function decodeBase64Utf8(base64) {
@@ -205,7 +206,7 @@ function applyMenuCustomizationsFromTheme() {
         // ✅ Unicode like "f015"
         iconEl = document.createElement("i");
         iconEl.className = "fa-solid";
-        iconEl.innerHTML = `&#x${icon};`;
+        iconEl.innerHTML = `&#x${icon};`;     // 👈 this is the important part
         iconEl.style.fontFamily = "Font Awesome 6 Free";
         iconEl.style.fontWeight = "900";
         iconEl.style.fontSize = "16px";
