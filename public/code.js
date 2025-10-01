@@ -85,12 +85,13 @@ localStorage.setItem("userTheme", JSON.stringify({
   try {
     let agencyOrder = JSON.parse(themeData["--agencyMenuOrder"]);
 
-    // ✅ Remove the "App Marketplace" menu from the order
-    agencyOrder = agencyOrder.filter(menuId => menuId !== "sb_agency-accounts");
-    console.log('Here is the Data agencyOrder:',agencyOrder);
+    // ✅ Exclude "sb_agency-accounts" safely
+    agencyOrder = agencyOrder.filter(menuId => menuId.trim() !== "sb_agency-accounts");
 
-    // Apply order using existing function
-    applySubMenuOrder(agencyOrder); // can reuse, or create applyAgencyMenuOrder
+    console.log('Here is the Data agencyOrder:', agencyOrder);
+
+    // Apply order
+    applySubMenuOrder(agencyOrder);
 
     function reorderAgencySidebar(attempt = 1) {
       const sidebar = document.querySelector(".agency-sidebar"); // adjust selector
@@ -101,8 +102,8 @@ localStorage.setItem("userTheme", JSON.stringify({
       }
 
       agencyOrder.forEach(menuId => {
-        const item = sidebar.querySelector(`#${menuId}`);
-        if (item) sidebar.appendChild(item); // reorder in DOM
+        const menuEl = sidebar.querySelector(`#${menuId}`);
+        if (menuEl) sidebar.appendChild(menuEl);
       });
     }
 
@@ -111,6 +112,7 @@ localStorage.setItem("userTheme", JSON.stringify({
     console.error("❌ Failed to apply agency menu order:", e);
   }
 }
+
 
 }
 
