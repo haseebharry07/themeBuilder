@@ -86,8 +86,8 @@ localStorage.setItem("userTheme", JSON.stringify({
     let agencyOrder = JSON.parse(themeData["--agencyMenuOrder"]);
 
     // ✅ Remove the "App Marketplace" menu from the order
+    console.log('Here is the Data:',agencyOrder);
     agencyOrder = agencyOrder.filter(menuId => menuId !== "sb_app-marketplace");
-
     // Apply order using existing function
     applySubMenuOrder(agencyOrder); // can reuse, or create applyAgencyMenuOrder
 
