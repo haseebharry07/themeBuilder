@@ -43,11 +43,12 @@
     document.head.appendChild(style);
   }
 
-  function injectThemeData(themeData) {
-    if (!themeData || typeof themeData !== "object") return;
+ function injectThemeData(themeData) {
+  if (!themeData || typeof themeData !== "object") return;
+
   localStorage.setItem("userTheme", JSON.stringify({
-      themeData: themeData
-  }));  // ... your existing themeData logic ...
+    themeData: themeData
+  }));
 
   const root = document.documentElement;
   Object.keys(themeData).forEach(key => {
@@ -55,55 +56,48 @@
       root.style.setProperty(key, themeData[key]);
     }
   });
-    if (themeData["--subMenuOrder"]) {
-      try {
-        let order = JSON.parse(themeData["--subMenuOrder"]);
-        order = order.filter(menuId => menuId.trim() !== "sb_agency-accounts");
-        // ✅ This now works, because the function is already defined
-        applySubMenuOrder(order);
 
-        // Then run your reorder logic...
-        function reorderSidebar(attempt = 1) {
-          const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
-          if (!sidebar) {
-            if (attempt < 20) return setTimeout(() => reorderSidebar(attempt + 1), 300);
-            console.warn("⚠️ Sidebar still not found after 20 attempts.");
-            return;
-          }
+  // ✅ Handle submenu order
+  if (themeData["--subMenuOrder"]) {
+    try {
+      let order = JSON.parse(themeData["--subMenuOrder"]);
+      order = order.filter(menuId => menuId.trim() !== "sb_agency-accounts");
+      applySubMenuOrder(order);
 
-          const allItems = sidebar.querySelectorAll("a[id]");
-
-          if (Array.isArray(order)) {
-            order.forEach(menuId => {
-              const item = sidebar.querySelector(`#${menuId}`);
-            });
-          }
-
+      function reorderSidebar(attempt = 1) {
+        const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
+        if (!sidebar) {
+          if (attempt < 20) return setTimeout(() => reorderSidebar(attempt + 1), 300);
+          console.warn("⚠️ Sidebar still not found after 20 attempts.");
+          return;
         }
-
-        reorderSidebar();
-      } catch (e) {
-        console.error("❌ Failed to apply sub menu order:", e);
+        if (Array.isArray(order)) {
+          order.forEach(menuId => {
+            const item = sidebar.querySelector(`#${menuId}`);
+          });
+        }
       }
+
+      reorderSidebar();
+    } catch (e) {
+      console.error("❌ Failed to apply sub menu order:", e);
     }
-    if (themeData["--agencyMenuOrder"]) {
+  }
+
+  // ✅ Handle agency menu order
+  if (themeData["--agencyMenuOrder"]) {
     try {
       let agencyOrder = JSON.parse(themeData["--agencyMenuOrder"]);
-
-      // ✅ Exclude "sb_agency-accounts" safely
       agencyOrder = agencyOrder.filter(menuId => menuId.trim() !== "sb_agency-accounts");
-
-      // Apply order
       applySubMenuOrder(agencyOrder);
 
       function reorderAgencySidebar(attempt = 1) {
-        const sidebar = document.querySelector(".agency-sidebar"); // adjust selector
+        const sidebar = document.querySelector(".agency-sidebar");
         if (!sidebar) {
           if (attempt < 20) return setTimeout(() => reorderAgencySidebar(attempt + 1), 300);
           console.warn("⚠️ Agency sidebar still not found after 20 attempts.");
           return;
         }
-
         agencyOrder.forEach(menuId => {
           const menuEl = sidebar.querySelector(`#${menuId}`);
           if (menuEl) sidebar.appendChild(menuEl);
@@ -111,13 +105,29 @@
       }
 
       reorderAgencySidebar();
-    } catch(e) {
+    } catch (e) {
       console.error("❌ Failed to apply agency menu order:", e);
     }
   }
 
+  // ✅ 🔥 Always try to update login button text (independent of menu order)
+  if (themeData["--login-button-text"]) {
+    const newText = themeData["--login-button-text"];
 
+    function updateLoginButton(attempt = 1) {
+      const loginBtn = document.querySelector("button.hl-btn.bg-curious-blue-500");
+      if (!loginBtn) {
+        if (attempt < 20) return setTimeout(() => updateLoginButton(attempt + 1), 300);
+        console.warn("⚠️ Login button not found after 20 attempts.");
+        return;
+      }
+      loginBtn.textContent = newText;
+    }
+
+    updateLoginButton();
   }
+}
+
 
   function decodeBase64Utf8(base64) {
     const binary = atob(base64);
