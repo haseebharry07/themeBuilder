@@ -239,6 +239,94 @@
           localStorage.setItem("userTheme", JSON.stringify(saved));
       });
   }
+// 🔐 NEW: Apply lock icon & Access Denied popup
+function applyLockedMenus() {
+  const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+  if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
 
+  let hiddenMenus = {};
+  try {
+    hiddenMenus = JSON.parse(saved.themeData["--hiddenMenus"]);
+  } catch (e) {
+    console.warn("❌ Failed to parse --hiddenMenus:", e);
+    return;
+  }
+
+  Object.keys(hiddenMenus).forEach(menuId => {
+    if (hiddenMenus[menuId].hidden) {
+      const menuEl = document.getElementById(menuId);
+      if (menuEl) {
+        // Add lock icon if not already
+        if (!menuEl.querySelector(".tb-lock-icon")) {
+          const lockIcon = document.createElement("i");
+          lockIcon.className = "tb-lock-icon fas fa-lock ml-2";
+          lockIcon.style.color = "#F54927";
+          menuEl.appendChild(lockIcon);
+        }
+
+        menuEl.style.opacity = "0.6";
+        menuEl.style.cursor = "not-allowed";
+
+        // Block clicks with popup
+        menuEl.addEventListener("click", blockMenuClick);
+      }
+    }
+  });
+}
+
+// 🔐 Access Denied Popup
+function blockMenuClick(e) {
+  e.preventDefault();
+  e.stopPropagation();
+
+  document.getElementById("tb-lock-popup")?.remove();
+
+  const overlay = document.createElement("div");
+  overlay.id = "tb-lock-popup";
+  overlay.style.position = "fixed";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100%";
+  overlay.style.height = "100%";
+  overlay.style.background = "rgba(0,0,0,0.5)";
+  overlay.style.backdropFilter = "blur(3px)";
+  overlay.style.display = "flex";
+  overlay.style.alignItems = "center";
+  overlay.style.justifyContent = "center";
+  overlay.style.zIndex = "99999";
+
+  const popup = document.createElement("div");
+  popup.style.background = "#fff";
+  popup.style.padding = "20px 30px";
+  popup.style.borderRadius = "12px";
+  popup.style.maxWidth = "400px";
+  popup.style.textAlign = "center";
+  popup.style.boxShadow = "0 8px 24px rgba(0,0,0,0.3)";
+
+  const title = document.createElement("h3");
+  title.textContent = "Access Denied";
+  title.style.marginBottom = "12px";
+
+  const msg = document.createElement("p");
+  msg.textContent = "No access. Please contact the Owner.";
+  msg.style.marginBottom = "20px";
+
+  const okBtn = document.createElement("button");
+  okBtn.textContent = "OK";
+  okBtn.style.padding = "8px 20px";
+  okBtn.style.border = "none";
+  okBtn.style.borderRadius = "6px";
+  okBtn.style.background = "#F54927";
+  okBtn.style.color = "#fff";
+  okBtn.style.cursor = "pointer";
+
+  okBtn.addEventListener("click", () => overlay.remove());
+
+  popup.appendChild(title);
+  popup.appendChild(msg);
+  popup.appendChild(okBtn);
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+}
 
   applyCSSFile();
