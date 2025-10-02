@@ -328,5 +328,7 @@ function blockMenuClick(e) {
   overlay.appendChild(popup);
   document.body.appendChild(overlay);
 }
-
+setTimeout(() => {
+  applyLockedMenus();
+}, 1200);
   applyCSSFile();
