@@ -68,7 +68,6 @@
         const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
         if (!sidebar) {
           if (attempt < 20) return setTimeout(() => reorderSidebar(attempt + 1), 300);
-          console.warn("⚠️ Sidebar still not found after 20 attempts.");
           return;
         }
         if (Array.isArray(order)) {
@@ -95,7 +94,6 @@
         const sidebar = document.querySelector(".agency-sidebar");
         if (!sidebar) {
           if (attempt < 20) return setTimeout(() => reorderAgencySidebar(attempt + 1), 300);
-          console.warn("⚠️ Agency sidebar still not found after 20 attempts.");
           return;
         }
         agencyOrder.forEach(menuId => {
@@ -118,7 +116,6 @@
       const loginBtn = document.querySelector("button.hl-btn.bg-curious-blue-500");
       if (!loginBtn) {
         if (attempt < 20) return setTimeout(() => updateLoginButton(attempt + 1), 300);
-        console.warn("⚠️ Login button not found after 20 attempts.");
         return;
       }
       loginBtn.textContent = newText;
@@ -135,7 +132,6 @@
           const headlineEl = document.querySelector("h2.heading2");
           if (!headlineEl) {
             if (attempt < 20) return setTimeout(() => updateLoginHeadline(attempt + 1), 300);
-            console.warn("⚠️ Login headline not found after 20 attempts.");
             return;
           }
 
@@ -154,7 +150,6 @@
 
           if (!forgotLink) {
             if (attempt < 20) return setTimeout(() => updateForgotPasswordText(attempt + 1), 300);
-            console.warn("⚠️ Forgot password link not found after 20 attempts.");
             return;
           }
 
