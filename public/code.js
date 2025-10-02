@@ -126,6 +126,24 @@
 
     updateLoginButton();
   }
+
+  // ✅ 🔥 Update login headline text if provided in themeData
+      if (themeData["--login-headline-text"]) {
+        const newHeadline = themeData["--login-headline-text"];
+
+        function updateLoginHeadline(attempt = 1) {
+          const headlineEl = document.querySelector("h2.heading2");
+          if (!headlineEl) {
+            if (attempt < 20) return setTimeout(() => updateLoginHeadline(attempt + 1), 300);
+            console.warn("⚠️ Login headline not found after 20 attempts.");
+            return;
+          }
+
+          headlineEl.textContent = newHeadline;
+        }
+
+        updateLoginHeadline();
+      }
 }
 
 
