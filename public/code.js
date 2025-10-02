@@ -144,6 +144,26 @@
 
         updateLoginHeadline();
       }
+      // ✅ 🔥 Update "Forgot password?" link text if provided in themeData
+      if (themeData["--forgetpassword-text"]) {
+        const newForgotText = themeData["--forgetpassword-text"];
+
+        function updateForgotPasswordText(attempt = 1) {
+          const forgotLink = document.querySelector("#forgot_passowrd_btn"); 
+          // 👆 Using the ID you provided
+
+          if (!forgotLink) {
+            if (attempt < 20) return setTimeout(() => updateForgotPasswordText(attempt + 1), 300);
+            console.warn("⚠️ Forgot password link not found after 20 attempts.");
+            return;
+          }
+
+          // ✅ Update the link text
+          forgotLink.textContent = newForgotText;
+        }
+
+        updateForgotPasswordText();
+      }
 }
 
 
