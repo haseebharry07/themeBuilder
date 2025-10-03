@@ -204,7 +204,7 @@ function waitForSidebarAndReapply(retries = 60) {
 
     // ✅ Target the real sidebar container
     const sidebar = document.querySelector(".hl_nav-header nav");
-
+console.log('SidebarItems: ',sidebar);
     // ✅ Make sure it actually has menu items
     const menuItems = sidebar?.querySelectorAll("li, a, div[id^='sb_']") || [];
 
