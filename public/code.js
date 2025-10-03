@@ -215,11 +215,46 @@ function _doReapplyTheme() {
     console.warn("⚠️ No theme data found.");
     return;
   }
+
+  console.log("🎨 [Theme] Injecting theme data...");
   injectThemeData(saved.themeData);
+
+  console.log("👁️‍🗨️ [Theme] Restoring hidden menus...");
   restoreHiddenMenus();
   applyHiddenMenus();
+
+  console.log("🔐 [Theme] Applying locked menus...");
   applyLockedMenus();
+
+  // ✅ Reorder Submenu if available
+  try {
+    if (saved.themeData["--subMenuOrder"]) {
+      const order = JSON.parse(saved.themeData["--subMenuOrder"]);
+      console.log("📑 [Theme] Applying SubMenu order:", order);
+      reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
+    } else {
+      console.log("ℹ️ [Theme] No SubMenu order found.");
+    }
+  } catch (e) {
+    console.error("❌ Failed to reorder submenu:", e);
+  }
+
+  // ✅ Reorder Agency Sidebar if available
+  try {
+    if (saved.themeData["--agencyMenuOrder"]) {
+      const agencyOrder = JSON.parse(saved.themeData["--agencyMenuOrder"]);
+      console.log("🏢 [Theme] Applying Agency Menu order:", agencyOrder);
+      reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
+    } else {
+      console.log("ℹ️ [Theme] No Agency Menu order found.");
+    }
+  } catch (e) {
+    console.error("❌ Failed to reorder agency menus:", e);
+  }
+
+  console.log("✅ [Theme] Reapply complete.");
 }
+
 // ✅ Helper: Reorder Submenu (Main Sidebar)
 function reorderSidebarFromOrder(order) {
   const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
