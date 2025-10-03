@@ -189,68 +189,23 @@ function blockMenuClick(e) {
 }
 
 // 📌 NEW: Wait for sidebar before applying theme
-function waitForSidebarAndReapply(attempt = 1) {
-  const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
-  const agencySidebar = document.querySelector(".agency-sidebar");
+function waitForSidebarAndReapply(retries = 40) {
+  let attempt = 0;
+  const interval = setInterval(() => {
+    attempt++;
+    const sidebar = document.querySelector(".hl_nav-header nav") || document.querySelector(".agency-sidebar");
+    console.log(`[waitForSidebarAndReapply] Attempt ${attempt}:`, sidebar ? "✅ Sidebar found" : "❌ Not yet");
 
-  // ✅ Wait for sidebar container
-  if (!sidebar && !agencySidebar) {
-    if (attempt < 30) {
-      return setTimeout(() => waitForSidebarAndReapply(attempt + 1), 150);
-    } else {
-      console.warn("⚠️ [waitForSidebarAndReapply] Sidebar never appeared after 30 attempts.");
-      return;
+    if (sidebar) {
+      clearInterval(interval);
+      console.log("🚀 Sidebar is ready. Reapplying theme now...");
+      _doReapplyTheme();
     }
-  }
-
-  // ✅ Wait for at least one menu item (important!)
-  const firstMenuItem = document.querySelector(".hl_nav-header nav.flex-1.w-full [id^='sb_']") 
-                      || document.querySelector(".agency-sidebar [id^='sb_']");
-  if (!firstMenuItem) {
-    if (attempt < 30) {
-      return setTimeout(() => waitForSidebarAndReapply(attempt + 1), 150);
-    } else {
-      console.warn("⚠️ [waitForSidebarAndReapply] Menu items never appeared after 30 attempts.");
-      return;
+    if (attempt >= retries) {
+      clearInterval(interval);
+      console.warn("⚠️ Sidebar not found after waiting. Skipping reapply.");
     }
-  }
-
-  console.log(`[waitForSidebarAndReapply] Attempt ${attempt}: ✅ Sidebar found`);
-  console.log("🚀 Sidebar is ready. Reapplying theme now...");
-
-  // ✅ Sidebar & menu items exist → now apply theme
-  const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
-  if (!saved.themeData) {
-    console.warn("⚠️ No themeData found in localStorage. Skipping.");
-    return;
-  }
-
-  injectThemeData(saved.themeData);
-  restoreHiddenMenus();
-  applyHiddenMenus();
-  applyLockedMenus();
-
-  try {
-    if (saved.themeData["--subMenuOrder"]) {
-      const order = JSON.parse(saved.themeData["--subMenuOrder"]);
-      console.log("📂 Applying SubMenu Order:", order);
-      reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
-    }
-  } catch (e) {
-    console.error("❌ Failed to reorder submenus:", e);
-  }
-
-  try {
-    if (saved.themeData["--agencyMenuOrder"]) {
-      const agencyOrder = JSON.parse(saved.themeData["--agencyMenuOrder"]);
-      console.log("🏢 Applying Agency Menu Order:", agencyOrder);
-      reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
-    }
-  } catch (e) {
-    console.error("❌ Failed to reorder agency menus:", e);
-  }
-
-  console.log("✅ [reapplyTheme] Finished successfully after DOM ready.");
+  }, 300);
 }
 
 // Core logic separated
