@@ -60,27 +60,27 @@ function injectThemeData(themeData) {
     }
   });
 
-  // ✅ Handle submenu order
-  if (themeData["--subMenuOrder"]) {
-    try {
-      let order = JSON.parse(themeData["--subMenuOrder"]);
-      order = order.filter(menuId => menuId.trim() !== "sb_agency-accounts");
-      applySubMenuOrder(order);
-    } catch (e) {
-      console.error("❌ Failed to apply sub menu order:", e);
-    }
-  }
+  // // ✅ Handle submenu order
+  // if (themeData["--subMenuOrder"]) {
+  //   try {
+  //     let order = JSON.parse(themeData["--subMenuOrder"]);
+  //     order = order.filter(menuId => menuId.trim() !== "sb_agency-accounts");
+  //     applySubMenuOrder(order);
+  //   } catch (e) {
+  //     console.error("❌ Failed to apply sub menu order:", e);
+  //   }
+  // }
 
-  // ✅ Handle agency menu order
-  if (themeData["--agencyMenuOrder"]) {
-    try {
-      let agencyOrder = JSON.parse(themeData["--agencyMenuOrder"]);
-      agencyOrder = agencyOrder.filter(menuId => menuId.trim() !== "sb_agency-accounts");
-      applySubMenuOrder(agencyOrder);
-    } catch (e) {
-      console.error("❌ Failed to apply agency menu order:", e);
-    }
-  }
+  // // ✅ Handle agency menu order
+  // if (themeData["--agencyMenuOrder"]) {
+  //   try {
+  //     let agencyOrder = JSON.parse(themeData["--agencyMenuOrder"]);
+  //     agencyOrder = agencyOrder.filter(menuId => menuId.trim() !== "sb_agency-accounts");
+  //     applySubMenuOrder(agencyOrder);
+  //   } catch (e) {
+  //     console.error("❌ Failed to apply agency menu order:", e);
+  //   }
+  // }
 
   // ✅ Update login button text
   if (themeData["--login-button-text"]) updateElementText("button.hl-btn.bg-curious-blue-500", themeData["--login-button-text"]);
