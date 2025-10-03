@@ -89,7 +89,7 @@ router.post("/", async (req, res) => {
         res.status(500).json({ message: "Server error", error: err.message });
     }
 });
-router.get("/file", originCheck, async (req, res) => {
+router.get("/file", async (req, res) => {
   try {
     const agencyId = req.query.agencyId;
 
