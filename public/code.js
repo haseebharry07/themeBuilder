@@ -1,5 +1,3 @@
-const { ConnectionPoolReadyEvent } = require("mongodb");
-
 const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
 
 // ✅ 1️⃣ Define this function FIRST
