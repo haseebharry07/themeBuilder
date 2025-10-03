@@ -313,3 +313,31 @@ applyCSSFile();
 
 // Apply lock icons after delay
 setTimeout(() => applyLockedMenus(), 3000);
+
+
+
+// 🔁 1️⃣ Watch for URL changes (SPA route changes)
+let lastUrl = location.href;
+new MutationObserver(() => {
+  const url = location.href;
+  if (url !== lastUrl) {
+    lastUrl = url;
+    console.log("🔁 Route changed, re-applying theme...");
+    reapplyTheme();
+  }
+}).observe(document, { subtree: true, childList: true });
+
+// 🔄 2️⃣ Central function to re-apply everything
+function reapplyTheme() {
+  // small delay to ensure DOM is loaded before we reapply
+  setTimeout(() => {
+    const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+    if (!saved.themeData) return;
+
+    // 🔥 Re-apply all customizations
+    injectThemeData(saved.themeData);
+    restoreHiddenMenus();
+    applyHiddenMenus();
+    applyLockedMenus();
+  }, 500);
+}
