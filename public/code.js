@@ -330,5 +330,5 @@ function blockMenuClick(e) {
 }
 setTimeout(() => {
   applyLockedMenus();
-}, 1200);
+}, 3000);
   applyCSSFile();
