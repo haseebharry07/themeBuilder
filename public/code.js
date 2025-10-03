@@ -201,20 +201,21 @@ function waitForSidebarAndReapply(retries = 60) {
   let attempt = 0;
   const interval = setInterval(() => {
     attempt++;
-    const sidebar = document.querySelector(".hl_nav-header nav, .agency-sidebar");
 
-    // ✅ ALSO check if menu items are present
+    // ✅ Target the real sidebar container
+    const sidebar = document.querySelector(".hl_nav-header nav");
+
+    // ✅ Make sure it actually has menu items
     const menuItems = sidebar?.querySelectorAll("li, a, div[id^='sb_']") || [];
 
     console.log(`[waitForSidebarAndReapply] Attempt ${attempt}:`, sidebar ? `✅ Sidebar found (${menuItems.length} items)` : "❌ Not yet");
 
-    // 📌 Only proceed if container exists AND there are items inside
     if (sidebar && menuItems.length > 5) {
       clearInterval(interval);
       console.log("🚀 Sidebar ready with items. Reapplying theme now...");
       _doReapplyTheme();
 
-      // 🔁 Optional: Watch for future changes
+      // ✅ Start watching for future DOM changes
       observeSidebarMutations(sidebar);
     }
 
@@ -224,6 +225,7 @@ function waitForSidebarAndReapply(retries = 60) {
     }
   }, 300);
 }
+
 
 
 // Core logic separated
