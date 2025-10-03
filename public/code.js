@@ -397,33 +397,58 @@ function reorderAgencyFromOrder(agencyOrder) {
 
 // central reapply function (safe to call multiple times)
 function reapplyTheme() {
+  console.log("🔄 [reapplyTheme] Triggered - Waiting 80ms for DOM to settle...");
+
   setTimeout(() => {
     const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
-    if (!saved.themeData) return;
+    if (!saved.themeData) {
+      console.warn("⚠️ [reapplyTheme] No themeData found in localStorage. Skipping re-apply.");
+      return;
+    }
 
-    // Re-inject CSS variables + theme values (this will also update texts)
-    // Using your existing function keeps behavior consistent
+    console.log("✅ [reapplyTheme] Theme data found. Starting re-apply...");
+
+    // Re-inject CSS variables + text updates
+    console.log("🎨 [reapplyTheme] Injecting theme data (CSS variables, texts, etc.)...");
     injectThemeData(saved.themeData);
 
-    // Re-apply hidden + locked states
+    // Re-apply hidden + locked menus
+    console.log("👁️‍🗨️ [reapplyTheme] Restoring hidden menus...");
     restoreHiddenMenus();
+
+    console.log("🔒 [reapplyTheme] Applying hidden menu states...");
     applyHiddenMenus();
+
+    console.log("🔐 [reapplyTheme] Applying locked menu states...");
     applyLockedMenus();
 
-    // Also explicitly move DOM elements for ordering (more reliable than CSS-only)
+    // Reorder sidebar if needed
     try {
       if (saved.themeData["--subMenuOrder"]) {
         const order = JSON.parse(saved.themeData["--subMenuOrder"]);
+        console.log("📂 [reapplyTheme] Applying SubMenu Order:", order);
         reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
+      } else {
+        console.log("ℹ️ [reapplyTheme] No SubMenu order found.");
       }
-    } catch (e) { /* ignore */ }
+    } catch (e) {
+      console.error("❌ [reapplyTheme] Failed to reorder submenus:", e);
+    }
 
+    // Reorder agency sidebar if needed
     try {
       if (saved.themeData["--agencyMenuOrder"]) {
         const agencyOrder = JSON.parse(saved.themeData["--agencyMenuOrder"]);
+        console.log("🏢 [reapplyTheme] Applying Agency Menu Order:", agencyOrder);
         reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
+      } else {
+        console.log("ℹ️ [reapplyTheme] No Agency menu order found.");
       }
-    } catch (e) { /* ignore */ }
+    } catch (e) {
+      console.error("❌ [reapplyTheme] Failed to reorder agency menus:", e);
+    }
+
+    console.log("✅ [reapplyTheme] Finished successfully.");
   }, 80); // small tick to let SPA router render new DOM
 }
 
