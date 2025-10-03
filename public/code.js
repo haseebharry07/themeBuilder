@@ -187,26 +187,44 @@ function blockMenuClick(e) {
   overlay.querySelector("button").addEventListener("click", () => overlay.remove());
   document.body.appendChild(overlay);
 }
+function observeSidebarMutations(sidebar) {
+  const observer = new MutationObserver((mutations) => {
+    console.log("🔁 Sidebar mutated — reapplying theme again...");
+    _doReapplyTheme();
+  });
+
+  observer.observe(sidebar, { childList: true, subtree: true });
+}
 
 // 📌 NEW: Wait for sidebar before applying theme
-function waitForSidebarAndReapply(retries = 40) {
+function waitForSidebarAndReapply(retries = 60) {
   let attempt = 0;
   const interval = setInterval(() => {
     attempt++;
-    const sidebar = document.querySelector(".hl_nav-header nav") || document.querySelector(".agency-sidebar");
-    console.log(`[waitForSidebarAndReapply] Attempt ${attempt}:`, sidebar ? "✅ Sidebar found" : "❌ Not yet");
+    const sidebar = document.querySelector(".hl_nav-header nav, .agency-sidebar");
 
-    if (sidebar) {
+    // ✅ ALSO check if menu items are present
+    const menuItems = sidebar?.querySelectorAll("li, a, div[id^='sb_']") || [];
+
+    console.log(`[waitForSidebarAndReapply] Attempt ${attempt}:`, sidebar ? `✅ Sidebar found (${menuItems.length} items)` : "❌ Not yet");
+
+    // 📌 Only proceed if container exists AND there are items inside
+    if (sidebar && menuItems.length > 5) {
       clearInterval(interval);
-      console.log("🚀 Sidebar is ready. Reapplying theme now...");
+      console.log("🚀 Sidebar ready with items. Reapplying theme now...");
       _doReapplyTheme();
+
+      // 🔁 Optional: Watch for future changes
+      observeSidebarMutations(sidebar);
     }
+
     if (attempt >= retries) {
       clearInterval(interval);
-      console.warn("⚠️ Sidebar not found after waiting. Skipping reapply.");
+      console.warn("⚠️ Sidebar not found with items. Skipping reapply.");
     }
   }, 300);
 }
+
 
 // Core logic separated
 function _doReapplyTheme() {
