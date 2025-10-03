@@ -192,6 +192,10 @@ function bindHideToggle(menuId) {
   const menuEl = document.getElementById(menuId);
   if (!hideInput || !menuEl) return;
 
+  // guard to avoid double-binding
+  if (hideInput.dataset.tbBound === "1") return;
+  hideInput.dataset.tbBound = "1";
+
   hideInput.addEventListener("change", () => {
     let saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
     saved.themeData = saved.themeData || {};
@@ -224,22 +228,40 @@ function applyLockedMenus() {
   }
 
   Object.keys(hiddenMenus).forEach(menuId => {
-    if (hiddenMenus[menuId].hidden) {
-      const menuEl = document.getElementById(menuId);
-      if (menuEl) {
-        if (!menuEl.querySelector(".tb-lock-icon")) {
-          const lockIcon = document.createElement("i");
-          lockIcon.className = "tb-lock-icon fas fa-lock ml-2";
-          lockIcon.style.color = "#F54927";
-          menuEl.appendChild(lockIcon);
-        }
-        menuEl.style.opacity = "0.6";
-        menuEl.style.cursor = "not-allowed";
+    const menuEl = document.getElementById(menuId);
+    if (!menuEl) return;
+
+    const isHidden = !!hiddenMenus[menuId].hidden;
+
+    if (isHidden) {
+      // add lock icon once
+      if (!menuEl.querySelector(".tb-lock-icon")) {
+        const lockIcon = document.createElement("i");
+        lockIcon.className = "tb-lock-icon fas fa-lock ml-2";
+        lockIcon.style.color = "#F54927";
+        menuEl.appendChild(lockIcon);
+      }
+      menuEl.style.opacity = "0.6";
+      menuEl.style.cursor = "not-allowed";
+
+      if (menuEl.dataset.tbLockBound !== "1") {
         menuEl.addEventListener("click", blockMenuClick);
+        menuEl.dataset.tbLockBound = "1";
+      }
+    } else {
+      // remove lock state if present
+      const icon = menuEl.querySelector(".tb-lock-icon");
+      if (icon) icon.remove();
+      menuEl.style.opacity = "";
+      menuEl.style.cursor = "";
+      if (menuEl.dataset.tbLockBound === "1") {
+        menuEl.removeEventListener("click", blockMenuClick);
+        delete menuEl.dataset.tbLockBound;
       }
     }
   });
 }
+
 
 function blockMenuClick(e) {
   e.preventDefault();
@@ -295,18 +317,18 @@ function blockMenuClick(e) {
   document.body.appendChild(overlay);
 }
 
-// 📌 FIX: Reapply theme whenever sidebar DOM changes (prevents losing changes)
-const observer = new MutationObserver(() => {
-  const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
-  if (saved.themeData) {
-    injectThemeData(saved.themeData);
-    restoreHiddenMenus();
-    applyLockedMenus();
-  }
-});
+// // 📌 FIX: Reapply theme whenever sidebar DOM changes (prevents losing changes)
+// const observer = new MutationObserver(() => {
+//   const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+//   if (saved.themeData) {
+//     injectThemeData(saved.themeData);
+//     restoreHiddenMenus();
+//     applyLockedMenus();
+//   }
+// });
 
-// Watch sidebar changes
-observer.observe(document.body, { childList: true, subtree: true });
+// // Watch sidebar changes
+// observer.observe(document.body, { childList: true, subtree: true });
 
 // Initial load
 applyCSSFile();
@@ -328,16 +350,146 @@ new MutationObserver(() => {
 }).observe(document, { subtree: true, childList: true });
 
 // 🔄 2️⃣ Central function to re-apply everything
+// function reapplyTheme() {
+//   // small delay to ensure DOM is loaded before we reapply
+//   setTimeout(() => {
+//     const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+//     if (!saved.themeData) return;
+
+//     // 🔥 Re-apply all customizations
+//     injectThemeData(saved.themeData);
+//     restoreHiddenMenus();
+//     applyHiddenMenus();
+//     applyLockedMenus();
+//   }, 500);
+// }
+/* ======= Robust re-apply block (paste BELOW your applyCSSFile call) ======= */
+
+// tiny debounce helper
+function debounce(fn, wait = 150) {
+  let t;
+  return (...args) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...args), wait);
+  };
+}
+
+// try to reorder sidebar DOM (move nodes) from an order array
+function reorderSidebarFromOrder(order) {
+  const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
+  if (!sidebar) return false;
+  order.forEach(menuId => {
+    const item = sidebar.querySelector(`#${menuId}`);
+    if (item) sidebar.appendChild(item); // move to end in given order
+  });
+  return true;
+}
+
+function reorderAgencyFromOrder(agencyOrder) {
+  const sidebar = document.querySelector(".agency-sidebar");
+  if (!sidebar) return false;
+  agencyOrder.forEach(menuId => {
+    const menuEl = sidebar.querySelector(`#${menuId}`);
+    if (menuEl) sidebar.appendChild(menuEl);
+  });
+  return true;
+}
+
+// central reapply function (safe to call multiple times)
 function reapplyTheme() {
-  // small delay to ensure DOM is loaded before we reapply
   setTimeout(() => {
     const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
     if (!saved.themeData) return;
 
-    // 🔥 Re-apply all customizations
+    // Re-inject CSS variables + theme values (this will also update texts)
+    // Using your existing function keeps behavior consistent
     injectThemeData(saved.themeData);
+
+    // Re-apply hidden + locked states
     restoreHiddenMenus();
     applyHiddenMenus();
     applyLockedMenus();
-  }, 500);
+
+    // Also explicitly move DOM elements for ordering (more reliable than CSS-only)
+    try {
+      if (saved.themeData["--subMenuOrder"]) {
+        const order = JSON.parse(saved.themeData["--subMenuOrder"]);
+        reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
+      }
+    } catch (e) { /* ignore */ }
+
+    try {
+      if (saved.themeData["--agencyMenuOrder"]) {
+        const agencyOrder = JSON.parse(saved.themeData["--agencyMenuOrder"]);
+        reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
+      }
+    } catch (e) { /* ignore */ }
+  }, 80); // small tick to let SPA router render new DOM
 }
+
+// ------------- SPA navigation detection -------------
+// dispatch a custom event when history API changes
+(function() {
+  const _push = history.pushState;
+  history.pushState = function() {
+    const res = _push.apply(this, arguments);
+    window.dispatchEvent(new Event("locationchange"));
+    return res;
+  };
+  const _replace = history.replaceState;
+  history.replaceState = function() {
+    const res = _replace.apply(this, arguments);
+    window.dispatchEvent(new Event("locationchange"));
+    return res;
+  };
+  window.addEventListener("popstate", () => window.dispatchEvent(new Event("locationchange")));
+})();
+
+// when location changes, reapply (debounced)
+const debouncedReapply = debounce(() => reapplyTheme(), 120);
+window.addEventListener("locationchange", debouncedReapply);
+
+// also intercept internal anchor clicks that cause SPA navigation (fallback)
+document.addEventListener("click", (ev) => {
+  const a = ev.target.closest && ev.target.closest("a[href]");
+  if (!a || !a.href) return;
+  // only same-origin internal links
+  try {
+    const url = new URL(a.href, location.href);
+    if (url.origin === location.origin && !a.hasAttribute("data-no-reapply")) {
+      // small delay because router may update DOM asynchronously
+      setTimeout(() => reapplyTheme(), 120);
+    }
+  } catch (e) {}
+});
+
+// ------------- watch the sidebar specifically (debounced) -------------
+let _sidebarObserver;
+function watchSidebarDom() {
+  // look for the main sidebar(s)
+  const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full") || document.querySelector(".agency-sidebar");
+  if (!sidebar) {
+    return setTimeout(watchSidebarDom, 400);
+  }
+
+  // single observer (avoid creating multiples)
+  if (_sidebarObserver) {
+    _sidebarObserver.disconnect();
+  }
+
+  _sidebarObserver = new MutationObserver(debounce((mutations) => {
+    // reapply once mutations stop
+    reapplyTheme();
+  }, 140));
+
+  _sidebarObserver.observe(sidebar, { childList: true, subtree: true });
+}
+
+// start watching now
+watchSidebarDom();
+
+// also run once immediately (after initial CSS is applied)
+setTimeout(() => {
+  reapplyTheme();
+}, 400);
+
