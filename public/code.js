@@ -1,54 +1,58 @@
-  const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
+const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
 
-  // ✅ 1️⃣ Define this function FIRST
-  function applySubMenuOrder(order) {
-    if (!Array.isArray(order)) {
-      console.warn("⚠️ No valid submenu order provided to applySubMenuOrder()");
-      return;
-    }
-    const root = document.documentElement;
-    order.forEach((menuId, index) => {
-      const varName = `--${menuId.replace("sb_", "")}-order`;
-      root.style.setProperty(varName, index);
-    });
+// ✅ 1️⃣ Define this function FIRST
+function applySubMenuOrder(order) {
+  if (!Array.isArray(order)) {
+    console.warn("⚠️ No valid submenu order provided to applySubMenuOrder()");
+    return;
   }
-  // ✅ 2️⃣ Then continue with the rest of your code
+  const root = document.documentElement;
+  order.forEach((menuId, index) => {
+    const varName = `--${menuId.replace("sb_", "")}-order`;
+    root.style.setProperty(varName, index);
+  });
+}
 
-  async function applyCSSFile() {
-    try {
-      const url = atob(cde);
-      const cachedCSS = localStorage.getItem("themeCSS");
-      if (cachedCSS) injectCSS(decodeBase64Utf8(cachedCSS));
-      const res = await fetch(url);
-      if (!res.ok) throw new Error("Failed to load file");
-      const { css, themeData } = await res.json();
-      const cssText = decodeBase64Utf8(css);
-      localStorage.setItem("themeCSS", css);
-      
-      if (!cachedCSS) injectCSS(cssText);
-      injectThemeData(themeData); // ✅ No error now!
-        restoreHiddenMenus();
-      applyHiddenMenus();
-    } catch (err) {
-      console.error("❌ Failed to apply CSS:", err.message);
-    }
+// ✅ 2️⃣ Then continue with the rest of your code
+async function applyCSSFile() {
+  try {
+    const url = atob(cde);
+    const cachedCSS = localStorage.getItem("themeCSS");
+    if (cachedCSS) injectCSS(decodeBase64Utf8(cachedCSS));
+
+    const res = await fetch(url);
+    if (!res.ok) throw new Error("Failed to load file");
+    const { css, themeData } = await res.json();
+    const cssText = decodeBase64Utf8(css);
+    localStorage.setItem("themeCSS", css);
+
+    if (!cachedCSS) injectCSS(cssText);
+
+    // 📌 FIX: Merge previous themeData with new
+    const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+    const mergedTheme = { ...(saved.themeData || {}), ...themeData };
+
+    injectThemeData(mergedTheme);
+    restoreHiddenMenus();
+    applyHiddenMenus();
+  } catch (err) {
+    console.error("❌ Failed to apply CSS:", err.message);
   }
+}
 
-  function injectCSS(cssText) {
-    const oldStyle = document.getElementById("theme-css");
-    if (oldStyle) oldStyle.remove();
-    const style = document.createElement("style");
-    style.id = "theme-css";
-    style.innerHTML = cssText;
-    document.head.appendChild(style);
-  }
+function injectCSS(cssText) {
+  const oldStyle = document.getElementById("theme-css");
+  if (oldStyle) oldStyle.remove();
+  const style = document.createElement("style");
+  style.id = "theme-css";
+  style.innerHTML = cssText;
+  document.head.appendChild(style);
+}
 
- function injectThemeData(themeData) {
+function injectThemeData(themeData) {
   if (!themeData || typeof themeData !== "object") return;
 
-  localStorage.setItem("userTheme", JSON.stringify({
-    themeData: themeData
-  }));
+  localStorage.setItem("userTheme", JSON.stringify({ themeData }));
 
   const root = document.documentElement;
   Object.keys(themeData).forEach(key => {
@@ -76,7 +80,6 @@
           });
         }
       }
-
       reorderSidebar();
     } catch (e) {
       console.error("❌ Failed to apply sub menu order:", e);
@@ -108,10 +111,9 @@
     }
   }
 
-  // ✅ 🔥 Always try to update login button text (independent of menu order)
+  // ✅ 🔥 Update login button text
   if (themeData["--login-button-text"]) {
     const newText = themeData["--login-button-text"];
-
     function updateLoginButton(attempt = 1) {
       const loginBtn = document.querySelector("button.hl-btn.bg-curious-blue-500");
       if (!loginBtn) {
@@ -120,126 +122,95 @@
       }
       loginBtn.textContent = newText;
     }
-
     updateLoginButton();
   }
 
-  // ✅ 🔥 Update login headline text if provided in themeData
-      if (themeData["--login-headline-text"]) {
-        const newHeadline = themeData["--login-headline-text"];
-
-        function updateLoginHeadline(attempt = 1) {
-          const headlineEl = document.querySelector("h2.heading2");
-          if (!headlineEl) {
-            if (attempt < 20) return setTimeout(() => updateLoginHeadline(attempt + 1), 300);
-            return;
-          }
-
-          headlineEl.textContent = newHeadline;
-        }
-
-        updateLoginHeadline();
+  // ✅ 🔥 Update login headline text
+  if (themeData["--login-headline-text"]) {
+    const newHeadline = themeData["--login-headline-text"];
+    function updateLoginHeadline(attempt = 1) {
+      const headlineEl = document.querySelector("h2.heading2");
+      if (!headlineEl) {
+        if (attempt < 20) return setTimeout(() => updateLoginHeadline(attempt + 1), 300);
+        return;
       }
-      // ✅ 🔥 Update "Forgot password?" link text if provided in themeData
-      if (themeData["--forgetpassword-text"]) {
-        const newForgotText = themeData["--forgetpassword-text"];
+      headlineEl.textContent = newHeadline;
+    }
+    updateLoginHeadline();
+  }
 
-        function updateForgotPasswordText(attempt = 1) {
-          const forgotLink = document.querySelector("#forgot_passowrd_btn"); 
-          // 👆 Using the ID you provided
-
-          if (!forgotLink) {
-            if (attempt < 20) return setTimeout(() => updateForgotPasswordText(attempt + 1), 300);
-            return;
-          }
-
-          // ✅ Update the link text
-          forgotLink.textContent = newForgotText;
-        }
-
-        updateForgotPasswordText();
+  // ✅ 🔥 Update "Forgot password?" link
+  if (themeData["--forgetpassword-text"]) {
+    const newForgotText = themeData["--forgetpassword-text"];
+    function updateForgotPasswordText(attempt = 1) {
+      const forgotLink = document.querySelector("#forgot_passowrd_btn");
+      if (!forgotLink) {
+        if (attempt < 20) return setTimeout(() => updateForgotPasswordText(attempt + 1), 300);
+        return;
       }
+      forgotLink.textContent = newForgotText;
+    }
+    updateForgotPasswordText();
+  }
 }
 
+function decodeBase64Utf8(base64) {
+  const binary = atob(base64);
+  const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+  const decoder = new TextDecoder("utf-8");
+  return decoder.decode(bytes);
+}
 
-  function decodeBase64Utf8(base64) {
-    const binary = atob(base64);
-    const bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
-    const decoder = new TextDecoder("utf-8");
-    return decoder.decode(bytes);
+function restoreHiddenMenus() {
+  const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+  if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
+
+  let hiddenMenus = {};
+  try {
+    hiddenMenus = JSON.parse(saved.themeData["--hiddenMenus"]);
+  } catch (e) {
+    console.warn("❌ Failed to parse --hiddenMenus:", e);
+    return;
   }
 
-  function restoreHiddenMenus() {
-      const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
-      if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
-    
-      let hiddenMenus = {};
-      try {
-          hiddenMenus = JSON.parse(saved.themeData["--hiddenMenus"]);
-      } catch (e) {
-          console.warn("❌ Failed to parse --hiddenMenus:", e);
-          return;
-      }
+  Object.keys(hiddenMenus).forEach(menuId => {
+    const menuEl = document.getElementById(menuId);
+    const toggleEl = document.getElementById("hide-" + menuId);
+    if (!menuEl) return;
 
-      Object.keys(hiddenMenus).forEach(menuId => {
-          const menuEl = document.getElementById(menuId);
-          const toggleEl = document.getElementById("hide-" + menuId);
-          if (!menuEl || !toggleEl) return;
+    menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
+    if (toggleEl) toggleEl.checked = hiddenMenus[menuId].hidden;
+  });
+}
 
-          // ✅ Show/hide menu based on 'hidden'
-          menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
+function applyHiddenMenus() {
+  restoreHiddenMenus();
+}
 
-          // ✅ Set toggle to match menu hidden state
-          toggleEl.checked = hiddenMenus[menuId].hidden;
+function bindHideToggle(menuId) {
+  const hideInput = document.getElementById("hide-" + menuId);
+  const menuEl = document.getElementById(menuId);
+  if (!hideInput || !menuEl) return;
 
-          // ✅ Add listener to update hidden state on toggle change
-          toggleEl.addEventListener("change", () => {
-              hiddenMenus[menuId].hidden = toggleEl.checked; // only use 'hidden'
-              menuEl.style.setProperty("display", hiddenMenus[menuId].hidden ? "none" : "flex", "important");
+  hideInput.addEventListener("change", () => {
+    let saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+    saved.themeData = saved.themeData || {};
 
-              // Save updated state
-              saved.themeData["--hiddenMenus"] = JSON.stringify(hiddenMenus);
-              localStorage.setItem("userTheme", JSON.stringify(saved));
-          });
-      });
-  }
+    let hiddenMenus = {};
+    if (saved.themeData["--hiddenMenus"]) {
+      try { hiddenMenus = JSON.parse(saved.themeData["--hiddenMenus"]); }
+      catch (e) { console.warn("❌ Failed to parse --hiddenMenus:", e); }
+    }
 
+    hiddenMenus[menuId] = { hidden: hideInput.checked };
+    menuEl.style.setProperty("display", hideInput.checked ? "none" : "flex", "important");
 
-  function applyHiddenMenus() {
-      // ✅ Just call restoreHiddenMenus to unify logic
-      restoreHiddenMenus();
-  }
+    saved.themeData["--hiddenMenus"] = JSON.stringify(hiddenMenus);
+    localStorage.setItem("userTheme", JSON.stringify(saved));
+  });
+}
 
-  // Save hide toggle change
-  function bindHideToggle(menuId) {
-      const hideInput = document.getElementById("hide-" + menuId);
-      const menuEl = document.getElementById(menuId);
-
-      if (!hideInput || !menuEl) return;
-
-      hideInput.addEventListener("change", () => {
-          let saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
-          saved.themeData = saved.themeData || {};
-
-          let hiddenMenus = {};
-          if (saved.themeData["--hiddenMenus"]) {
-              try { hiddenMenus = JSON.parse(saved.themeData["--hiddenMenus"]); }
-              catch (e) { console.warn("❌ Failed to parse --hiddenMenus:", e); }
-          }
-
-          if (hideInput.checked) {
-              // hiddenMenus[menuId] = { hidden: true, display: "none !important", toggleChecked: true };
-              menuEl.style.setProperty("display", "none", "important");
-          } else {
-              hiddenMenus[menuId] = { hidden: false, display: "flex !important", toggleChecked: false };
-              menuEl.style.setProperty("display", "flex", "important");
-          }
-
-          saved.themeData["--hiddenMenus"] = JSON.stringify(hiddenMenus);
-          localStorage.setItem("userTheme", JSON.stringify(saved));
-      });
-  }
-// 🔐 NEW: Apply lock icon & Access Denied popup
+// 🔐 Lock menu logic
 function applyLockedMenus() {
   const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
   if (!saved.themeData || !saved.themeData["--hiddenMenus"]) return;
@@ -256,25 +227,20 @@ function applyLockedMenus() {
     if (hiddenMenus[menuId].hidden) {
       const menuEl = document.getElementById(menuId);
       if (menuEl) {
-        // Add lock icon if not already
         if (!menuEl.querySelector(".tb-lock-icon")) {
           const lockIcon = document.createElement("i");
           lockIcon.className = "tb-lock-icon fas fa-lock ml-2";
           lockIcon.style.color = "#F54927";
           menuEl.appendChild(lockIcon);
         }
-
         menuEl.style.opacity = "0.6";
         menuEl.style.cursor = "not-allowed";
-
-        // Block clicks with popup
         menuEl.addEventListener("click", blockMenuClick);
       }
     }
   });
 }
 
-// 🔐 Access Denied Popup
 function blockMenuClick(e) {
   e.preventDefault();
   e.stopPropagation();
@@ -328,7 +294,22 @@ function blockMenuClick(e) {
   overlay.appendChild(popup);
   document.body.appendChild(overlay);
 }
-setTimeout(() => {
-  applyLockedMenus();
-}, 3000);
-  applyCSSFile();
+
+// 📌 FIX: Reapply theme whenever sidebar DOM changes (prevents losing changes)
+const observer = new MutationObserver(() => {
+  const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+  if (saved.themeData) {
+    injectThemeData(saved.themeData);
+    restoreHiddenMenus();
+    applyLockedMenus();
+  }
+});
+
+// Watch sidebar changes
+observer.observe(document.body, { childList: true, subtree: true });
+
+// Initial load
+applyCSSFile();
+
+// Apply lock icons after delay
+setTimeout(() => applyLockedMenus(), 3000);
