@@ -1,3 +1,5 @@
+const { ConnectionPoolReadyEvent } = require("mongodb");
+
 const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
 
 // ✅ 1️⃣ Define this function FIRST
@@ -25,12 +27,13 @@ async function applyCSSFile() {
     const { css, themeData } = await res.json();
     const cssText = decodeBase64Utf8(css);
     localStorage.setItem("themeCSS", css);
-
+console.log('Here is the Theme Css Data', css);
     if (!cachedCSS) injectCSS(cssText);
 
     // 📌 FIX: Merge previous themeData with new
     const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
     const mergedTheme = { ...(saved.themeData || {}), ...themeData };
+console.log('Here is the Theme Css Data', mergedTheme);
 
     injectThemeData(mergedTheme);
     restoreHiddenMenus();
