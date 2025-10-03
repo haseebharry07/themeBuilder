@@ -220,7 +220,29 @@ function _doReapplyTheme() {
   applyHiddenMenus();
   applyLockedMenus();
 }
+// ✅ Helper: Reorder Submenu (Main Sidebar)
+function reorderSidebarFromOrder(order) {
+  const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
+  if (!sidebar || !Array.isArray(order)) return false;
 
+  order.forEach(menuId => {
+    const item = sidebar.querySelector(`#${menuId}`);
+    if (item) sidebar.appendChild(item); // re-append in correct order
+  });
+  return true;
+}
+
+// ✅ Helper: Reorder Agency Sidebar
+function reorderAgencyFromOrder(agencyOrder) {
+  const sidebar = document.querySelector(".agency-sidebar");
+  if (!sidebar || !Array.isArray(agencyOrder)) return false;
+
+  agencyOrder.forEach(menuId => {
+    const menuEl = sidebar.querySelector(`#${menuId}`);
+    if (menuEl) sidebar.appendChild(menuEl); // re-append in correct order
+  });
+  return true;
+}
 // Central reapply function
 function reapplyTheme() {
   console.log("🔄 [reapplyTheme] Triggered — waiting for sidebar...");
