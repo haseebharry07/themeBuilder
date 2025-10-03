@@ -25,13 +25,11 @@ async function applyCSSFile() {
     const { css, themeData } = await res.json();
     const cssText = decodeBase64Utf8(css);
     localStorage.setItem("themeCSS", css);
-    console.log('🎨 Loaded theme CSS:', css);
     if (!cachedCSS) injectCSS(cssText);
 
     // 📌 Merge previous themeData with new
     const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
     const mergedTheme = { ...(saved.themeData || {}), ...themeData };
-    console.log('✅ Merged Theme Data:', mergedTheme);
 
     injectThemeData(mergedTheme);
     restoreHiddenMenus();
@@ -189,7 +187,6 @@ function blockMenuClick(e) {
 }
 function observeSidebarMutations(sidebar) {
   const observer = new MutationObserver((mutations) => {
-    console.log("🔁 Sidebar mutated — reapplying theme again...");
     _doReapplyTheme();
   });
 
@@ -204,11 +201,8 @@ function waitForSidebarAndReapply(retries = 60) {
 
     // ✅ Target the real sidebar container
     const sidebar = document.querySelector(".hl_nav-header nav");
-console.log('SidebarItems: ',sidebar);
     // ✅ Make sure it actually has menu items
     const menuItems = sidebar?.querySelectorAll("li, a, div[id^='sb_']") || [];
-
-    console.log(`[waitForSidebarAndReapply] Attempt ${attempt}:`, sidebar ? `✅ Sidebar found (${menuItems.length} items)` : "❌ Not yet");
 
     if (sidebar && menuItems.length > 5) {
       clearInterval(interval);
@@ -250,7 +244,6 @@ function _doReapplyTheme() {
   try {
     if (saved.themeData["--subMenuOrder"]) {
       const order = JSON.parse(saved.themeData["--subMenuOrder"]);
-      console.log("📑 [Theme] Applying SubMenu order:", order);
       reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
     } else {
       console.log("ℹ️ [Theme] No SubMenu order found.");
@@ -263,7 +256,6 @@ function _doReapplyTheme() {
   try {
     if (saved.themeData["--agencyMenuOrder"]) {
       const agencyOrder = JSON.parse(saved.themeData["--agencyMenuOrder"]);
-      console.log("🏢 [Theme] Applying Agency Menu order:", agencyOrder);
       reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
     } else {
       console.log("ℹ️ [Theme] No Agency Menu order found.");
@@ -272,7 +264,6 @@ function _doReapplyTheme() {
     console.error("❌ Failed to reorder agency menus:", e);
   }
 
-  console.log("✅ [Theme] Reapply complete.");
 }
 
 // ✅ Helper: Reorder Submenu (Main Sidebar)
