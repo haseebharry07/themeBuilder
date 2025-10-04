@@ -299,5 +299,5 @@ window.addEventListener("locationchange", () => reapplyTheme());
 
 // ✅ Initial load
 applyCSSFile();
-setTimeout(() => applyLockedMenus(), 3000);
+// setTimeout(() => applyLockedMenus(), 3000);
 setTimeout(() => reapplyTheme(), 400);
