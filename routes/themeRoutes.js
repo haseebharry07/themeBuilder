@@ -53,8 +53,10 @@ router.post("/", async (req, res) => {
     // ✅ Build query with agencyId check
     let query = {};
     if (emailList.length > 0) {
-      query = { email: { $in: emailList }, agencyId: agencyId };
-    } else if (rlNo) {
+        query = { 
+            email: { $regex: emailList.join('|'), $options: 'i' },
+            agencyId
+        }    } else if (rlNo) {
       query = { rlNo: rlNo, agencyId: agencyId };
     }
 
