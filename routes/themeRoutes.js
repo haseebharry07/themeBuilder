@@ -57,13 +57,16 @@ router.post("/", async (req, res) => {
     } else if (rlNo) {
       query = { rlNo: rlNo, agencyId: agencyId };
     }
-    console.log('Here is the Query',query);
+
+    console.log("Here is the Query", query);
     let existingTheme = await Theme.findOne(query);
     console.log("Here is the Data:", existingTheme);
 
-    if (existingTheme) {
-      console.log("✅ Theme found:", existingTheme);
+    // ❗️Check if theme exists
+    if (!existingTheme) {
+      return res.status(404).json({ message: "No theme found for the provided email/rlNo and agencyId" });
     }
+
     // ✅ If found but inactive
     if (!existingTheme.isActive) {
       return res
@@ -87,6 +90,7 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
+
 
 
 router.get("/file", async (req, res) => {
