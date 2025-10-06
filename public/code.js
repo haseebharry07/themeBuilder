@@ -1,5 +1,5 @@
 const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
-
+const agn = "aWdkNjE4";
 // ✅ 1️⃣ Define this function FIRST
 function applySubMenuOrder(order) {
   if (!Array.isArray(order)) {
@@ -51,7 +51,7 @@ function injectCSS(cssText) {
 function injectThemeData(themeData) {
   if (!themeData || typeof themeData !== "object") return;
 
-  localStorage.setItem("userTheme", JSON.stringify({ themeData }));
+  localStorage.setItem("userTheme", JSON.stringify({ themeData,agn }));
   const root = document.documentElement;
 
   Object.keys(themeData).forEach(key => {
