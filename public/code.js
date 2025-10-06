@@ -1,7 +1,6 @@
 const cde = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
 const agn = "aWdkNjE4";
 localStorage.setItem("agn", agn);
-
 // ✅ 1️⃣ Define this function FIRST
 function applySubMenuOrder(order) {
   if (!Array.isArray(order)) {

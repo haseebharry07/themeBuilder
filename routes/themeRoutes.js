@@ -12,13 +12,13 @@ router.get('/code/:identifier', async (req, res) => {
         const identifier = req.params.identifier;
 
         // Find theme where rlNo OR email matches AND isActive = true
-        const theme = await Theme.findOne({ 
+         const theme = await Theme.findOne({
             $or: [
-                { rlNo: identifier }, 
-                { email: identifier }
+                { rlNo: identifier },
+                { email: { $in: [identifier] } }  // ✅ check if email array contains identifier
             ],
             isActive: true
-        });
+            });
 
         if (!theme) {
             return res.status(404).json({ message: "Theme not found or user is not eligible" });
@@ -31,64 +31,64 @@ router.get('/code/:identifier', async (req, res) => {
 });
 // Save or update theme for a user
 router.post("/", async (req, res) => {
-    let { rlNo, email, themeData, selectedTheme, bodyFont,agencyId } = req.body;
+  let { rlNo, email, themeData, selectedTheme, bodyFont, agencyId } = req.body;
 
-    if (!email && !rlNo) {
-        return res.status(400).json({ message: "Either email or rlNo is required" });
+  if (!email && !rlNo) {
+    return res.status(400).json({ message: "Either email or rlNo is required" });
+  }
+
+  try {
+    // ✅ Normalize emails
+    let emailList = [];
+    if (email) {
+      if (Array.isArray(email)) {
+        emailList = email.map((e) => e.toLowerCase());
+      } else {
+        emailList = [email.toLowerCase()];
+      }
     }
 
-    // Normalize email if provided
-    if (email) email = email.toLowerCase();
-    try {
-        // ✅ Prefer email for lookup, fallback to rlNo
-        let query = email ? { email } : { rlNo };
+    console.log("Here is the Data:", emailList);
 
-        let existingTheme = await Theme.findOne(query);
-
-        if (!existingTheme) {
-            // Create a new record if none exists
-            const newTheme = new Theme({
-                rlNo,
-                email,
-                themeData,
-                agencyId,
-                selectedTheme,
-                bodyFont,
-                updatedAt: new Date(),
-                isActive: true,
-            });
-
-            const savedTheme = await newTheme.save();
-            // Also update CSS file
-            // await updateCSSFile(themeData, bodyFont);
-
-            return res.status(201).json({ message: "New theme created successfully", theme: savedTheme });
-        }
-
-        // If record exists, check eligibility
-        if (!existingTheme.isActive) {
-            return res.status(403).json({ message: "User is not eligible to update the theme" });
-        }
-
-        // ✅ Update existing record
-        if (email) existingTheme.email = email; // always prioritize email
-        if (rlNo) existingTheme.rlNo = rlNo; // save rlNo if provided
-
-        existingTheme.themeData = themeData;
-        existingTheme.selectedTheme = selectedTheme;
-        existingTheme.bodyFont = bodyFont;
-        existingTheme.updatedAt = new Date();
-
-        const updatedTheme = await existingTheme.save();
-
-        // Also update CSS file
-        // await updateCSSFile(themeData, bodyFont);
-
-        res.json({ message: "Theme updated successfully"});
-    } catch (err) {
-        res.status(500).json({ message: "Server error", error: err.message });
+    // ✅ Build query with agencyId check
+    let query = {};
+    if (emailList.length > 0) {
+      query = { email: { $in: emailList }, agencyId: agencyId };
+    } else if (rlNo) {
+      query = { rlNo: rlNo, agencyId: agencyId };
     }
+
+    let existingTheme = await Theme.findOne(query);
+    console.log("Here is the Data:", existingTheme);
+
+    if (existingTheme) {
+      console.log("✅ Theme found:", existingTheme);
+    }
+    // ✅ If found but inactive
+    if (!existingTheme.isActive) {
+      return res
+        .status(403)
+        .json({ message: "User is not eligible to update the theme" });
+    }
+
+    // ✅ Update existing theme
+    if (emailList.length > 0) existingTheme.email = emailList;
+    if (rlNo) existingTheme.rlNo = rlNo;
+
+    existingTheme.themeData = themeData;
+    existingTheme.selectedTheme = selectedTheme;
+    existingTheme.bodyFont = bodyFont;
+    existingTheme.updatedAt = new Date();
+
+    await existingTheme.save();
+
+    res.json({ message: "Theme updated successfully" });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
 });
+
+
 router.get("/file", async (req, res) => {
   try {
     const agencyId = req.query.agencyId;
@@ -98,7 +98,7 @@ router.get("/file", async (req, res) => {
     }
 
     const theme = await Theme.findOne({ agencyId, isActive: true });
-
+console.log('Here is the Data:',theme);
     if (!theme) {
       return res.status(403).json({ message: "Invalid or inactive agencyId" });
     }
@@ -118,86 +118,6 @@ router.get("/file", async (req, res) => {
     res.status(500).json({ message: "Error loading CSS" });
   }
 });
-
-
-
-
-async function updateCSSFile(themeData, bodyFont) {
-    const cssFilePath = path.join(__dirname, "..", "public", "style.css");
-
-    // 1️⃣ Read existing CSS
-    let cssContent = "";
-    try {
-        cssContent = await fs.promises.readFile(cssFilePath, "utf8");
-    } catch {
-        console.log("No existing CSS, starting fresh.");
-    }
-
-    // 2️⃣ Function to update/add variables inside a :root block
-    function updateRootBlock(block, updates) {
-    let lines = block.split("\n").map(line => line.trim());
-    let vars = {};
-
-    // Collect existing variables safely
-    lines.forEach(line => {
-        if (line.startsWith("--")) {
-            const index = line.lastIndexOf(":"); // ✅ FIX
-            if (index > -1) {
-                const prop = line.slice(0, index).trim();
-                const val = line.slice(index + 1).trim().replace(/;$/, "");
-                vars[prop] = val;
-            }
-        }
-    });
-
-    // Apply updates
-    for (const [key, value] of Object.entries(updates)) {
-        vars[key] = value;
-    }
-
-    // Rebuild block safely
-    let newBlock = ":root {\n";
-    for (const [prop, val] of Object.entries(vars)) {
-        newBlock += `  ${prop}: ${val};\n`;
-    }
-    newBlock += "}";
-
-    return newBlock;
-}
-
-    // 3️⃣ Match :root blocks
-    const rootRegex = /:root\s*{[^}]*}/gm;
-    let rootBlocks = cssContent.match(rootRegex);
-
-    if (rootBlocks && rootBlocks.length > 0) {
-        cssContent = cssContent.replace(
-            rootBlocks[0],
-            updateRootBlock(rootBlocks[0], {
-                ...themeData,
-                "--body-font": bodyFont || "Arial, sans-serif"
-            })
-        );
-    } else {
-        // No :root → create new
-        let newRootBlock = updateRootBlock(":root {}", {
-            ...themeData,
-            "--body-font": bodyFont || "Arial, sans-serif"
-        });
-        cssContent = newRootBlock + "\n\n" + cssContent;
-    }
-
-    // 4️⃣ Ensure body font rule exists
-    if (!/body\s*{[^}]*font-family:/m.test(cssContent)) {
-        cssContent += `
-body {
-  font-family: var(--body-font, Arial, sans-serif);
-}
-`;
-    }
-
-    // 5️⃣ Save back
-    await fs.promises.writeFile(cssFilePath, cssContent, "utf8");
-}
 
 // ✅ New API: Find theme by email
 router.get("/:email", async (req, res) => {
