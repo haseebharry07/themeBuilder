@@ -57,7 +57,7 @@ router.post("/", async (req, res) => {
     } else if (rlNo) {
       query = { rlNo: rlNo, agencyId: agencyId };
     }
-
+    console.log('Here is the Query',query);
     let existingTheme = await Theme.findOne(query);
     console.log("Here is the Data:", existingTheme);
 
@@ -98,7 +98,6 @@ router.get("/file", async (req, res) => {
     }
 
     const theme = await Theme.findOne({ agencyId, isActive: true });
-console.log('Here is the Data:',theme);
     if (!theme) {
       return res.status(403).json({ message: "Invalid or inactive agencyId" });
     }
