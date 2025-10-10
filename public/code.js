@@ -14,32 +14,30 @@ function applySubMenuOrder(order) {
   });
 }
 
-(function () {
-  // 1. Get themeData from localStorage
+function applyAgencyLogo(attempt = 1) {
+  // Get theme data
   const savedTheme = JSON.parse(localStorage.getItem("userTheme") || "{}");
   const themeVars = savedTheme.themeData || {};
 
-  // 2. Get login logo URL
+  // Get logo URL from CSS var
   let logoUrl = themeVars["--login-company-logo"];
-
-  // ✅ Remove url(...) if it exists
   if (logoUrl) {
-    logoUrl = logoUrl.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
+    logoUrl = logoUrl.replace(/^url\(["']?/, "").replace(/["']?\)$/, ""); // clean url()
   }
 
-  // 3. Apply it
-  if (logoUrl) {
-    const logoImg = document.querySelector(".agency-logo");
-    if (logoImg) {
-      logoImg.src = logoUrl;
-      console.log("✅ Logo updated:", logoUrl);
-    } else {
-      console.error("❌ Could not find .agency-logo element.");
-    }
+  // Find image element
+  const logoImg = document.querySelector(".agency-logo");
+
+  if (logoImg && logoUrl) {
+    logoImg.src = logoUrl;
+    console.log("✅ Agency logo updated:", logoUrl);
+  } else if (attempt < 20) {
+    // Retry for 6 seconds (20 × 300ms)
+    setTimeout(() => applyAgencyLogo(attempt + 1), 300);
   } else {
-    console.error("⚠️ No --login-company-logo found in themeData");
+    console.warn("⚠️ Agency logo not found after waiting.");
   }
-})();
+}
 
 
 // ✅ 2️⃣ Fetch and apply CSS theme file
@@ -325,9 +323,13 @@ function reapplyTheme() {
   history.replaceState = function() { const res = _replace.apply(this, arguments); window.dispatchEvent(new Event("locationchange")); return res; };
   window.addEventListener("popstate", () => window.dispatchEvent(new Event("locationchange")));
 })();
-window.addEventListener("locationchange", () => reapplyTheme());
-
+window.addEventListener("locationchange", () => {
+  reapplyTheme();
+  applyAgencyLogo(); // ✅ Add this
+});
 // ✅ Initial load
 applyCSSFile();
 setTimeout(() => applyLockedMenus(), 3000);
 setTimeout(() => reapplyTheme(), 400);
+applyAgencyLogo();
+
