@@ -59,7 +59,6 @@ router.post("/", async (req, res) => {
     }
 
     let existingTheme = await Theme.findOne(query);
-    console.log("Here is the Data:", existingTheme);
 
     // ❗️Check if theme exists
     if (!existingTheme) {
@@ -89,8 +88,6 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
-
-
 
 router.get("/file", async (req, res) => {
   try {
