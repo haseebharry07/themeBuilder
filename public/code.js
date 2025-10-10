@@ -14,6 +14,34 @@ function applySubMenuOrder(order) {
   });
 }
 
+(function () {
+  // 1. Get themeData from localStorage
+  const savedTheme = JSON.parse(localStorage.getItem("userTheme") || "{}");
+  const themeVars = savedTheme.themeData || {};
+
+  // 2. Get login logo URL
+  let logoUrl = themeVars["--login-company-logo"];
+
+  // ✅ Remove url(...) if it exists
+  if (logoUrl) {
+    logoUrl = logoUrl.replace(/^url\(["']?/, "").replace(/["']?\)$/, "");
+  }
+
+  // 3. Apply it
+  if (logoUrl) {
+    const logoImg = document.querySelector(".agency-logo");
+    if (logoImg) {
+      logoImg.src = logoUrl;
+      console.log("✅ Logo updated:", logoUrl);
+    } else {
+      console.error("❌ Could not find .agency-logo element.");
+    }
+  } else {
+    console.error("⚠️ No --login-company-logo found in themeData");
+  }
+})();
+
+
 // ✅ 2️⃣ Fetch and apply CSS theme file
 async function applyCSSFile() {
   try {
