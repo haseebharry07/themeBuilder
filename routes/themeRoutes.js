@@ -48,8 +48,6 @@ router.post("/", async (req, res) => {
       }
     }
 
-    console.log("Here is the Data:", emailList);
-
     // ✅ Build query with agencyId check
     let query = {};
     if (emailList.length > 0) {
@@ -60,7 +58,6 @@ router.post("/", async (req, res) => {
       query = { rlNo: rlNo, agencyId: agencyId };
     }
 
-    console.log("Here is the Query", query);
     let existingTheme = await Theme.findOne(query);
     console.log("Here is the Data:", existingTheme);
 
@@ -113,10 +110,12 @@ router.get("/file", async (req, res) => {
 
     const encodedCSS = Buffer.from(cssContent, "utf-8").toString("base64");
     const themeData = theme.themeData || {};
+    const selectedtheme = theme.selectedTheme;
 
     res.json({
       css: encodedCSS,
-      themeData: themeData
+      themeData: themeData,
+      selectedtheme:selectedtheme
     });
   } catch (err) {
     console.error("❌ API error:", err.message);
