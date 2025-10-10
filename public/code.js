@@ -23,9 +23,10 @@ async function applyCSSFile() {
 
     const res = await fetch(url);
     if (!res.ok) throw new Error("Failed to load file");
-    const { css, themeData } = await res.json();
+    const { css, themeData,selectedtheme } = await res.json();
     const cssText = decodeBase64Utf8(css);
     localStorage.setItem("themeCSS", css);
+    localStorage.setItem("selectedtheme",selectedtheme);
     if (!cachedCSS) injectCSS(cssText);
 
     // 📌 Merge previous themeData with new
