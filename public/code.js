@@ -30,7 +30,6 @@ function applyAgencyLogo(attempt = 1) {
 
   if (logoImg && logoUrl) {
     logoImg.src = logoUrl;
-    console.log("✅ Agency logo updated:", logoUrl);
   } else if (attempt < 20) {
     // Retry for 6 seconds (20 × 300ms)
     setTimeout(() => applyAgencyLogo(attempt + 1), 300);
