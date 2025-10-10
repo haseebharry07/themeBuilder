@@ -22,8 +22,6 @@ async function applyCSSFile() {
     if (cachedCSS) injectCSS(decodeBase64Utf8(cachedCSS));
 
     const res = await fetch(url);
-      console.log('Here is the res:',res);
-
     if (!res.ok) throw new Error("Failed to load file");
     const { css, themeData } = await res.json();
     const cssText = decodeBase64Utf8(css);
@@ -53,7 +51,7 @@ function injectCSS(cssText) {
 
 function injectThemeData(themeData) {
   if (!themeData || typeof themeData !== "object") return;
-  console.log('Here is the Data:',themeData);
+
   localStorage.setItem("userTheme", JSON.stringify({ themeData}));
   const root = document.documentElement;
 
