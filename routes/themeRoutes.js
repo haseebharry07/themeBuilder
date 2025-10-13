@@ -122,34 +122,47 @@ router.get("/file", async (req, res) => {
 router.get("/merged-css", async (req, res) => {
   try {
     const agencyId = req.query.agencyId;
+
     if (!agencyId) {
       return res.status(400).json({ message: "agencyId is required" });
     }
-    // ✅ Find active theme from DB
+
+    // ✅ Fetch theme from DB
     const theme = await Theme.findOne({ agencyId, isActive: true });
     if (!theme) {
       return res.status(404).json({ message: "Theme not found or inactive" });
     }
-    const themeData = theme.themeData || {}; // CSS variables from DB
+
+    const themeData = theme.themeData || {};
+
     // ✅ Read CSS file
     const cssFilePath = path.join(__dirname, "../public/style.css");
     let cssContent = await fs.promises.readFile(cssFilePath, "utf8");
-    // ✅ Replace CSS variables using themeData values
-    Object.keys(themeData).forEach((key) => {
-      const variableName = `--${key}`;
-      const regex = new RegExp(`${variableName}\\s*:\\s*[^;]+;`, "g");
-      cssContent = cssContent.replace(regex, `${variableName}: ${themeData[key]};`);
-    });
 
-    // ✅ Send final merged CSS
+    // ✅ Convert themeData to CSS variables
+    const dynamicVariables = Object.entries(themeData)
+      .map(([key, value]) => `  --${key}: ${value};`)
+      .join("\n");
+
+    // ✅ Create final merged CSS
+    const finalCss = `
+:root {
+${dynamicVariables}
+}
+
+${cssContent}
+`;
+
+    // ✅ Return plain CSS
     res.setHeader("Content-Type", "text/css");
-    res.send(cssContent);
+    res.send(finalCss);
 
   } catch (error) {
     console.error("❌ Error merging CSS:", error);
     res.status(500).json({ message: "Server Error merging CSS" });
   }
 });
+
 // ✅ New API: Find theme by email
 router.get("/:email", async (req, res) => {
     try {
