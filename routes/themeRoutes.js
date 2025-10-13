@@ -73,8 +73,8 @@ router.post("/", async (req, res) => {
     }
 
     // ✅ Update existing theme
-    if (emailList.length > 0) existingTheme.email = emailList;
-    if (rlNo) existingTheme.rlNo = rlNo;
+    // if (emailList.length > 0) existingTheme.email = emailList;
+    // if (rlNo) existingTheme.rlNo = rlNo;
 
     existingTheme.themeData = themeData;
     existingTheme.selectedTheme = selectedTheme;
