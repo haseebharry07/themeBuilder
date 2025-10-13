@@ -119,7 +119,37 @@ router.get("/file", async (req, res) => {
     res.status(500).json({ message: "Error loading CSS" });
   }
 });
+router.get("/merged-css", async (req, res) => {
+  try {
+    const agencyId = req.query.agencyId;
+    if (!agencyId) {
+      return res.status(400).json({ message: "agencyId is required" });
+    }
+    // ✅ Find active theme from DB
+    const theme = await Theme.findOne({ agencyId, isActive: true });
+    if (!theme) {
+      return res.status(404).json({ message: "Theme not found or inactive" });
+    }
+    const themeData = theme.themeData || {}; // CSS variables from DB
+    // ✅ Read CSS file
+    const cssFilePath = path.join(__dirname, "../public/style.css");
+    let cssContent = await fs.promises.readFile(cssFilePath, "utf8");
+    // ✅ Replace CSS variables using themeData values
+    Object.keys(themeData).forEach((key) => {
+      const variableName = `--${key}`;
+      const regex = new RegExp(`${variableName}\\s*:\\s*[^;]+;`, "g");
+      cssContent = cssContent.replace(regex, `${variableName}: ${themeData[key]};`);
+    });
 
+    // ✅ Send final merged CSS
+    res.setHeader("Content-Type", "text/css");
+    res.send(cssContent);
+
+  } catch (error) {
+    console.error("❌ Error merging CSS:", error);
+    res.status(500).json({ message: "Server Error merging CSS" });
+  }
+});
 // ✅ New API: Find theme by email
 router.get("/:email", async (req, res) => {
     try {
