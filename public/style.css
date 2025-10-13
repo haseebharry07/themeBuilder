@@ -12,52 +12,51 @@
 :root {
   --login-headline-font: Poppins;
   --login-body-font: Work Sans;
-  --login-card-bg-color: #212121;
-  --login-card-bg-gradient: linear-gradient(250deg, #00000000 100%, #212121 100%);
-  --login-card-border-width: 0.3rem 0.3rem 0.3rem 0.3rem; ;
-  --login-card-border-radius: 24px;
+  /* --login-card-bg-color: #212121; */
+  /* --login-card-border-width: 0.3rem 0.3rem 0.3rem 0.3rem; ; */
+  /* --login-card-border-radius: 24px; */
   --login-card-border-style: solid;
   --login-card-border-color: #ffffff00;
-  --header-main-box-shadow: undefined;
+  /* --header-main-box-shadow: undefined; */
   --login-card-width: 630px;
   --login-logo-width: 300px;
   --login-logo-height: 100px;
-  --login-logo-margin-top: 0px;
-  --login-logo-margin-bottom: 0px;
+  /* --login-logo-margin-top: 0px; */
+  /* --login-logo-margin-bottom: 0px;
   --login-logo-margin-left: 0px;
   --login-logo-margin-right: 0px;
   --login-input-label-color: #ffffffff;
   --login-input-text-color: #000000ff;
   --login-input-bg-color: #ffffffff;
   --login-input-alert-color: #ffd9ddff;
-  --login-input-label-font-size: 18px;
+  --login-input-label-font-size: 18px; */
   --login-input-font-size: 16px;
   --login-input-border-width: 0.1rem 0.1rem 0.1rem 0.1rem; ;
   --login-input-border-radius: 24px;
-  --login-input-border-style: double;
+  /* --login-input-border-style: double;
   --login-input-border-color: #000d542b;
-  --login-input-height: 44px;
+  --login-input-height: 44px; */
   --login-button-text-color: #fafafa;
   --login-button-hover-text-color: #212121;
-  --login-button-bg-color: #038c3f;
+  /* --login-button-bg-color: #038c3f; */
   --login-button-hover-bg-color: #fafafa;
   --login-button-font-size: 22px;
   --login-button-bg-gradient: #038c3f;
-  --login-button-border-width: 0.1rem 0.1rem 0.1rem 0.1rem; ;
+  /* --login-button-border-width: 0.1rem 0.1rem 0.1rem 0.1rem; ; */
   --login-button-border-radius: 24px;
-  --login-button-border-style: solid;
-  --login-button-border-color: #d9d2d200;
-  --login-button-width: 370px;
-  --login-button-height: 39px;
+  /* --login-button-border-style: solid; */
+  /* --login-button-border-color: #d9d2d200; */
+  /* --login-button-width: 370px;
+  --login-button-height: 39px; */
   --login-footer-text-color: #ffffffff;
   --login-footer-font-size: 16px;
   --login-headline-text-color: #ffffffff;
   --login-headline-font-size: 36px;
-  --login-link-text-color: #038c3f;
+  /* --login-link-text-color: #038c3f; */
   --login-link-text-size: 16px;
-  --login-other-text-color: #ffffffff;
-  --login-other-text-size: 18px;
-  --login-bg-color: #212121;
+  /* --login-other-text-color: #ffffffff; */
+  /* --login-other-text-size: 18px; */
+  /* --login-bg-color: #212121; */
   --login-bg-gradient: radial-gradient(circle, #212121 62%, #212121 100%);
   --login-company-logo: url(https: //storage.googleapis.com/msgsndr/W0un4jEKdf7kQBusAM6W/media/67f759030a62176752d5b113.png);
   --primary-color: #2563e9;
