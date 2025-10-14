@@ -3600,14 +3600,4 @@ body {
   cursor: var(--custom-cursor), auto !important;
 }
 
-.tb-cursor-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 8px;
-}
 
-.tb-cursor-image {
-  width: 32px;
-  height: 32px;
-}
