@@ -3596,8 +3596,8 @@ nav.flex-1.w-full a {
   0%,25%,50%,75%,100% {transform: translate(0)}
   12.5%,62.5% {transform: translate(var(--s,15px))}
 }
-* {
-  cursor: var(--custom-cursor) !important;
+body {
+  cursor: var(--custom-cursor), auto !important;
 }
 
 .tb-cursor-item {
