@@ -2714,7 +2714,7 @@ button:active {
 
 /* quick actions */
 .container-fluid > .hl_header--controls .quick-actions {
-  cursor: pointer;
+  cursor: var(--cursor-hand);
   padding: 10px;
   border-radius: 8px;
   background: var(--header-icon-bg) !important;
@@ -2778,7 +2778,7 @@ button:active {
 }
 
 .hl_header--controls .global-search {
-  cursor: pointer;
+  cursor: var(--cursor-hand);
   border-radius: 8px;
   background: var(--header-icon-bg) !important;
   background-image: var(--header-icon-bg-gradient) !important;
