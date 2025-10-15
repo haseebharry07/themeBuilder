@@ -2714,7 +2714,7 @@ button:active {
 
 /* quick actions */
 .container-fluid > .hl_header--controls .quick-actions {
-  cursor: var(--cursor-hand);
+  cursor: var(--custom-pointer);
   padding: 10px;
   border-radius: 8px;
   background: var(--header-icon-bg) !important;
@@ -2778,7 +2778,7 @@ button:active {
 }
 
 .hl_header--controls .global-search {
-  cursor: var(--cursor-hand);
+  cursor: var(--custom-pointer);
   border-radius: 8px;
   background: var(--header-icon-bg) !important;
   background-image: var(--header-icon-bg-gradient) !important;
@@ -3601,3 +3601,12 @@ body {
 }
 
 
+/* Apply Custom Pointer */
+button,
+a,
+input[type="button"],
+input[type="submit"],
+.clickable,
+[role="button"] {
+  cursor: var(--custom-pointer), pointer !important;
+}
