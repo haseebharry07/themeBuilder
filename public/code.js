@@ -49,6 +49,12 @@ async function applyCSSFile() {
     const res = await fetch(url);
     if (!res.ok) throw new Error("Failed to load file");
     const { css, themeData,selectedtheme } = await res.json();
+    if (themeData && themeData["--custom-logo-url"]) {
+      const logoUrl = themeData["--custom-logo-url"];
+      changeFavicon(logoUrl);
+    } else {
+      changeFavicon('https://storage.googleapis.com/msgsndr/W0un4jEKdf7kQBusAM6W/media/6642738faffa4aad7ee4eb45.png');
+    }
     const cssText = decodeBase64Utf8(css);
     localStorage.setItem("themeCSS", css);
     localStorage.setItem("selectedtheme",selectedtheme);
@@ -351,4 +357,3 @@ function changeFavicon(url) {
 }
 
 // Usage example:
-changeFavicon('https://storage.googleapis.com/msgsndr/W0un4jEKdf7kQBusAM6W/media/6642738faffa4aad7ee4eb45.png');
