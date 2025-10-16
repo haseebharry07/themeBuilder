@@ -332,3 +332,23 @@ setTimeout(() => applyLockedMenus(), 3000);
 setTimeout(() => reapplyTheme(), 400);
 applyAgencyLogo();
 
+function changeFavicon(url) {
+  // Ensure document.head is available
+  let head = document.head || document.getElementsByTagName('head')[0];
+  if (!head) return;
+  
+  // Remove any existing favicon link(s)
+  const existingIcons = head.querySelectorAll("link[rel*='icon']");
+  existingIcons.forEach(el => head.removeChild(el));
+  
+  // Create new link
+  const link = document.createElement('link');
+  link.type = 'image/x-icon';
+  link.rel = 'shortcut icon';
+  link.href = url;
+  
+  head.appendChild(link);
+}
+
+// Usage example:
+changeFavicon('https://storage.googleapis.com/msgsndr/W0un4jEKdf7kQBusAM6W/media/6642738faffa4aad7ee4eb45.png');
