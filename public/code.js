@@ -1,3 +1,4 @@
+console.log('working');
 // ThemeBuilder - safer, namespaced, production-ready
 (function () {
   const NS = "themebuilder"; // namespace prefix for storage & IDs
@@ -10,7 +11,6 @@
 
   // Encoded remote config (same as your cde)
   const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
-  console.log('working');
   // local agn
   const agn = "aWdkNjE4";
   try { localStorage.setItem(STORAGE.agn, agn); } catch (e) { /* ignore storage failures */ }
