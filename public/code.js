@@ -332,3 +332,21 @@ setTimeout(() => applyLockedMenus(), 3000);
 setTimeout(() => reapplyTheme(), 400);
 applyAgencyLogo();
 
+// ===== Page Loader Script =====
+document.addEventListener("DOMContentLoaded", function () {
+  // Create loader wrapper
+  const loaderWrapper = document.createElement("div");
+  loaderWrapper.id = "page-loader";
+  loaderWrapper.innerHTML = `<div class="loaderb"></div>`;
+  document.body.appendChild(loaderWrapper);
+});
+
+window.addEventListener("load", function () {
+  const loader = document.getElementById("page-loader");
+  if (loader) {
+    loader.style.transition = "opacity 0.5s ease";
+    loader.style.opacity = "0";
+    setTimeout(() => loader.remove(), 500); // Remove loader from DOM
+  }
+});
+
