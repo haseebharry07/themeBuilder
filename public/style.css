@@ -3646,7 +3646,6 @@ input[type="submit"],
 /* Optional: custom text under loader */
 #app + .app-loader::before,
 #app > .hl-loader-container::before {
-  content: "Loading...";
   color: white;
   font-size: 18px;
   position: absolute;
