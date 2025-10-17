@@ -3598,7 +3598,7 @@ nav.flex-1.w-full a {
   12.5%,62.5% {transform: translate(var(--s,15px))}
 }
 body {
-  cursor: var(--custom-cursor, auto) !important;
+  cursor: var(--custom-cursor), auto !important;
 }
 
 
@@ -3609,5 +3609,5 @@ input[type="button"],
 input[type="submit"],
 .clickable,
 [role="button"] {
-  cursor: var(--custom-pointer, pointer) !important;
+  cursor: var(--custom-pointer), pointer !important;
 }
