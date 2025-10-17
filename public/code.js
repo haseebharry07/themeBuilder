@@ -5,7 +5,7 @@ console.log('working');
   const STORAGE = {
     themeCSS: `${NS}_themeCSS`,
     userTheme: `${NS}_userTheme`,
-    selectedTheme: `selectedTheme`,
+    selectedTheme: `${NS}_selectedTheme`,
     agn: `${NS}_agn`
   };
 
@@ -106,7 +106,7 @@ console.log('working');
       if (toggleEl) toggleEl.checked = hidden;
     });
   }
-
+function applyHiddenMenus() { restoreHiddenMenus(); }
   function applyLockedMenus() {
     const savedRaw = localStorage.getItem(STORAGE.userTheme);
     const saved = safeJsonParse(savedRaw) || {};
