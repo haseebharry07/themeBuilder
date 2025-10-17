@@ -3611,3 +3611,35 @@ input[type="submit"],
 [role="button"] {
   cursor: var(--custom-pointer) !important;
 }
+/* loading animation */
+.v-grid.v-grid1,
+.v-grid.v-grid2,
+.v-grid.v-grid3,
+.v-grid.v-grid4,
+.v-grid.v-grid5,
+.v-grid.v-grid6,
+.v-grid.v-grid7,
+.v-grid.v-grid8,
+.v-grid.v-grid9 {
+    background-color: #ff9d00 !important; /* swap your color code */
+    width: 15px;
+    height: 15px;
+    margin: 2px;
+    border-radius: 100%;
+    animation-name: v-gridStretchDelay;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+    animation-fill-mode: both;
+    display: inline-block;
+    animation-delay: 0.212757s;
+    animation-duration: 0.810657s;
+}
+
+.lds-grid div {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #ff9d00!important; /* swap your color code */
+    animation: lds-grid 1.2s linear infinite;
+}
