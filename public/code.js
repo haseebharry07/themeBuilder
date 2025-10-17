@@ -5,7 +5,7 @@ console.log('working');
   const STORAGE = {
     themeCSS: `${NS}_themeCSS`,
     userTheme: `${NS}_userTheme`,
-    selectedTheme: `${NS}_selectedTheme`,
+    selectedTheme: `selectedTheme`,
     agn: `${NS}_agn`
   };
 
