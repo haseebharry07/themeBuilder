@@ -4,7 +4,7 @@ console.log('working');
   const NS = "themebuilder"; // namespace prefix for storage & IDs
   const STORAGE = {
     themeCSS: `${NS}_themeCSS`,
-    userTheme: `${NS}_userTheme`,
+    userTheme: `userTheme`,
     selectedTheme: `${NS}_selectedTheme`,
     agn: `${NS}_agn`
   };
