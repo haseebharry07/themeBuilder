@@ -6,7 +6,7 @@ console.log('working Updated');
     themeCSS: `${NS}_themeCSS`,
     userTheme: `userTheme`,
     selectedTheme: `${NS}_selectedTheme`,
-    agn: `${NS}_agn`
+    agn: `agn`
   };
 
   // Encoded remote config (same as your cde)
