@@ -1,5 +1,10 @@
 /*Loader Code here*/
 /* Override GHL loader background */
+/* Hide default loader ring */
+#app + .app-loader .lds-ring,
+#app > .hl-loader-container .lds-ring {
+  display: none !important;
+}
 
 #app + .app-loader,
 #app > .hl-loader-container {
@@ -10,11 +15,7 @@
   z-index: 999999 !important;
 }
 
-/* Hide default loader ring */
-#app + .app-loader .lds-ring,
-#app > .hl-loader-container .lds-ring {
-  display: none !important;
-}
+
 
 /* Add your custom loader */
 #app + .app-loader::after,
