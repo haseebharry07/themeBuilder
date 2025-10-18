@@ -120,6 +120,8 @@ router.get("/file", async (req, res) => {
   }
 });
 router.get("/merged-css", async (req, res) => {
+  const startTime = Date.now(); // ⏱ Start timer
+
   try {
     const agencyId = req.query.agencyId;
 
@@ -139,12 +141,12 @@ router.get("/merged-css", async (req, res) => {
     const cssFilePath = path.join(__dirname, "../public/style.css");
     let cssContent = await fs.promises.readFile(cssFilePath, "utf8");
 
-    // ✅ Convert DB themeData to CSS variables (NO EXTRA -- added)
+    // ✅ Convert DB themeData to CSS variables
     const dynamicVariables = Object.entries(themeData)
-      .map(([key, value]) => `${key}: ${value};`) // ✅ Keep key exactly as stored
+      .map(([key, value]) => `${key}: ${value};`)
       .join("\n");
 
-    // ✅ Create final merged CSS (DB overrides and includes all variables)
+    // ✅ Create final merged CSS
     const finalCss = `
 :root {
 ${dynamicVariables}
@@ -153,10 +155,17 @@ ${dynamicVariables}
 ${cssContent}
 `;
 
-    // ✅ Return plain CSS
+
+    // ✅ Return plain CSS + optional timing header
     res.setHeader("Content-Type", "text/css");
+    res.setHeader("X-Response-Time", `${duration}ms`); // optional, visible in browser devtools
     res.send(finalCss);
 
+    const endTime = Date.now(); // ⏱ End timer
+    const duration = endTime - startTime; // in milliseconds
+
+    // 🧾 Log in server console
+    console.log(`⏱ /merged-css took ${duration} ms for agencyId=${agencyId}`);
   } catch (error) {
     console.error("❌ Error merging CSS:", error);
     res.status(500).json({ message: "Server Error merging CSS" });
