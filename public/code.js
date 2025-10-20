@@ -1,3 +1,7 @@
+
+window.addEventListener("load", () => {
+  document.body.classList.add("loaded");
+});
 // ThemeBuilder - safer, namespaced, production-ready
 (function () {
   const NS = "themebuilder"; // namespace prefix for storage & IDs
@@ -374,11 +378,6 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
   window.ThemeBuilder = ThemeBuilder;
   log("ThemeBuilder initialized");
 })();
-window.addEventListener("load", () => {
-  const loaders = document.querySelectorAll("#app + .app-loader, #app > .hl-loader-container");
-  loaders.forEach(l => {
-    l.style.display = "none";
-  });
-});
+
 
 
