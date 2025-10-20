@@ -5,7 +5,12 @@ const Theme = require('../models/UserTheme');
 const fs = require("fs");
 const path = require("path");
 const originCheck = require("../middleware/originCheck");
+const AgencyLoader = require('../models/loaderSchema');
 
+router.get("/_debug-test", (req, res) => {
+  console.log("✅ Theme routes active");
+  res.json({ ok: true });
+});
 // Get theme for a user
 router.get('/code/:identifier', async (req, res) => {
     try {
@@ -88,7 +93,6 @@ router.post("/", async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
-
 router.get("/file", async (req, res) => {
   try {
     const agencyId = req.query.agencyId;
@@ -163,6 +167,62 @@ ${cssContent}
   }
 });
 
+// 🟢 Create or update a loader for an agency
+router.post("/loader-css", async (req, res) => {
+  try {
+    const { agencyId, loaderName, loaderCSS, previewImage, isActive } = req.body;
+    
+    // ✅ Validate required fields
+    if (!agencyId || !loaderName || !loaderCSS) {
+      return res.status(400).json({
+        message: "agencyId, loaderName, and loaderCSS are required"
+      });
+    }
+    
+    // ✅ If this loader is marked active, deactivate others for same agency
+    if (isActive) {
+      await AgencyLoader.updateMany({ agencyId }, { isActive: false });
+    }
+    
+    // ✅ Create a new loader record
+    const newLoader = new AgencyLoader({
+      agencyId,
+      loaderName,
+      loaderCSS,
+      previewImage: previewImage || null,
+      isActive: !!isActive,
+      updatedAt: new Date()
+    });
+    
+    await newLoader.save();
+    
+    res.status(201).json({
+      message: "Loader saved successfully",
+      loader: newLoader
+    });
+  } catch (err) {
+    console.error("❌ Error saving loader:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
+// 🟡 Get all loaders for an agency
+router.get("/Get-loader-css", async (req, res) => {
+  try {
+    const { agencyId } = req.query;
+    if (!agencyId) {
+      return res.status(400).json({ success: false, message: "agencyId is required" });
+    }
+    const loaders = await AgencyLoader.find({ agencyId });
+    if (!loaders || loaders.length === 0) {
+      return res.status(404).json({ success: false, message: "No loaders found for this agency" });
+    }
+    res.json({ success: true, loaders });
+  } catch (err) {
+    console.error("❌ Error fetching loaders:", err);
+    res.status(500).json({ success: false, message: "Server error", error: err.message });
+  }
+});
 
 // ✅ New API: Find theme by email
 router.get("/:email", async (req, res) => {
@@ -185,4 +245,5 @@ router.get("/:email", async (req, res) => {
         res.status(500).json({ success: false, message: "Server error" });
     }
 });
+
 module.exports = router;
