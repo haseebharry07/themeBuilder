@@ -1,9 +1,9 @@
 /*Loader Code here*/
 /* Override GHL loader background */
 /* Hide default loader ring */
-#app + .app-loader .lds-ring,
-#app > .hl-loader-container .lds-ring {
-  display: none !important;
+#app + .app-loader:not([style*="display: none"]),
+#app > .hl-loader-container:not([style*="display: none"]) {
+  display: flex !important;
 }
 
 #app + .app-loader,
