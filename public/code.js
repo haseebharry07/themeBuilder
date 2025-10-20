@@ -1,7 +1,5 @@
 
-window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
-});
+
 // ThemeBuilder - safer, namespaced, production-ready
 (function () {
   const NS = "themebuilder"; // namespace prefix for storage & IDs
@@ -381,3 +379,9 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
 
 
 
+window.addEventListener("load", () => {
+  console.log('Loader related It is working');
+  document.body.classList.add("loaded");
+  document.querySelectorAll("#app + .app-loader, #app > .hl-loader-container")
+    .forEach(l => l.remove());
+});
