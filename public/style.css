@@ -37,19 +37,21 @@ body.loaded #app > .hl-loader-container {
   display: none !important;
 } */
 
-/* Completely hide the original GHL loader */
+/* Nuclear option - hide ALL potential loaders */
 .hl-loader-container,
 .lds-ring,
 .app-loader,
 #app + .app-loader,
-#app.loading + .app-loader {
+#app.loading + .app-loader,
+[class*="loader"],
+[class*="Loader"] {
     display: none !important;
     visibility: hidden !important;
     opacity: 0 !important;
 }
 
-/* Create our custom loader - but keep it hidden by default */
-.custom-global-loader {
+/* Our custom loader */
+#custom-global-loader {
     position: fixed !important;
     top: 0 !important;
     left: 0 !important;
@@ -60,35 +62,22 @@ body.loaded #app > .hl-loader-container {
     justify-content: center !important;
     align-items: center !important;
     z-index: 999999 !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
 }
 
-/* Show our custom loader when active */
-.custom-global-loader.active {
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-/* Spinner for our custom loader */
-.custom-global-loader::before {
+#custom-global-loader::before {
     content: "" !important;
-    display: block !important;
     width: 80px !important;
     height: 80px !important;
-    border-radius: 50% !important;
     border: 6px solid #fff !important;
-    border-top-color: transparent !important;
-    animation: spinLoader 1s linear infinite !important;
+    border-top: 6px solid transparent !important;
+    border-radius: 50% !important;
+    animation: spin 1s linear infinite !important;
 }
 
-@keyframes spinLoader {
-    to { 
-        transform: rotate(360deg) !important; 
-    }
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
-
-
 @import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Slabo+27px:ital,wght@0,400;0,700;1,400;1,700&family=Oswald:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Titillium+Web:ital,wght@0,400;0,700;1,400;1,700&family=Fira+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Barlow:ital,wght@0,400;0,700;1,400;1,700&family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Inter:wght@100..900&display=swap);@import url(https://ghlcusomizer.s3.amazonaws.com/font_awesome/css/all_with_font.css);
 @import url(https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap);
 
