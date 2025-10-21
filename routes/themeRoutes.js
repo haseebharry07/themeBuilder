@@ -131,7 +131,7 @@ router.get("/merged-css", async (req, res) => {
       return res.status(400).json({ message: "agencyId is required" });
     }
 
-    // ✅ Fetch theme from DB
+    // ✅ Fetch active theme
     const theme = await Theme.findOne({ agencyId, isActive: true });
     if (!theme) {
       return res.status(404).json({ message: "Theme not found or inactive" });
@@ -139,17 +139,78 @@ router.get("/merged-css", async (req, res) => {
 
     const themeData = theme.themeData || {};
 
-    // ✅ Read CSS file
-    const cssFilePath = path.join(__dirname, "../public/style.css");
-    let cssContent = await fs.promises.readFile(cssFilePath, "utf8");
+    // ✅ Helper: Generate CSS using company logo URL
+    const generateCompanyLoaderCSS = (logoUrl) => `
+/* Hide all GHL loaders */
+.hl-loader-container,
+.lds-ring,
+.app-loader,
+#app + .app-loader,
+#app.loading + .app-loader,
+[class*="loader"],
+[class*="Loader"] {
+    display: none !important;
+}
 
-    // ✅ Convert DB themeData to CSS variables (NO EXTRA -- added)
+/* Our custom loader */
+#custom-global-loader {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100vh !important;
+    background: linear-gradient(180deg, #0074f7 0%, #00c0f7 100%) !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    z-index: 999999 !important;
+}
+
+#custom-global-loader::before {
+    content: "" !important;
+    width: 120px !important;
+    height: 120px !important;
+    background-image: ${logoUrl} !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+    animation: fadeIn 1s ease-in-out infinite alternate !important;
+    border: none !important; /* remove the circle border */
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0.7; transform: scale(0.95); }
+  100% { opacity: 1; transform: scale(1.05); }
+}
+`;
+
+    let loaderCSS = "";
+
+    // ✅ Check if company logo loader should be used
+    const companyLogoUrl = themeData["--loader-company-url"];
+    if (companyLogoUrl && companyLogoUrl.trim() !== "") {
+      // Use the company logo loader
+      loaderCSS = generateCompanyLoaderCSS(companyLogoUrl);
+    } else {
+      // Otherwise, fallback to DB loader
+      const activeLoader = await AgencyLoader.findOne({ agencyId, isActive: true });
+      loaderCSS = activeLoader?.loaderCSS || "";
+    }
+
+    // ✅ Read main CSS file
+    const cssFilePath = path.join(__dirname, "../public/style.css");
+    const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
+
+    // ✅ Convert DB themeData to CSS variables
     const dynamicVariables = Object.entries(themeData)
-      .map(([key, value]) => `${key}: ${value};`) // ✅ Keep key exactly as stored
+      .map(([key, value]) => `${key}: ${value};`)
       .join("\n");
 
-    // ✅ Create final merged CSS (DB overrides and includes all variables)
+    // ✅ Merge CSS in correct order:
+    // Loader CSS (top) → Theme variables → Main CSS
     const finalCss = `
+${loaderCSS}
+
 :root {
 ${dynamicVariables}
 }
@@ -157,7 +218,7 @@ ${dynamicVariables}
 ${cssContent}
 `;
 
-    // ✅ Return plain CSS
+    // ✅ Return as plain CSS
     res.setHeader("Content-Type", "text/css");
     res.send(finalCss);
 
@@ -166,7 +227,6 @@ ${cssContent}
     res.status(500).json({ message: "Server Error merging CSS" });
   }
 });
-
 // 🟢 Create or update a loader for an agency
 router.post("/loader-css", async (req, res) => {
   try {
