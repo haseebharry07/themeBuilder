@@ -64,13 +64,24 @@ body.loaded #app > .hl-loader-container {
 
 #custom-global-loader::before {
     content: "" !important;
+    width: 120px !important;
+    height: 120px !important;
+    background-image: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center !important;
+    background-size: contain !important;
+    animation: fadeIn 1s ease-in-out infinite alternate !important;
+    border: none !important; /* remove the circle border */
+}
+/* #custom-global-loader::before {
+    content: "" !important;
     width: 80px !important;
     height: 80px !important;
     border: 6px solid #fff !important;
     border-top: 6px solid transparent !important;
     border-radius: 50% !important;
     animation: spin 1s linear infinite !important;
-}
+} */
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
