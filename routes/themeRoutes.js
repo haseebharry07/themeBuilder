@@ -224,6 +224,47 @@ router.get("/Get-loader-css", async (req, res) => {
   }
 });
 
+// ✅ Update loader isActive status
+router.put("/loader-css/status", async (req, res) => {
+  try {
+    const { _id, isActive } = req.body;
+
+    // ✅ Validate input
+    if (!_id || typeof isActive !== "boolean") {
+      return res.status(400).json({
+        message: "_id and boolean isActive are required",
+      });
+    }
+
+    // ✅ Find the loader by ID
+    const loader = await AgencyLoader.findById(_id);
+    if (!loader) {
+      return res.status(404).json({ message: "Loader not found" });
+    }
+
+    // ✅ If activating this loader, deactivate all others for same agency
+    if (isActive) {
+      await AgencyLoader.updateMany(
+        { agencyId: loader.agencyId },
+        { isActive: false }
+      );
+    }
+
+    // ✅ Update the target loader
+    loader.isActive = isActive;
+    loader.updatedAt = new Date();
+    await loader.save();
+
+    res.status(200).json({
+      message: `Loader ${isActive ? "activated" : "deactivated"} successfully`,
+      loader,
+    });
+  } catch (err) {
+    console.error("❌ Error updating loader status:", err);
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
+
 // ✅ New API: Find theme by email
 router.get("/:email", async (req, res) => {
     try {
