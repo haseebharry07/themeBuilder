@@ -37,7 +37,7 @@ body.loaded #app > .hl-loader-container {
   display: none !important;
 } */
 
-/* Nuclear option - hide ALL potential loaders */
+/* Hide all GHL loaders */
 .hl-loader-container,
 .lds-ring,
 .app-loader,
@@ -46,8 +46,6 @@ body.loaded #app > .hl-loader-container {
 [class*="loader"],
 [class*="Loader"] {
     display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
 }
 
 /* Our custom loader */
