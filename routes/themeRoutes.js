@@ -169,7 +169,7 @@ router.get("/merged-css", async (req, res) => {
             content: "";
             width: 120px;
             height: 120px;
-            background-image: url"${logoUrl}";
+            background-image: url"${logoUrl}" !important;
             background-repeat: no-repeat;
             background-position: center;
             background-size: contain;
