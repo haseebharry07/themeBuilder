@@ -141,48 +141,48 @@ router.get("/merged-css", async (req, res) => {
 
     // ✅ Helper: Generate CSS using company logo URL
     const generateCompanyLoaderCSS = (logoUrl) => `
-/* Hide all GHL loaders */
-.hl-loader-container,
-.lds-ring,
-.app-loader,
-#app + .app-loader,
-#app.loading + .app-loader,
-[class*="loader"],
-[class*="Loader"] {
-    display: none !important;
-}
+        /* Hide platform default loaders only */
+        .hl-loader-container,
+        .lds-ring,
+        .app-loader,
+        #app + .app-loader,
+        #app.loading + .app-loader {
+            display: none !important;
+        }
 
-/* Our custom loader */
-#custom-global-loader {
-    position: fixed !important;
-    top: 0 !important;
-    left: 0 !important;
-    width: 100% !important;
-    height: 100vh !important;
-    background: linear-gradient(180deg, #0074f7 0%, #00c0f7 100%) !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-    z-index: 999999 !important;
-}
+        /* Custom loader */
+        #custom-global-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(180deg, #0074f7 0%, #00c0f7 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+        }
 
-#custom-global-loader::before {
-    content: "" !important;
-    width: 120px !important;
-    height: 120px !important;
-    background-image: ${logoUrl} !important;
-    background-repeat: no-repeat !important;
-    background-position: center !important;
-    background-size: contain !important;
-    animation: fadeIn 1s ease-in-out infinite alternate !important;
-    border: none !important; /* remove the circle border */
-}
+        /* Loader content */
+        #custom-global-loader::before {
+            content: "";
+            width: 120px;
+            height: 120px;
+            background-image: ${logoUrl};
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            animation: fadeIn 1s ease-in-out infinite alternate;
+        }
 
-@keyframes fadeIn {
-  0% { opacity: 0.7; transform: scale(0.95); }
-  100% { opacity: 1; transform: scale(1.05); }
-}
-`;
+        /* Fade animation */
+        @keyframes fadeIn {
+          0% { opacity: 0.7; transform: scale(0.95); }
+          100% { opacity: 1; transform: scale(1.05); }
+        }
+
+        `;
 
     let loaderCSS = "";
 
@@ -190,8 +190,8 @@ router.get("/merged-css", async (req, res) => {
     const companyLogoUrl = themeData["--loader-company-url"];
     if (companyLogoUrl && companyLogoUrl.trim() !== "") {
       // Use the company logo loader
-      // loaderCSS = generateCompanyLoaderCSS(companyLogoUrl);
-      loaderCSS = '';
+      loaderCSS = generateCompanyLoaderCSS(companyLogoUrl);
+      // loaderCSS = '';
     } else {
       // Otherwise, fallback to DB loader
       const activeLoader = await AgencyLoader.findOne({ agencyId, isActive: true });
