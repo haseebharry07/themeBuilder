@@ -139,8 +139,8 @@ router.get("/merged-css", async (req, res) => {
 
     const themeData = theme.themeData || {};
 
-    // ✅ Helper: Generate CSS using company logo URL
-    const generateCompanyLoaderCSS = (logoUrl) => `
+    // ✅ Helper: Pulsating Logo CSS
+    const generatePulsatingLogoCSS = (logoUrl) => `
         /* Hide platform default loaders only */
         .hl-loader-container,
         .lds-ring,
@@ -181,17 +181,76 @@ router.get("/merged-css", async (req, res) => {
           0% { opacity: 0.7; transform: scale(0.95); }
           100% { opacity: 1; transform: scale(1.05); }
         }
+    `;
 
-        `;
+    // ✅ Helper: Bouncing Logo CSS
+    const generateBouncingLogoCSS = (logoUrl) => `
+        /* Hide platform default loaders only */
+        .hl-loader-container,
+        .lds-ring,
+        .app-loader,
+        #app + .app-loader,
+        #app.loading + .app-loader {
+            display: none !important;
+        }
+
+        /* Custom loader */
+        #custom-global-loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(180deg, #0074f7 0%, #00c0f7 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999999;
+        }
+
+        /* Loader content */
+        #custom-global-loader::before {
+            content: "";
+            width: 120px;
+            height: 120px;
+            background-image: url("${logoUrl}") !important;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            animation: bounceLogo 1s ease-in-out infinite;
+        }
+
+        /* Bounce animation */
+        @keyframes bounceLogo {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            25% {
+                transform: translateY(-30px);
+            }
+            50% {
+                transform: translateY(0);
+            }
+            75% {
+                transform: translateY(-15px);
+            }
+        }
+    `;
 
     let loaderCSS = "";
 
-    // ✅ Check if company logo loader should be used
+    // ✅ Check for company logo loader
     const companyLogoUrl = themeData["--loader-company-url"];
+    const animationSetting = themeData["--animation-settings"];
+
     if (companyLogoUrl && companyLogoUrl.trim() !== "") {
-      // Use the company logo loader
-      loaderCSS = generateCompanyLoaderCSS(companyLogoUrl);
-      // loaderCSS = '';
+      // Use correct animation CSS
+      if (animationSetting === "BouncingLogo") {
+        loaderCSS = generateBouncingLogoCSS(companyLogoUrl);
+      } else {
+        // Default to Pulsating
+        loaderCSS = generatePulsatingLogoCSS(companyLogoUrl);
+      }
     } else {
       // Otherwise, fallback to DB loader
       const activeLoader = await AgencyLoader.findOne({ agencyId, isActive: true });
@@ -202,13 +261,12 @@ router.get("/merged-css", async (req, res) => {
     const cssFilePath = path.join(__dirname, "../public/style.css");
     const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
 
-    // ✅ Convert DB themeData to CSS variables
+    // ✅ Convert themeData to CSS variables
     const dynamicVariables = Object.entries(themeData)
       .map(([key, value]) => `${key}: ${value};`)
       .join("\n");
 
-    // ✅ Merge CSS in correct order:
-    // Loader CSS (top) → Theme variables → Main CSS
+    // ✅ Merge all CSS together
     const finalCss = `
 ${loaderCSS}
 
@@ -219,7 +277,6 @@ ${dynamicVariables}
 ${cssContent}
 `;
 
-    // ✅ Return as plain CSS
     res.setHeader("Content-Type", "text/css");
     res.send(finalCss);
 
@@ -228,6 +285,7 @@ ${cssContent}
     res.status(500).json({ message: "Server Error merging CSS" });
   }
 });
+
 // 🟢 Create or update a loader for an agency
 router.post("/loader-css", async (req, res) => {
   try {
@@ -266,7 +324,6 @@ router.post("/loader-css", async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
-
 // 🟡 Get all loaders for an agency
 router.get("/Get-loader-css", async (req, res) => {
   try {
