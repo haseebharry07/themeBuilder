@@ -190,7 +190,8 @@ router.get("/merged-css", async (req, res) => {
     const companyLogoUrl = themeData["--loader-company-url"];
     if (companyLogoUrl && companyLogoUrl.trim() !== "") {
       // Use the company logo loader
-      loaderCSS = generateCompanyLoaderCSS(companyLogoUrl);
+      // loaderCSS = generateCompanyLoaderCSS(companyLogoUrl);
+      loaderCSS = '';
     } else {
       // Otherwise, fallback to DB loader
       const activeLoader = await AgencyLoader.findOne({ agencyId, isActive: true });
