@@ -166,7 +166,7 @@ router.get("/merged-css", async (req, res) => {
 
         /* Loader content */
         #custom-global-loader::before {
-            content: "";
+            content: "Initializing";
             width: 120px;
             height: 120px;
             background-image: url("${logoUrl}") !important;
@@ -210,7 +210,7 @@ router.get("/merged-css", async (req, res) => {
 
         /* Loader content */
         #custom-global-loader::before {
-            content: "";
+            content: "initializing";
             width: 120px;
             height: 120px;
             background-image: url("${logoUrl}") !important;
