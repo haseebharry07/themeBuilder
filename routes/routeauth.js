@@ -1,6 +1,4 @@
-// routes/authRoutes.js
 const express = require("express");
-const fetch = require("node-fetch");
 const router = express.Router();
 
 router.get("/oauth/callback", async (req, res) => {
@@ -29,11 +27,7 @@ router.get("/oauth/callback", async (req, res) => {
       return res.status(500).send("Failed to get token");
     }
 
-    // Store the token + agency info in your DB
-    // You can decode agencyId using the token or call the GHL /users/me endpoint
     console.log("✅ Access Token:", data.access_token);
-
-    // Example redirect to your dashboard
     res.redirect(`/connected?token=${data.access_token}`);
   } catch (err) {
     console.error("OAuth Callback Error:", err);

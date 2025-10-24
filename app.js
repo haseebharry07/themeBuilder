@@ -2,6 +2,7 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const themeRoutes = require("./routes/themeRoutes");
+const routeauth = require("./routes/routeauth");
 const connectDB = require("./lib/mongo"); // 👈 import helper
 
 const app = express();
@@ -42,6 +43,8 @@ connectDB();
 
 // Routes
 app.use("/api/theme", themeRoutes);
+app.use("/api/auth", routeauth);
+
 
 // Default route
 app.get("/", (req, res) => res.send("Hello World from Node.js!"));
