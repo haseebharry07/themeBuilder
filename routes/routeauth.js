@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 
@@ -8,17 +9,19 @@ router.get("/oauth/callback", async (req, res) => {
 
   try {
     // Exchange code for access token
-    const tokenRes = await fetch("https://api.msgsndr.com/oauth/token", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
+        const params = new URLSearchParams({
         client_id: process.env.GHL_CLIENT_ID,
         client_secret: process.env.GHL_CLIENT_SECRET,
         grant_type: "authorization_code",
         code,
-        redirect_uri: process.env.GHL_REDIRECT_URI
-      })
-    });
+        redirect_uri: process.env.GHL_REDIRECT_URI,
+        });
+
+        const tokenRes = await fetch("https://api.msgsndr.com/oauth/token", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: params.toString(),
+        });
 
     const data = await tokenRes.json();
 
