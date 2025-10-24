@@ -44,7 +44,9 @@ connectDB();
 // Routes
 app.use("/api/theme", themeRoutes);
 app.use("/api/auth", routeauth);
-
+app.get("/connected", (req, res) => {
+  res.send("✅ Your GHL App is connected successfully!");
+});
 
 // Default route
 app.get("/", (req, res) => res.send("Hello World from Node.js!"));
