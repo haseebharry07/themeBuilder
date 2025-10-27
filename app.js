@@ -47,7 +47,9 @@ app.use("/api/theme", themeRoutes);
 app.use("/api/auth", routeauth);
 
 app.get("/connected", (req, res) => {
-  res.send("✅ Your GHL App is connected successfully!");
+    const access_token = res.access_token;
+    console.log(access_token);
+  res.send("✅ Your GHL App is connected successfully!",access_token);
 });
 
 // Default route

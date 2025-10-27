@@ -1,6 +1,8 @@
 require("dotenv").config();
 const express = require("express");
 const router = express.Router();
+const syncSubaccounts = require("../helpers/syncSubaccounts");
+
 
 router.get("/oauth/callback", async (req, res) => {
   const code = req.query.code;
@@ -31,6 +33,7 @@ router.get("/oauth/callback", async (req, res) => {
     }
 
     console.log("✅ Access Token:", data.access_token);
+    
     res.redirect(`/connected?token=${data.access_token}`);
   } catch (err) {
     console.error("OAuth Callback Error:", err);
@@ -51,7 +54,6 @@ router.get("/oauth/callbackv2", async (req, res) => {
         code,
         redirect_uri: process.env.GHL_REDIRECT_URI_v2,
         });
-
         const tokenRes = await fetch("https://api.msgsndr.com/oauth/token", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -66,6 +68,14 @@ router.get("/oauth/callbackv2", async (req, res) => {
     }
 
     console.log("✅ Access Token:", data.access_token);
+
+    // 🧩 Fetch and store subaccounts right after successful authentication
+    const agencyId = data.userId || data.companyId; // check what GHL returns
+    const appId = process.env.GHL_CLIENT_ID_v2;
+    console.log('AgencyId:',agencyId);
+
+    if (agencyId) await syncSubaccounts(data.access_token, agencyId,appId);
+
     res.redirect(`/connected?token=${data.access_token}`);
   } catch (err) {
     console.error("OAuth Callback Error:", err);
