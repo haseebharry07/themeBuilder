@@ -5,6 +5,7 @@ const themeRoutes = require("./routes/themeRoutes");
 const routeauth = require("./routes/routeauth");
 const connectDB = require("./lib/mongo"); // 👈 import helper
 
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -44,6 +45,7 @@ connectDB();
 // Routes
 app.use("/api/theme", themeRoutes);
 app.use("/api/auth", routeauth);
+
 app.get("/connected", (req, res) => {
   res.send("✅ Your GHL App is connected successfully!");
 });
@@ -61,3 +63,7 @@ app.use((err, req, res, next) => {
 
 // Start server
 app.listen(PORT, () => console.log(`🚀 Server running at http://localhost:${PORT}`));
+
+
+
+
