@@ -3618,60 +3618,77 @@ input[type="submit"],
 }
 
 
-/* 🌿 SIDEBAR TO TOPBAR BELOW HEADER (logo stays in header) */
-.topbar-mode #sidebar-v2 {
+/* 🌿 SIDEBAR AS HORIZONTAL NAV BELOW HEADER */
+.topbar-mode {
+  --sidebar-topbar-height: var(--sidebar-topbar-height, 56px);
+  --sidebar-horizontal-padding: var(--sidebar-horizontal-padding, 1rem);
+  --sidebar-nav-gap: var(--sidebar-nav-gap, 1rem);
+  --sidebar-menu-radius: var(--sidebar-menu-radius, 6px);
+  --sidebar-text-size: var(--sidebar-text-size, 14px);
+  --sidebar-icon-size: var(--sidebar-icon-size, 16px);
+}
+
+/* Position the sidebar bar right BELOW the header */
+.topbar-mode header + #sidebar-v2 {
   position: relative !important;
+  top: 0 !important;
   width: 100% !important;
-  height: var(--sidebar-topbar-height, 56px) !important;
+  height: var(--sidebar-topbar-height) !important;
   display: flex !important;
-  flex-direction: row !important;
   align-items: center !important;
   justify-content: flex-start !important;
   background: var(--top-nav-menu-bg, var(--sidebar-bg-color, #111827)) !important;
   color: var(--top-nav-menu-color, var(--sidebar-menu-color, #fff)) !important;
-  border-top: 1px solid rgba(0,0,0,0.1) !important;
-  padding: 0 var(--sidebar-horizontal-padding, 1rem) !important;
-  z-index: 998 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+  padding: 0 var(--sidebar-horizontal-padding) !important;
+  z-index: 10 !important;
 }
 
-/* sidebar should sit directly BELOW the header */
-.topbar-mode header + #sidebar-v2 {
-  margin-top: 0 !important;
-}
-
-/* menu layout inside sidebar (horizontal bar) */
+/* The navigation items inside */
 .topbar-mode #sidebar-v2 nav[aria-label="header"] {
   display: flex !important;
   flex-direction: row !important;
   align-items: center !important;
-  gap: var(--sidebar-nav-gap, 1rem) !important;
-  width: 100% !important;
+  gap: var(--sidebar-nav-gap) !important;
   height: 100% !important;
+  width: 100% !important;
   overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
 }
 
-/* links style */
+/* Links in the nav */
 .topbar-mode #sidebar-v2 nav[aria-label="header"] a {
   display: inline-flex !important;
   align-items: center !important;
-  padding: 8px 14px !important;
-  border-radius: var(--sidebar-menu-radius, 6px) !important;
-  font-size: var(--sidebar-text-size, 14px) !important;
+  justify-content: center !important;
+  padding: 0 14px !important;
+  height: 100% !important;
+  font-size: var(--sidebar-text-size) !important;
+  border-radius: var(--sidebar-menu-radius) !important;
   color: var(--top-nav-menu-color, #fff) !important;
-  transition: all 0.2s ease;
   text-decoration: none !important;
+  transition: all 0.2s ease;
 }
 
-/* hover + active */
+/* Hover and active states */
 .topbar-mode #sidebar-v2 nav[aria-label="header"] a:hover,
 .topbar-mode #sidebar-v2 nav[aria-label="header"] a.active {
-  background: var(--top-nav-menu-hover-bg, rgba(255,255,255,0.1)) !important;
+  background: var(--top-nav-menu-hover-bg, rgba(255, 255, 255, 0.1)) !important;
   color: var(--top-nav-menu-active-color, #fff) !important;
 }
 
-/* push page content down to make space */
+/* Ensure page content starts below header + nav */
 .topbar-mode body,
 .topbar-mode #app,
 .topbar-mode .main-container {
   padding-top: calc(var(--header-height, 64px) + var(--sidebar-topbar-height, 56px)) !important;
+}
+
+/* Responsive (stack on small screens) */
+@media (max-width: 768px) {
+  .topbar-mode #sidebar-v2 nav[aria-label="header"] {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
 }
