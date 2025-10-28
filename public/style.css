@@ -1,42 +1,3 @@
-/*Loader Code here*/
-/* Override GHL loader background */
-/* #app + .app-loader,
-#app > .hl-loader-container {
-  position: fixed !important;
-  inset: 0 !important;
-  background: linear-gradient(180deg, #0074f7 0%, #00c0f7 100%) !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  z-index: 999999 !important;
-}
-
-#app + .app-loader:not([style*="display: none"]),
-#app > .hl-loader-container:not([style*="display: none"]) {
-  display: flex !important;
-}
-
-#app + .app-loader::after,
-#app > .hl-loader-container::after {
-  content: "";
-  display: block;
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  border: 6px solid #fff;
-  border-top-color: transparent;
-  animation: spinLoader 1s linear infinite;
-}
-
-@keyframes spinLoader {
-  to { transform: rotate(360deg); }
-}
-
-body.loaded #app + .app-loader,
-body.loaded #app > .hl-loader-container {
-  display: none !important;
-} */
-
 @import url(https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Lato:ital,wght@0,400;0,700;1,400;1,700&family=Slabo+27px:ital,wght@0,400;0,700;1,400;1,700&family=Oswald:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,400;1,700&family=Montserrat:ital,wght@0,400;0,700;1,400;1,700&family=Raleway:ital,wght@0,400;0,700;1,400;1,700&family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Roboto+Condensed:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Ubuntu:ital,wght@0,400;0,700;1,400;1,700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,700;1,400;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Titillium+Web:ital,wght@0,400;0,700;1,400;1,700&family=Fira+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Barlow:ital,wght@0,400;0,700;1,400;1,700&family=KoHo:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Inter:wght@100..900&display=swap);@import url(https://ghlcusomizer.s3.amazonaws.com/font_awesome/css/all_with_font.css);
 @import url(https://fonts.googleapis.com/css2?family=Caveat:wght@700&display=swap);
 
@@ -3428,7 +3389,7 @@ nav a#sb_app-media {
 }
 
 .hl_nav-settings {
-  left: 8px;
+    left: 8px;
     width: 201px !important;
     height: 42px;
     border-radius: 17px;
@@ -3657,3 +3618,133 @@ input[type="submit"],
 }
 
 
+/* === TOP NAVBAR USING THEME VARIABLES (wrapped in .topbar-mode) === */
+
+.topbar-mode {
+  /* Ensure topbar always uses variables — fallbacks provided */
+  --sidebar-topbar-height: var(--sidebar-topbar-height, 64px);
+  --sidebar-horizontal-padding: var(--sidebar-horizontal-padding, 1rem);
+  --sidebar-nav-gap: var(--sidebar-nav-gap, 1rem);
+  --sidebar-link-padding: var(--sidebar-link-padding, 12px);
+  --sidebar-menu-opacity: var(--sidebar-menu-opacity, 0.85);
+  --sidebar-menu-radius: var(--sidebar-menu-radius, 6px);
+  --sidebar-topbar-shadow: var(--sidebar-topbar-shadow, 0 2px 5px rgba(0, 0, 0, 0.25));
+  --sidebar-logo-height: var(--sidebar-logo-height, 36px);
+  --sidebar-icon-size: var(--sidebar-icon-size, 16px);
+  --sidebar-text-size: var(--sidebar-text-size, 14px);
+}
+
+/* Topbar root rules */
+.topbar-mode #sidebar-v2 {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: var(--sidebar-topbar-height) !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: var(--top-nav-menu-bg, var(--sidebar-bg-color, #111827)) !important;
+  color: var(--top-nav-menu-color, var(--sidebar-menu-color, #fff)) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06) !important;
+  z-index: 9999 !important;
+  padding: 0 var(--sidebar-horizontal-padding) !important;
+  box-shadow: var(--sidebar-topbar-shadow) !important;
+}
+
+/* internal container horizontal */
+.topbar-mode #sidebar-v2 > .relative {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  overflow: visible !important;
+}
+
+/* logo */
+.topbar-mode #sidebar-v2 .agency-logo-container {
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 !important;
+  margin-right: 1rem !important;
+}
+.topbar-mode #sidebar-v2 .agency-logo-container img {
+  max-height: var(--sidebar-logo-height) !important;
+  width: auto !important;
+}
+
+/* nav row */
+.topbar-mode #sidebar-v2 nav[aria-label="header"] {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  gap: var(--sidebar-nav-gap) !important;
+  height: 100% !important;
+  width: 100% !important;
+  overflow-x: auto !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* links */
+.topbar-mode #sidebar-v2 nav[aria-label="header"] a {
+  display: inline-flex !important;
+  align-items: center !important;
+  padding: 0 var(--sidebar-link-padding) !important;
+  height: calc(var(--sidebar-topbar-height) - 8px) !important;
+  border-radius: var(--sidebar-menu-radius) !important;
+  color: var(--top-nav-menu-color, var(--sidebar-menu-color)) !important;
+  font-size: var(--sidebar-text-size) !important;
+  opacity: var(--sidebar-menu-opacity) !important;
+  transition: background 0.18s ease, color 0.18s ease, opacity 0.18s ease;
+  text-decoration: none !important;
+}
+
+/* hover & active — use top-nav variables first, fall back to sidebar ones */
+.topbar-mode #sidebar-v2 nav[aria-label="header"] a:hover,
+.topbar-mode #sidebar-v2 nav[aria-label="header"] a.active {
+  background: var(--top-nav-menu-hover-bg, var(--sidebar-menu-hover-bg)) !important;
+  color: var(--top-nav-menu-hover-color, var(--sidebar-menu-color)) !important;
+  opacity: 1 !important;
+}
+
+/* explicit active state */
+.topbar-mode #sidebar-v2 nav[aria-label="header"] a.active {
+  background: var(--top-nav-menu-active-bg, var(--sidebar-menu-active-bg)) !important;
+  color: var(--top-nav-menu-active-color, var(--sidebar-menu-icon-active-color)) !important;
+}
+
+/* icon before text */
+.topbar-mode #sidebar-v2 nav[aria-label="header"] a::before {
+  font-size: var(--sidebar-icon-size) !important;
+  margin-right: 8px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  color: var(--sidebar-menu-icon-color) !important;
+}
+
+/* ensure content isn't hidden under topbar */
+.topbar-mode body,
+.topbar-mode #app,
+.topbar-mode .main-container {
+  padding-top: var(--sidebar-topbar-height) !important;
+}
+
+/* mobile wrap */
+@media (max-width: 768px) {
+  .topbar-mode #sidebar-v2 {
+    height: auto !important;
+    padding: 0.5rem !important;
+  }
+  .topbar-mode body,
+  .topbar-mode #app,
+  .topbar-mode .main-container {
+    padding-top: calc(var(--sidebar-topbar-height) + 36px) !important;
+  }
+  .topbar-mode #sidebar-v2 nav[aria-label="header"] {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+  }
+}
