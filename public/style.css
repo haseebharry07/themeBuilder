@@ -3652,35 +3652,3 @@ input[type="submit"],
 }
 
 
-/* Move sidebar to top */
-.hl_nav {
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 60px !important;
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  justify-content: space-around !important;
-  background: #fff !important;
-  z-index: 9999 !important;
-}
-
-/* Style menu items horizontally */
-.hl_nav .nav-item {
-  display: inline-block !important;
-  margin: 0 10px !important;
-}
-
-/* Adjust main content padding so it doesn’t hide behind nav */
-.hl_wrapper,
-#app,
-.hl_app-content {
-  margin-top: 60px !important;
-}
-
-/* Optional: Hide any vertical divider or collapse icons */
-.hl_nav .collapse-icon {
-  display: none !important;
-}
