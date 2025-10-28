@@ -3679,13 +3679,12 @@ input[type="submit"],
 
 /* Menu container */
 .topbar-mode #sidebar-v2 nav[aria-label="header"] {
-    flex-wrap: wrap !important;
-    display: flex !important;
-    flex-direction: row !important;
-    align-items: center !important;
-    /* gap: var(--sidebar-nav-gap) !important; */
-    height: 1% !important;
-    width: auto !important; 
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  flex-wrap: wrap !important; /* ✅ wrap to next line if needed */
+  gap: var(--sidebar-nav-gap) !important;
+  width: 100% !important;
 }
 
 /* Menu links */
