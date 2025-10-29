@@ -149,7 +149,7 @@
 /* --- XXL Screens (1920px+) --- */
 @media (min-width: 1920px) {
   .hl_login--body {
-    width: 85%;
+    width: 25%;
         padding: 40px 30px;
   }
   .hl_login--body::before {
