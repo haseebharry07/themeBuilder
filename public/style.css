@@ -195,7 +195,7 @@
     margin-right: var(--login-logo-margin-right);
     width: var(--login-logo-width);
     height: var(--login-logo-height);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     background-image: var(--login-company-logo);
@@ -388,7 +388,7 @@
     content: "";
     width: 200px;
     height: 60px;
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     background-image: var(--login-company-logo);
