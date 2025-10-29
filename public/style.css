@@ -30,6 +30,7 @@
 
   /* === Style the Login Card === */
   .hl_login--body .card {
+    left: 28%;
     position: relative !important;
     width: var(--login-card-width, 480px) !important;
     max-width: 90% !important;
@@ -83,6 +84,9 @@
     font-size: 13px !important;
   }
 }
+
+/*New Login Css ends here*/
+
 
 :root {
   --login-headline-font: Poppins;
@@ -170,7 +174,7 @@
 }
 @media only screen and (min-width: 1080px) {
   .hl_login--header {
-    display: flex;
+    display: none;
     padding: 0;
     margin: 0;
     background: transparent;
