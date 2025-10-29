@@ -164,6 +164,7 @@
 /* --- Large Screens (1440px - 1919px) --- */
 @media (max-width: 1919px) and (min-width: 1280px) {
   .hl_login--body {
+    padding: 13px 6px;
     width: 460px;
   }
 }
