@@ -37,13 +37,31 @@
   color: #fff;
 }
 
-/* === GREEN DIAGONAL BACKGROUND INSIDE THE CARD === */
-.hl_login--body::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, #00c853 50%, white 50%);
-  z-index: 0;
+/* === PAGE BACKGROUND WITH DIAGONAL === */
+.hl_login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  font-family: "Inter", "Poppins", sans-serif;
+  background: linear-gradient(135deg, #00c853 50%, #ffffff 50%);
+}
+
+/* === BLACK CARD === */
+.hl_login--body {
+  position: relative;
+  background: #111;
+  border-radius: 12px;
+  padding: 60px 0;
+  width: 440px;
+  max-width: 90%;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+  color: #fff;
 }
 
 /* === INNER WHITE FORM AREA === */
