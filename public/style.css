@@ -209,7 +209,7 @@
     font-family: var(--login-body-font) !important;
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     background: var(--login-background-active) !important;
@@ -401,7 +401,7 @@
   .hl_login {
     height: 100vh;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content: center;
     align-items: center;
     background-image: var(--login-background-image);
