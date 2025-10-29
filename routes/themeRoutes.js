@@ -138,138 +138,113 @@ router.get("/merged-css", async (req, res) => {
     }
 
     const themeData = theme.themeData || {};
+    const selectedTheme = theme?.selectedTheme || "";
+
+    // ✅ Theme-based login CSS logic (simplified & fast)
+    let logincss = "";
+    const themeCssFiles = {
+      "ForestGreen Theme": "whitegreenlogin.css",
+      "GlitchGone Theme": "glitchgonelogin.css",
+    };
+
+    if (themeCssFiles[selectedTheme]) {
+      const cssFilePath = path.join(__dirname, "../public", themeCssFiles[selectedTheme]);
+      try {
+        logincss = await fs.promises.readFile(cssFilePath, "utf8");
+      } catch (err) {
+        console.error(`⚠️ Could not read ${themeCssFiles[selectedTheme]}:`, err);
+      }
+    }
 
     // ✅ Helper: Pulsating Logo CSS
     const generatePulsatingLogoCSS = (logoUrl) => `
-        /* Hide platform default loaders only */
-        .hl-loader-container,
-        .lds-ring,
-        .app-loader,
-        #app + .app-loader,
-        #app.loading + .app-loader {
-            display: none !important;
-        }
+      /* Hide platform default loaders */
+      .hl-loader-container, .lds-ring, .app-loader,
+      #app + .app-loader, #app.loading + .app-loader {
+        display: none !important;
+      }
 
-        /* Custom loader */
-        #custom-global-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(180deg, #0074f7 0%, #00c0f7 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999999;
-        }
+      #custom-global-loader {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100vh;
+        background: linear-gradient(180deg, #0074f7 0%, #00c0f7 100%);
+        display: flex; justify-content: center; align-items: center;
+        z-index: 999999;
+      }
 
-        /* Loader content */
-        #custom-global-loader::before {
-            content: "";
-            width: 120px;
-            height: 120px;
-            background-image: url("${logoUrl}") !important;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            animation: fadeIn 1s ease-in-out infinite alternate;
-        }
+      #custom-global-loader::before {
+        content: "";
+        width: 120px; height: 120px;
+        background: url("${logoUrl}") center/contain no-repeat;
+        animation: fadeIn 1s ease-in-out infinite alternate;
+      }
 
-        /* Fade animation */
-        @keyframes fadeIn {
-          0% { opacity: 0.7; transform: scale(0.95); }
-          100% { opacity: 1; transform: scale(1.05); }
-        }
+      @keyframes fadeIn {
+        0% { opacity: 0.7; transform: scale(0.95); }
+        100% { opacity: 1; transform: scale(1.05); }
+      }
     `;
 
     // ✅ Helper: Bouncing Logo CSS
     const generateBouncingLogoCSS = (logoUrl) => `
-        /* Hide platform default loaders only */
-        .hl-loader-container,
-        .lds-ring,
-        .app-loader,
-        #app + .app-loader,
-        #app.loading + .app-loader {
-            display: none !important;
-        }
+      .hl-loader-container, .lds-ring, .app-loader,
+      #app + .app-loader, #app.loading + .app-loader {
+        display: none !important;
+      }
 
-        /* Custom loader */
-        #custom-global-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(180deg, #0074f7 0%, #00c0f7 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 999999;
-        }
+      #custom-global-loader {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100vh;
+        background: linear-gradient(180deg, #0074f7 0%, #00c0f7 100%);
+        display: flex; justify-content: center; align-items: center;
+        z-index: 999999;
+      }
 
-        /* Loader content */
-        #custom-global-loader::before {
-            content: "";
-            width: 120px;
-            height: 120px;
-            background-image: url("${logoUrl}") !important;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            animation: bounceLogo 1s ease-in-out infinite;
-        }
+      #custom-global-loader::before {
+        content: "";
+        width: 120px; height: 120px;
+        background: url("${logoUrl}") center/contain no-repeat;
+        animation: bounceLogo 1s ease-in-out infinite;
+      }
 
-        /* Bounce animation */
-        @keyframes bounceLogo {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            25% {
-                transform: translateY(-30px);
-            }
-            50% {
-                transform: translateY(0);
-            }
-            75% {
-                transform: translateY(-15px);
-            }
-        }
+      @keyframes bounceLogo {
+        0%, 100% { transform: translateY(0); }
+        25% { transform: translateY(-30px); }
+        50% { transform: translateY(0); }
+        75% { transform: translateY(-15px); }
+      }
     `;
 
-    let loaderCSS = "";
-
-    // ✅ Check for company logo loader
+    // ✅ Select Loader
     const companyLogoUrl = themeData["--loader-company-url"];
     const animationSetting = themeData["--animation-settings"];
 
+    let loaderCSS = "";
     if (companyLogoUrl && companyLogoUrl.trim() !== "") {
-      // Use correct animation CSS
-      if (animationSetting === "BouncingLogo") {
-        loaderCSS = generateBouncingLogoCSS(companyLogoUrl);
-      } else {
-        // Default to Pulsating
-        loaderCSS = generatePulsatingLogoCSS(companyLogoUrl);
-      }
+      loaderCSS =
+        animationSetting === "BouncingLogo"
+          ? generateBouncingLogoCSS(companyLogoUrl)
+          : generatePulsatingLogoCSS(companyLogoUrl);
     } else {
-      // Otherwise, fallback to DB loader
       const activeLoader = await AgencyLoader.findOne({ agencyId, isActive: true });
       loaderCSS = activeLoader?.loaderCSS || "";
     }
 
-    // ✅ Read main CSS file
+    // ✅ Read main CSS
     const cssFilePath = path.join(__dirname, "../public/style.css");
     const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
 
-    // ✅ Convert themeData to CSS variables
+    // ✅ Dynamic theme variables
     const dynamicVariables = Object.entries(themeData)
       .map(([key, value]) => `${key}: ${value};`)
       .join("\n");
 
-    // ✅ Merge all CSS together
+    // ✅ Merge all CSS
     const finalCss = `
 ${loaderCSS}
-
+${logincss}
 :root {
 ${dynamicVariables}
 }
@@ -285,6 +260,7 @@ ${cssContent}
     res.status(500).json({ message: "Server Error merging CSS" });
   }
 });
+
 
 // 🟢 Create or update a loader for an agency
 router.post("/loader-css", async (req, res) => {
