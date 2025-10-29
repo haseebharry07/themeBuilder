@@ -9,7 +9,81 @@
   /* display: none !important; */
   background-image: var(--login-background-gradient-color) !important;
 }
-  
+  @media only screen and (min-width: 1080px) {
+  /* === Move Login Card to Right Side === */
+  .hl_login {
+    display: flex !important;
+    justify-content: flex-end !important;
+    align-items: center !important;
+    height: 100vh !important;
+    background: var(--login-background-active, linear-gradient(180deg, #0E0E0E 0%, #1A1A1A 50%, #2B2B2B 100%)) !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    padding-right: var(--login-layout-padding-right, 8%) !important;
+  }
+
+  /* === Remove Default GHL Logo (to avoid duplicates) === */
+  .hl_login--body .logo,
+  .hl_login--body img[alt*="logo"] {
+    display: none !important;
+  }
+
+  /* === Style the Login Card === */
+  .hl_login--body .card {
+    position: relative !important;
+    width: var(--login-card-width, 480px) !important;
+    max-width: 90% !important;
+    border-radius: var(--login-card-border-radius, 22px) !important;
+    box-shadow: var(--login-card-box-shadow, 0 8px 30px rgba(0, 0, 0, 0.4)) !important;
+    background: rgba(15, 15, 15, 0.9) !important;
+    padding: 80px 40px 40px !important;
+    text-align: center !important;
+  }
+
+  /* === Add Custom Logo Above Card === */
+  .hl_login--body .card::before {
+    content: "";
+    position: absolute;
+    top: calc(-1 * var(--login-logo-space, 50px));
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--login-logo-width, 140px);
+    height: var(--login-logo-height, 70px);
+    background-image: var(--login-company-logo);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: var(--login-logo-filter, drop-shadow(0 2px 6px rgba(212,175,55,0.3)));
+  }
+
+  /* === Inputs === */
+  .hl_login--body input.hl-text-input {
+    background: var(--login-input-bg-color, #0E0E0E) !important;
+    border: 1px solid var(--login-input-border-color, #333333) !important;
+    color: var(--login-input-text-color, #FFFFFF) !important;
+    border-radius: var(--login-input-border-radius, 10px) !important;
+  }
+
+  /* === Button === */
+  .hl_login--body button.hl-btn {
+    border-radius: var(--login-button-border-radius, 12px) !important;
+    color: var(--login-button-text-color, #FFFFFF) !important;
+    background: linear-gradient(90deg, #555 0%, #D4AF37 100%) !important;
+    transition: all 0.3s ease !important;
+  }
+
+  .hl_login--body button.hl-btn:hover {
+    background: var(--login-button-hover-bg-color, #D4AF37) !important;
+    color: var(--login-button-hover-text-color, #0E0E0E) !important;
+  }
+
+  /* === Footer Text === */
+  .hl_login--body .foot-note {
+    color: var(--login-footer-text-color, #BFA76B) !important;
+    font-size: 13px !important;
+  }
+}
+
 :root {
   --login-headline-font: Poppins;
   --login-body-font: Work Sans;
@@ -3720,77 +3794,3 @@ input[type="submit"],
 }
 
 
-@media only screen and (min-width: 1080px) {
-  /* === Move Login Card to Right Side === */
-  .hl_login {
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    height: 100vh !important;
-    background: var(--login-background-active, linear-gradient(180deg, #0E0E0E 0%, #1A1A1A 50%, #2B2B2B 100%)) !important;
-    background-size: cover !important;
-    background-position: center center !important;
-    padding-right: var(--login-layout-padding-right, 8%) !important;
-  }
-
-  /* === Remove Default GHL Logo (to avoid duplicates) === */
-  .hl_login--body .logo,
-  .hl_login--body img[alt*="logo"] {
-    display: none !important;
-  }
-
-  /* === Style the Login Card === */
-  .hl_login--body .card {
-    position: relative !important;
-    width: var(--login-card-width, 480px) !important;
-    max-width: 90% !important;
-    border-radius: var(--login-card-border-radius, 22px) !important;
-    box-shadow: var(--login-card-box-shadow, 0 8px 30px rgba(0, 0, 0, 0.4)) !important;
-    background: rgba(15, 15, 15, 0.9) !important;
-    padding: 80px 40px 40px !important;
-    text-align: center !important;
-  }
-
-  /* === Add Custom Logo Above Card === */
-  .hl_login--body .card::before {
-    content: "";
-    position: absolute;
-    top: calc(-1 * var(--login-logo-space, 50px));
-    left: 50%;
-    transform: translateX(-50%);
-    width: var(--login-logo-width, 140px);
-    height: var(--login-logo-height, 70px);
-    background-image: var(--login-company-logo);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    filter: var(--login-logo-filter, drop-shadow(0 2px 6px rgba(212,175,55,0.3)));
-  }
-
-  /* === Inputs === */
-  .hl_login--body input.hl-text-input {
-    background: var(--login-input-bg-color, #0E0E0E) !important;
-    border: 1px solid var(--login-input-border-color, #333333) !important;
-    color: var(--login-input-text-color, #FFFFFF) !important;
-    border-radius: var(--login-input-border-radius, 10px) !important;
-  }
-
-  /* === Button === */
-  .hl_login--body button.hl-btn {
-    border-radius: var(--login-button-border-radius, 12px) !important;
-    color: var(--login-button-text-color, #FFFFFF) !important;
-    background: linear-gradient(90deg, #555 0%, #D4AF37 100%) !important;
-    transition: all 0.3s ease !important;
-  }
-
-  .hl_login--body button.hl-btn:hover {
-    background: var(--login-button-hover-bg-color, #D4AF37) !important;
-    color: var(--login-button-hover-text-color, #0E0E0E) !important;
-  }
-
-  /* === Footer Text === */
-  .hl_login--body .foot-note {
-    color: var(--login-footer-text-color, #BFA76B) !important;
-    font-size: 13px !important;
-  }
-}
