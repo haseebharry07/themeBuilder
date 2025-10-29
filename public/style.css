@@ -10,19 +10,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
-  overflow: hidden;
-  position: relative;
-  background: linear-gradient(135deg, #00c853 50%, #fff 50%);
+  background: #ffffff; /* page background white */
   font-family: "Inter", "Poppins", sans-serif;
-}
-
-/* === RESPONSIVE BACKGROUND ADJUSTMENT === */
-@media (max-width: 768px) {
-  .hl_login {
-    background: linear-gradient(145deg, #00c853 55%, #fff 45%);
-  }
 }
 
 /* === HIDE ORIGINAL HEADER LOGO === */
@@ -30,79 +21,83 @@
   display: none !important;
 }
 
-/* === LOGIN FORM CONTAINER (BLACK CARD) === */
+/* === LOGIN CARD (outer structure) === */
 .hl_login--body {
   position: relative;
   background: #111;
-  color: #fff;
   border-radius: 12px;
-  padding: 60px 50px;
-  width: 400px;
+  padding: 60px 0;
+  width: 440px;
   max-width: 90%;
-  box-shadow: 0 0 30px rgba(0, 0, 0, 0.4);
-  z-index: 2;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow: hidden;
+  color: #fff;
 }
 
-/* === CUSTOM LOGO ABOVE FORM === */
+/* === GREEN DIAGONAL BACKGROUND INSIDE THE CARD === */
 .hl_login--body::before {
   content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #00c853 50%, white 50%);
+  z-index: 0;
+}
+
+/* === INNER WHITE FORM AREA === */
+.hl_login--body .card {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  border-radius: 10px;
+  padding: 40px 30px;
+  width: 80%;
+  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+/* === LOGO ABOVE FORM === */
+.hl_login--body .card::before {
+  content: "";
   display: block;
-  width: 100px;
-  height: 100px;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 25px;
   background: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png")
     center center / contain no-repeat;
-  margin-bottom: 25px;
 }
 
 /* === HEADINGS === */
 .login-card-heading h2 {
   color: #00c853;
   font-weight: 700;
-  font-size: 24px;
+  font-size: 22px;
   margin-bottom: 20px;
-  text-align: center;
 }
 
-/* === INPUT FIELDS === */
+/* === INPUTS === */
 .hl-text-input-container {
-  width: 100%;
   margin-bottom: 18px;
 }
 .hl-text-input {
   width: 100%;
-  padding: 12px 14px;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
   border-radius: 8px;
-  border: 1px solid #333;
-  background: #000;
-  color: #fff;
+  padding: 12px 14px;
   font-size: 14px;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  color: #000;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 .hl-text-input:focus {
   outline: none;
   border-color: #00c853;
-  box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.2);
+  box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.25);
 }
 
-/* === FORGOT PASSWORD LINK === */
-.forgot-password {
-  width: 100%;
-  text-align: right;
-  display: block;
-  color: #00c853;
-  font-size: 13px;
-  text-decoration: none;
-  margin-top: -5px;
-  margin-bottom: 20px;
-}
-.forgot-password:hover {
-  text-decoration: underline;
-}
-
-/* === SIGN-IN BUTTON === */
+/* === BUTTON === */
 .hl_login--body button[type="submit"] {
   background-color: #00c853;
   border: none;
@@ -110,22 +105,35 @@
   padding: 12px;
   font-size: 15px;
   font-weight: 600;
-  color: #000;
-  width: 100%;
+  color: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  width: 100%;
+  transition: background-color 0.3s, transform 0.2s;
 }
 .hl_login--body button[type="submit"]:hover {
   background-color: #00e676;
   transform: translateY(-2px);
 }
 
-/* === FOOTER NOTE === */
+/* === LINKS === */
+.forgot-password {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  color: #00c853;
+  margin-top: -10px;
+  margin-bottom: 20px;
+}
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* === FOOT NOTE === */
 .foot-note {
-  margin-top: 20px;
   text-align: center;
   font-size: 13px;
-  color: #aaa;
+  color: #666;
+  margin-top: 25px;
 }
 .foot-note a {
   color: #00c853;
@@ -135,33 +143,23 @@
   text-decoration: underline;
 }
 
-/* === RESPONSIVE DESIGN === */
+/* === RESPONSIVE === */
 @media (max-width: 600px) {
   .hl_login--body {
-    padding: 40px 25px;
+    padding: 40px 0;
+    width: 90%;
   }
 
-  .hl_login--body::before {
-    width: 80px;
-    height: 80px;
+  .hl_login--body .card {
+    padding: 30px 20px;
+  }
+
+  .hl_login--body .card::before {
+    width: 70px;
+    height: 70px;
     margin-bottom: 20px;
   }
-
-  .login-card-heading h2 {
-    font-size: 20px;
-  }
-
-  .hl-text-input {
-    font-size: 13px;
-    padding: 10px 12px;
-  }
-
-  .hl_login--body button[type="submit"] {
-    font-size: 14px;
-    padding: 10px;
-  }
 }
-
 
 
 
