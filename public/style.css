@@ -220,6 +220,29 @@
     padding: 10px;
   }
 }
+/* Force logo inside right form panel */
+.hl_login--header {
+  position: absolute !important;
+  top: 40px;
+  right: 0;
+  left: auto;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.hl_login--header img {
+  max-height: 75px !important;
+  width: auto;
+}
+
+/* Target the form wrapper to become the reference container */
+.hl_login--body {
+  position: relative !important;
+}
 
 
 /* Remove loading */
