@@ -142,8 +142,8 @@
 /* --- XXL Screens (1920px+) --- */
 @media (min-width: 1920px) {
   .hl_login--body {
-    width: 500px;
-    padding: 60px 70px;
+    width: 85%;
+        padding: 40px 30px;
   }
   .hl_login--body::before {
     width: 110px;
@@ -167,8 +167,8 @@
     padding: 40px;
   }
   .hl_login--body {
-    width: 420px;
-    padding: 45px 40px;
+   width: 85%;
+        padding: 40px 30px;
   }
   .hl_login--body::before {
     width: 90px;
@@ -197,8 +197,8 @@
     padding: 25px;
   }
   .hl_login--body {
-    width: 90%;
-    padding: 35px 25px;
+    width: 85%;
+        padding: 40px 30px;
   }
   .hl_login--body::before {
     width: 70px;
