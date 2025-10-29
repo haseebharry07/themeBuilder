@@ -110,7 +110,14 @@
   background-color: #00e676 !important;
   transform: translateY(-2px);
 }
-
+.hl_login--body .card .card-body {
+    background-color: #111111;
+    max-width: 430px;
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
 /* === FOOT NOTE === */
 .foot-note {
   margin-top: 20px;
