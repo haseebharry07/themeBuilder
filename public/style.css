@@ -5,6 +5,137 @@
   display: none !important;
 }
 
+/* === FULL PAGE BACKGROUND (green diagonal) === */
+.hl_login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #00c853 50%, #ffffff 50%);
+  font-family: "Poppins", "Inter", sans-serif;
+  overflow: hidden;
+}
+
+/* === HIDE HEADER LOGO === */
+.hl_login--header {
+  display: none !important;
+}
+
+/* === BLACK LOGIN CARD === */
+.hl_login--body {
+  background: #111;
+  border-radius: 4px;
+  padding: 40px 50px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+  width: 400px;
+  max-width: 90%;
+  color: #fff;
+  text-align: center;
+  position: relative;
+}
+
+/* === ADD LOGO ABOVE FORM === */
+.hl_login--body::before {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 25px;
+  background: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png")
+    center center / contain no-repeat;
+}
+
+/* === HEADING === */
+.login-card-heading h2 {
+  color: #00c853;
+  font-weight: 700;
+  font-size: 22px;
+  margin-bottom: 25px;
+}
+
+/* === INPUTS === */
+.hl-text-input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #444;
+  border-radius: 4px;
+  padding: 10px 12px;
+  font-size: 14px;
+  color: #fff;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.hl-text-input::placeholder {
+  color: #aaa;
+}
+
+.hl-text-input:focus {
+  outline: none;
+  border-color: #00c853;
+  box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.2);
+}
+
+/* === FORGOT PASSWORD LINK === */
+.forgot-password {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  color: #00c853;
+  margin-bottom: 20px;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* === SUBMIT BUTTON === */
+.hl_login--body button[type="submit"],
+.hl-btn {
+  background-color: #00c853 !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 0;
+  font-size: 15px;
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.hl_login--body button[type="submit"]:hover,
+.hl-btn:hover {
+  background-color: #00e676 !important;
+  transform: translateY(-2px);
+}
+
+/* === FOOT NOTE === */
+.foot-note {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #ccc;
+}
+.foot-note a {
+  color: #00c853;
+  text-decoration: none;
+}
+.foot-note a:hover {
+  text-decoration: underline;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 600px) {
+  .hl_login--body {
+    width: 90%;
+    padding: 30px 25px;
+  }
+}
+
+
+
+
 /* Remove loading */
 html body::after {
   display: none !important;
