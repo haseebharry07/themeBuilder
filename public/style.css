@@ -3720,110 +3720,77 @@ input[type="submit"],
 }
 
 
-/* ==============================
-   UNIVERSAL LOGIN LAYOUT SYSTEM
-   Works for all GHL themes
-============================== */
 @media only screen and (min-width: 1080px) {
-  /* === Login Page Full Screen Layout === */
+  /* === Move Login Card to Right Side === */
   .hl_login {
     display: flex !important;
-    justify-content: flex-end !important; /* ✅ Moves card to right */
+    justify-content: flex-end !important;
     align-items: center !important;
-    min-height: 100vh !important;
-    background: var(--login-bg-gradient, var(--bg-gradient, #f0f4f8)) !important;
+    height: 100vh !important;
+    background: var(--login-background-active, linear-gradient(180deg, #0E0E0E 0%, #1A1A1A 50%, #2B2B2B 100%)) !important;
     background-size: cover !important;
-    background-position: center !important;
-    font-family: var(--login-body-font, var(--body-font, "Poppins")) !important;
-    padding-right: var(--login-layout-padding-right, 6%) !important;
+    background-position: center center !important;
+    padding-right: var(--login-layout-padding-right, 8%) !important;
   }
 
-  /* === Login Card Styling === */
+  /* === Remove Default GHL Logo (to avoid duplicates) === */
+  .hl_login--body .logo,
+  .hl_login--body img[alt*="logo"] {
+    display: none !important;
+  }
+
+  /* === Style the Login Card === */
   .hl_login--body .card {
     position: relative !important;
-    width: var(--login-card-width, 420px) !important;
+    width: var(--login-card-width, 480px) !important;
     max-width: 90% !important;
-    border-radius: var(--login-card-border-radius, 20px) !important;
-    background: var(--login-card-bg-color, #ffffff) !important;
-    background-image: var(--login-card-bg-gradient, none) !important;
-    box-shadow: var(--login-card-box-shadow, 0 8px 25px rgba(0,0,0,0.15)) !important;
-    border: var(--login-card-border-width, 0) solid var(--login-card-border-color, transparent) !important;
+    border-radius: var(--login-card-border-radius, 22px) !important;
+    box-shadow: var(--login-card-box-shadow, 0 8px 30px rgba(0, 0, 0, 0.4)) !important;
+    background: rgba(15, 15, 15, 0.9) !important;
+    padding: 80px 40px 40px !important;
     text-align: center !important;
-    padding: var(--login-card-padding, 60px 40px 40px) !important;
-    overflow: visible !important;
   }
 
-  /* === Logo Inside the Card === */
+  /* === Add Custom Logo Above Card === */
   .hl_login--body .card::before {
     content: "";
     position: absolute;
-    top: var(--login-logo-offset-top, -60px);
+    top: calc(-1 * var(--login-logo-space, 50px));
     left: 50%;
     transform: translateX(-50%);
-    width: var(--login-logo-width, 120px);
-    height: var(--login-logo-height, 60px);
-    background-image: var(--login-company-logo, none);
+    width: var(--login-logo-width, 140px);
+    height: var(--login-logo-height, 70px);
+    background-image: var(--login-company-logo);
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    filter: var(--login-logo-filter, none);
-  }
-
-  /* Create space under logo so it doesn’t overlap */
-  .hl_login--body .card-body {
-    margin-top: var(--login-logo-space, 40px) !important;
+    filter: var(--login-logo-filter, drop-shadow(0 2px 6px rgba(212,175,55,0.3)));
   }
 
   /* === Inputs === */
   .hl_login--body input.hl-text-input {
-    border-radius: var(--login-input-border-radius, 12px) !important;
-    border-width: var(--login-input-border-width, 1px) !important;
-    border-style: var(--login-input-border-style, solid) !important;
-    border-color: var(--login-input-border-color, #ccc) !important;
-    background: var(--login-input-bg-color, #fff) !important;
-    color: var(--login-input-text-color, #000) !important;
-    font-size: var(--login-input-font-size, 15px) !important;
-    padding: 12px 14px !important;
-    transition: 0.2s ease;
+    background: var(--login-input-bg-color, #0E0E0E) !important;
+    border: 1px solid var(--login-input-border-color, #333333) !important;
+    color: var(--login-input-text-color, #FFFFFF) !important;
+    border-radius: var(--login-input-border-radius, 10px) !important;
   }
 
-  .hl_login--body input.hl-text-input:focus {
-    outline: none !important;
-    border-color: var(--primary-color, #2563eb) !important;
-    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color, #2563eb) 25%, transparent);
+  /* === Button === */
+  .hl_login--body button.hl-btn {
+    border-radius: var(--login-button-border-radius, 12px) !important;
+    color: var(--login-button-text-color, #FFFFFF) !important;
+    background: linear-gradient(90deg, #555 0%, #D4AF37 100%) !important;
+    transition: all 0.3s ease !important;
   }
 
-  /* === Buttons === */
-  .hl_login--body .hl-btn {
-    border-radius: var(--login-button-border-radius, 10px) !important;
-    font-size: var(--login-button-font-size, 18px) !important;
-    background: var(--login-button-bg-gradient, var(--primary-color, #2563eb)) !important;
-    color: var(--login-button-text-color, #fff) !important;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-
-  .hl_login--body .hl-btn:hover {
-    background: var(--login-button-hover-bg-color, #1e3a8a) !important;
-    color: var(--login-button-hover-text-color, #fff) !important;
+  .hl_login--body button.hl-btn:hover {
+    background: var(--login-button-hover-bg-color, #D4AF37) !important;
+    color: var(--login-button-hover-text-color, #0E0E0E) !important;
   }
 
   /* === Footer Text === */
   .hl_login--body .foot-note {
-    color: var(--login-footer-text-color, rgba(255,255,255,0.8)) !important;
-    font-size: var(--login-footer-font-size, 14px) !important;
-  }
-
-  /* === Responsiveness === */
-  @media (max-width: 1079px) {
-    .hl_login {
-      justify-content: center !important;
-      padding-right: 0 !important;
-    }
-
-    .hl_login--body .card::before {
-      top: var(--login-logo-offset-top-mobile, -40px);
-      width: var(--login-logo-width-mobile, 100px);
-      height: var(--login-logo-height-mobile, 50px);
-    }
+    color: var(--login-footer-text-color, #BFA76B) !important;
+    font-size: 13px !important;
   }
 }
