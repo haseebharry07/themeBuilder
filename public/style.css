@@ -220,30 +220,34 @@
     padding: 10px;
   }
 }
-/* Force logo inside right form panel */
+/* === CUSTOM LOGO ABOVE LOGIN FORM (CSS-ONLY METHOD) === */
+
+/* Hide the default header logo completely */
 .hl_login--header {
-  position: absolute !important;
-  top: 40px;
-  right: 0;
-  left: auto;
-  transform: translateX(-50%);
-  width: 100%;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  pointer-events: none;
+  display: none !important;
 }
 
-.hl_login--header img {
-  max-height: 75px !important;
-  width: auto;
+/* Add new custom logo above form */
+.hl_login--body::before {
+  content: "";
+  display: block;
+  width: 120px;
+  height: 75px;
+  margin: 0 auto 25px auto; /* centers and adds space below */
+  background-image: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
-/* Target the form wrapper to become the reference container */
-.hl_login--body {
-  position: relative !important;
+/* Responsive version for tablets and mobiles */
+@media (max-width: 768px) {
+  .hl_login--body::before {
+    width: 90px;
+    height: 55px;
+    margin-bottom: 20px;
+  }
 }
-
 
 /* Remove loading */
 html body::after {
