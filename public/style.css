@@ -5,45 +5,6 @@
   display: none !important;
 }
 
-/* Ensure right section (form area) is relatively positioned */
-body #app > div > div:last-child {
-  position: relative !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-/* Move the logo to the top of the form area */
-#login-logo {
-  position: absolute !important;
-  top: 40px; /* adjust spacing from top */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: flex !important;
-  justify-content: center;
-  align-items: center;
-  width: 120px;
-  height: auto;
-}
-
-/* Make sure the logo image scales nicely */
-#login-logo img {
-  width: 100%;
-  height: auto;
-  max-width: 120px;
-}
-
-/* Responsive adjustment for smaller screens */
-@media (max-width: 768px) {
-  #login-logo {
-    position: relative !important;
-    top: 20px;
-    transform: none;
-    margin-bottom: 20px;
-  }
-}
 
 /* === BASE STYLES === */
 .hl_login {
@@ -103,13 +64,25 @@ body #app > div > div:last-child {
   color: #fff;
 }
 
-/* === LOGO === */
+/* === LOGO (Fixed Position on Top of Form) === */
 .hl_login--header {
-  position: absolute;
+  position: absolute !important;
   top: 40px;
   left: 50%;
   transform: translateX(-50%);
-  text-align: center;
+  z-index: 10;
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  pointer-events: none; /* so logo doesn’t block inputs */
+}
+
+.hl_login--header img {
+  max-height: 75px !important;
+  width: auto;
+  height: auto;
+  filter: none !important;
 }
 .hl_login--header img {
   max-height: 70px;
@@ -218,10 +191,12 @@ body #app > div > div:last-child {
     padding: 50px 30px;
   }
 
-  .hl_login--header {
-    position: static;
-    transform: none;
-    margin-bottom: 20px;
+ .hl_login--header {
+  position: relative !important;
+  transform: none !important;
+  top: 0 !important;
+  margin-bottom: 20px !important;
+  pointer-events: none;
   }
 }
 
