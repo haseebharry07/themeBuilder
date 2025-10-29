@@ -1,0 +1,148 @@
+
+
+/* === FULL LOGIN PAGE BACKGROUND === */
+.hl_login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background: #fff url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png")
+    repeat center center;
+  background-size: clamp(100px, 12vw, 220px);
+  font-family: "Inter", "Poppins", sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* === HIDE DEFAULT HEADER LOGO === */
+.hl_login--header {
+  display: none !important;
+}
+
+/* === LOGIN CARD === */
+.hl_login--body {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: clamp(24px, 3vw, 50px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  width: 40%;
+  color: #1d1d1f;
+  text-align: center;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+/* === MAIN LOGO ABOVE FORM === */
+.hl_login--body::before {
+  content: "";
+  display: block;
+  width: clamp(60px, 8vw, 90px);
+  height: clamp(60px, 8vw, 90px);
+  margin: 0 auto clamp(20px, 2vw, 30px);
+  background: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png")
+    center center / contain no-repeat;
+}
+
+/* === HEADING === */
+.login-card-heading h2 {
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 600;
+  color: #1d1d1f;
+  margin-bottom: clamp(18px, 2vw, 30px);
+}
+
+/* === INPUT FIELDS === */
+.hl-text-input {
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: clamp(10px, 1.2vw, 12px);
+  font-size: clamp(14px, 1vw, 15px);
+  margin-bottom: 16px;
+  color: #333;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+.hl-text-input::placeholder {
+  color: #999;
+}
+.hl-text-input:focus {
+  border-color: #f44336;
+  box-shadow: 0 0 0 3px rgba(244, 67, 54, 0.15);
+  outline: none;
+}
+
+/* === FORGOT PASSWORD === */
+.forgot-password {
+  display: block;
+  text-align: right;
+  font-size: clamp(12px, 1vw, 13px);
+  color: #f44336;
+  margin-bottom: 20px;
+  text-decoration: none;
+}
+.forgot-password:hover {
+  text-decoration: underline;
+}
+
+/* === SIGN-IN BUTTON === */
+.hl_login--body button[type="submit"],
+.hl-btn {
+  background-color: #f44336 !important;
+  color: #fff !important;
+  border: none;
+  border-radius: 6px;
+  padding: clamp(10px, 1.2vw, 12px) 0;
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 600;
+  width: 100%;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+.hl_login--body button[type="submit"]:hover,
+.hl-btn:hover {
+  background-color: #d32f2f !important;
+  transform: translateY(-2px);
+}
+
+/* === FOOT NOTE === */
+.foot-note {
+  font-size: clamp(12px, 1vw, 13px);
+  color: #777;
+  margin-top: 20px;
+}
+.foot-note a {
+  color: #f44336;
+  text-decoration: none;
+}
+.foot-note a:hover {
+  text-decoration: underline;
+}
+
+/* === RESPONSIVE OPTIMIZATION === */
+@media (max-width: 768px) {
+  .hl_login {
+    background-size: clamp(80px, 15vw, 150px);
+  }
+  .hl_login--body {
+    width: 90%;
+    padding: 30px 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hl_login {
+    background-size: 100px;
+    padding: 15px;
+  }
+  .hl_login--body {
+    width: 100%;
+    padding: 25px 20px;
+  }
+}
+
+
+
