@@ -371,7 +371,7 @@
 /* For mobile device */
 @media only screen and (max-width: 1079px) {
   .hl_login--header {
-    display: flex;
+    display: none;
     padding: 0;
     margin: 0;
     background: transparent;
