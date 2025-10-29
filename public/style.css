@@ -435,7 +435,15 @@
     color: var(--login-link-text-color);
   }
 }
-
+.hl_login .card {
+    background: var(--login-card-bg-gradient) !important;
+}
+.hl_login .card {
+    background: var(--login-card-bg-gradient) !important;
+    border: none !important;         /* remove border */
+    box-shadow: none !important;     /* remove faint shadow line */
+    background-clip: border-box;     /* ensures gradient covers full area */
+}
 /* Remove loading */
 html body::after {
   display: none !important;
@@ -3545,15 +3553,7 @@ nav a[id="sb_AI Agents"],
 body {
   font-family: var(--body-font, Arial, sans-serif);
 }
-.hl_login .card {
-    background: var(--login-card-bg-gradient) !important;
-}
-.hl_login .card {
-    background: var(--login-card-bg-gradient) !important;
-    border: none !important;         /* remove border */
-    box-shadow: none !important;     /* remove faint shadow line */
-    background-clip: border-box;     /* ensures gradient covers full area */
-}
+
 nav.flex-1.w-full a .tb-lock-icon {
     display: inline-block !important;
     visibility: visible !important;
@@ -3720,3 +3720,110 @@ input[type="submit"],
 }
 
 
+/* ==============================
+   UNIVERSAL LOGIN LAYOUT SYSTEM
+   Works for all GHL themes
+============================== */
+@media only screen and (min-width: 1080px) {
+  /* === Login Page Full Screen Layout === */
+  .hl_login {
+    display: flex !important;
+    justify-content: flex-end !important; /* ✅ Moves card to right */
+    align-items: center !important;
+    min-height: 100vh !important;
+    background: var(--login-bg-gradient, var(--bg-gradient, #f0f4f8)) !important;
+    background-size: cover !important;
+    background-position: center !important;
+    font-family: var(--login-body-font, var(--body-font, "Poppins")) !important;
+    padding-right: var(--login-layout-padding-right, 6%) !important;
+  }
+
+  /* === Login Card Styling === */
+  .hl_login--body .card {
+    position: relative !important;
+    width: var(--login-card-width, 420px) !important;
+    max-width: 90% !important;
+    border-radius: var(--login-card-border-radius, 20px) !important;
+    background: var(--login-card-bg-color, #ffffff) !important;
+    background-image: var(--login-card-bg-gradient, none) !important;
+    box-shadow: var(--login-card-box-shadow, 0 8px 25px rgba(0,0,0,0.15)) !important;
+    border: var(--login-card-border-width, 0) solid var(--login-card-border-color, transparent) !important;
+    text-align: center !important;
+    padding: var(--login-card-padding, 60px 40px 40px) !important;
+    overflow: visible !important;
+  }
+
+  /* === Logo Inside the Card === */
+  .hl_login--body .card::before {
+    content: "";
+    position: absolute;
+    top: var(--login-logo-offset-top, -60px);
+    left: 50%;
+    transform: translateX(-50%);
+    width: var(--login-logo-width, 120px);
+    height: var(--login-logo-height, 60px);
+    background-image: var(--login-company-logo, none);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: var(--login-logo-filter, none);
+  }
+
+  /* Create space under logo so it doesn’t overlap */
+  .hl_login--body .card-body {
+    margin-top: var(--login-logo-space, 40px) !important;
+  }
+
+  /* === Inputs === */
+  .hl_login--body input.hl-text-input {
+    border-radius: var(--login-input-border-radius, 12px) !important;
+    border-width: var(--login-input-border-width, 1px) !important;
+    border-style: var(--login-input-border-style, solid) !important;
+    border-color: var(--login-input-border-color, #ccc) !important;
+    background: var(--login-input-bg-color, #fff) !important;
+    color: var(--login-input-text-color, #000) !important;
+    font-size: var(--login-input-font-size, 15px) !important;
+    padding: 12px 14px !important;
+    transition: 0.2s ease;
+  }
+
+  .hl_login--body input.hl-text-input:focus {
+    outline: none !important;
+    border-color: var(--primary-color, #2563eb) !important;
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary-color, #2563eb) 25%, transparent);
+  }
+
+  /* === Buttons === */
+  .hl_login--body .hl-btn {
+    border-radius: var(--login-button-border-radius, 10px) !important;
+    font-size: var(--login-button-font-size, 18px) !important;
+    background: var(--login-button-bg-gradient, var(--primary-color, #2563eb)) !important;
+    color: var(--login-button-text-color, #fff) !important;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .hl_login--body .hl-btn:hover {
+    background: var(--login-button-hover-bg-color, #1e3a8a) !important;
+    color: var(--login-button-hover-text-color, #fff) !important;
+  }
+
+  /* === Footer Text === */
+  .hl_login--body .foot-note {
+    color: var(--login-footer-text-color, rgba(255,255,255,0.8)) !important;
+    font-size: var(--login-footer-font-size, 14px) !important;
+  }
+
+  /* === Responsiveness === */
+  @media (max-width: 1079px) {
+    .hl_login {
+      justify-content: center !important;
+      padding-right: 0 !important;
+    }
+
+    .hl_login--body .card::before {
+      top: var(--login-logo-offset-top-mobile, -40px);
+      width: var(--login-logo-width-mobile, 100px);
+      height: var(--login-logo-height-mobile, 50px);
+    }
+  }
+}
