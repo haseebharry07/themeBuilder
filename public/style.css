@@ -136,7 +136,14 @@
 .foot-note a:hover {
   text-decoration: underline;
 }
-
+.hl_login--body .card {
+    background-color: #1d1d1d00;
+    width: 100%;
+    max-width: 550px;
+    margin: 0 auto;
+    -webkit-box-shadow: 15px 26px 40px 0 rgba(0, 0, 0, 0.05);
+    box-shadow: 15px 26px 40px 0 rgba(0, 0, 0, 0.05);
+}
 /* === RESPONSIVE BREAKPOINTS === */
 
 /* --- XXL Screens (1920px+) --- */
