@@ -98,7 +98,7 @@
   /* === Move Login Card to Right Side === */
   .hl_login {
     display: flex !important;
-    justify-content: flex-end !important;
+    justify-content: center !important;
     align-items: center !important;
     height: 100vh !important;
     background: var(--login-background-active, linear-gradient(180deg, #0E0E0E 0%, #1A1A1A 50%, #2B2B2B 100%)) !important;
