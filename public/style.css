@@ -4,17 +4,18 @@
   html body::after {
   display: none !important;
 }
-
 /* === FULL PAGE BACKGROUND (green diagonal) === */
 .hl_login {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  min-height: 100vh;
   width: 100%;
   background: linear-gradient(135deg, #00c853 50%, #ffffff 50%);
   font-family: "Poppins", "Inter", sans-serif;
   overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
 /* === HIDE HEADER LOGO === */
@@ -25,14 +26,15 @@
 /* === BLACK LOGIN CARD === */
 .hl_login--body {
   background: #111;
-  border-radius: 4px;
-  padding: 40px 50px;
-  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
-  width: 400px;
-  max-width: 90%;
+  border-radius: 6px;
+  padding: 50px 60px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+  width: 420px;
+  max-width: 100%;
   color: #fff;
   text-align: center;
   position: relative;
+  box-sizing: border-box;
 }
 
 /* === ADD LOGO ABOVE FORM === */
@@ -65,6 +67,7 @@
   color: #fff;
   margin-bottom: 15px;
   transition: all 0.3s ease;
+  box-sizing: border-box;
 }
 
 .hl-text-input::placeholder {
@@ -85,7 +88,6 @@
   color: #00c853;
   margin-bottom: 20px;
 }
-
 .forgot-password:hover {
   text-decoration: underline;
 }
@@ -104,20 +106,22 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .hl_login--body button[type="submit"]:hover,
 .hl-btn:hover {
   background-color: #00e676 !important;
   transform: translateY(-2px);
 }
+
+/* === CARD INNER BODY === */
 .hl_login--body .card .card-body {
-    background-color: #111111;
-    max-width: 430px;
-    width: 100%;
-    margin: 0 auto;
-    padding-top: 50px;
-    padding-bottom: 50px;
+  background-color: #111111;
+  max-width: 430px;
+  width: 100%;
+  margin: 0 auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
+
 /* === FOOT NOTE === */
 .foot-note {
   margin-top: 20px;
@@ -132,14 +136,106 @@
   text-decoration: underline;
 }
 
-/* === RESPONSIVE === */
-@media (max-width: 600px) {
+/* === RESPONSIVE BREAKPOINTS === */
+
+/* --- Large Tablets (1024px and below) --- */
+@media (max-width: 1024px) {
+  .hl_login {
+    padding: 40px;
+  }
+
   .hl_login--body {
     width: 90%;
-    padding: 30px 25px;
+    padding: 45px 40px;
+  }
+
+  .hl_login--body::before {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 20px;
+  }
+
+  .login-card-heading h2 {
+    font-size: 20px;
   }
 }
 
+/* --- Small Tablets (768px and below) --- */
+@media (max-width: 768px) {
+  .hl_login {
+    padding: 30px;
+  }
+
+  .hl_login--body {
+    width: 85%;
+    padding: 40px 30px;
+  }
+
+  .hl_login--body::before {
+    width: 75px;
+    height: 75px;
+  }
+
+  .login-card-heading h2 {
+    font-size: 19px;
+  }
+
+  .hl-text-input {
+    font-size: 13.5px;
+    padding: 9px 10px;
+  }
+
+  .hl_login--body button[type="submit"],
+  .hl-btn {
+    font-size: 14px;
+  }
+}
+
+/* --- Mobile Phones (600px and below) --- */
+@media (max-width: 600px) {
+  .hl_login {
+    padding: 25px 15px;
+  }
+
+  .hl_login--body {
+    width: 100%;
+    padding: 35px 20px;
+  }
+
+  .hl_login--body::before {
+    width: 65px;
+    height: 65px;
+    margin-bottom: 20px;
+  }
+
+  .login-card-heading h2 {
+    font-size: 18px;
+  }
+
+  .hl-text-input {
+    font-size: 13px;
+  }
+
+  .foot-note {
+    font-size: 12px;
+  }
+}
+
+/* --- Extra Small Screens (400px and below) --- */
+@media (max-width: 400px) {
+  .hl_login--body {
+    padding: 30px 15px;
+  }
+
+  .hl_login--body::before {
+    width: 60px;
+    height: 60px;
+  }
+
+  .login-card-heading h2 {
+    font-size: 17px;
+  }
+}
 
 
 
