@@ -144,6 +144,7 @@ router.get("/merged-css", async (req, res) => {
     let logincss = "";
     const themeCssFiles = {
       "ForestGreen Theme": "whitegreenlogin.css",
+      "OceanMist Theme (White Header Sidebar Radius 0)": "oceanmefistlogin.css",
       "GlitchGone Theme": "glitchgonelogin.css",
     };
 
