@@ -148,6 +148,7 @@ router.get("/merged-css", async (req, res) => {
       "ForestGreen Theme": "whitegreenlogin.css",
       "OceanMist Theme (White Header Sidebar Radius 0)": "oceanmefistlogin.css",
       "GlitchGone Theme": "glitchgonelogin.css",
+      "JetBlack Luxury Gold Theme": "jetblacklogin.css",
     };
 
     if (themeCssFiles[selectedTheme]) {
