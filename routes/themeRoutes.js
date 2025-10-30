@@ -143,8 +143,8 @@ router.get("/merged-css", async (req, res) => {
     // ✅ Theme-based login CSS logic (simplified & fast)
     let logincss = "";
     const themeCssFiles = {
-      "BlueWave Theme": "glitchgonelogin.css",
-      "Default Theme": "bluewavelogin.css",
+      "BlueWave Theme": "bluewavelogin.css",
+      "Default Theme": "glitchgonelogin.css",
       "ForestGreen Theme": "whitegreenlogin.css",
       "OceanMist Theme (White Header Sidebar Radius 0)": "oceanmefistlogin.css",
       "GlitchGone Theme": "glitchgonelogin.css",
