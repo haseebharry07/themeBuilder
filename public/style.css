@@ -4,6 +4,158 @@
   html body::after {
   display: none !important;
 }
+/* === Modern Blue Login Page (Automatik Style) === */
+
+/* Fullscreen gradient background */
+.hl_login {
+  background: linear-gradient(135deg, #0052cc 0%, #00aaff 100%) !important;
+  height: 100vh !important;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Remove old header container */
+.hl_login--header {
+  display: none !important;
+}
+
+/* Center card container */
+.hl_login--body .container-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Login Card Box */
+.hl_login--body .card {
+  background: #ffffff !important;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  padding: 2.5rem 2rem;
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+  border: none;
+  position: relative;
+}
+
+/* Add company logo above the form */
+.hl_login--body .card::before {
+  content: "";
+  display: block;
+  background: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png") no-repeat center;
+  background-size: 140px;
+  width: 140px;
+  height: 80px;
+  margin: 0 auto 20px;
+}
+
+/* Form Heading */
+.login-card-heading h2 {
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 25px;
+}
+
+/* Input Field Design */
+.hl-text-input {
+  background: #fff !important;
+  border: 1px solid #d1d5db !important;
+  border-radius: 6px !important;
+  color: #111 !important;
+  font-size: 14px !important;
+  padding: 10px 12px !important;
+  transition: border-color 0.3s ease;
+}
+
+.hl-text-input:focus {
+  border-color: #007bff !important;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+}
+
+/* Input Placeholder */
+.hl-text-input::placeholder {
+  color: #999 !important;
+}
+
+/* Labels */
+.hl-text-input-label {
+  color: #000 !important;
+  font-weight: 500;
+  margin-bottom: 4px;
+}
+
+/* Sign In Button */
+.hl-btn {
+  background-color: #0084ff !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 6px !important;
+  padding: 10px 0 !important;
+  font-weight: 600;
+  text-transform: none !important;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+}
+
+.hl-btn:hover {
+  background-color: #0071e3 !important;
+}
+
+/* Forgot Password Link */
+.forgot-password {
+  color: #007bff !important;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline !important;
+}
+
+/* Terms and Conditions */
+.foot-note {
+  color: #333 !important;
+  font-size: 13px;
+  margin-top: 20px;
+}
+
+.foot-note a {
+  color: #007bff !important;
+  text-decoration: none;
+}
+
+.foot-note a:hover {
+  text-decoration: underline;
+}
+
+/* Mobile & Responsive Fixes */
+@media (max-width: 768px) {
+  .hl_login--body .card {
+    max-width: 90%;
+    padding: 2rem 1.5rem;
+  }
+
+  .hl_login--body .card::before {
+    background-size: 110px;
+    width: 110px;
+    height: 65px;
+    margin-bottom: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hl_login {
+    padding: 1rem;
+  }
+  .hl_login--body .card {
+    border-radius: 10px;
+  }
+}
 
 
 /* Remove loading */
