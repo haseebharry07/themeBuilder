@@ -41,7 +41,7 @@
 .hl_login--body .card::before {
   content: "";
   display: block;
-  background: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png")
+  background: var(--login-company-logo)
     no-repeat center;
   background-size: 120px;
   width: 120px;
