@@ -5,6 +5,116 @@
   display: none !important;
 }
 
+/* === Blue Modern Login Page Redesign === */
+
+/* Full page background */
+.hl_login {
+  background: linear-gradient(135deg, #0288d1 0%, #01579b 100%) !important;
+  height: 100vh !important;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Remove old header spacing */
+.hl_login--header {
+  display: none !important;
+}
+
+/* Card centering */
+.hl_login--body .container-fluid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+/* Card design */
+.hl_login--body .card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  padding: 3rem 2.5rem;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+/* Company logo on top (instead of header) */
+.hl_login--body .card::before {
+  content: "";
+  display: block;
+  background: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png")
+    no-repeat center;
+  background-size: 120px;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 25px;
+  border-radius: 50%;
+}
+
+/* Input fields */
+.hl-text-input {
+  background: rgba(255, 255, 255, 0.15) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 8px !important;
+  padding: 10px 12px !important;
+}
+
+.hl-text-input::placeholder {
+  color: rgba(255,255,255,0.7) !important;
+}
+
+/* Labels */
+.hl-text-input-label {
+  color: #fff !important;
+  font-weight: 500 !important;
+}
+
+/* Button */
+.hl-btn {
+  background: transparent !important;
+  border: 1px solid #fff !important;
+  color: #fff !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.hl-btn:hover {
+  background: rgba(255,255,255,0.2) !important;
+}
+
+/* Forgot password + remember me */
+.forgot-password,
+.foot-note a {
+  color: #fff !important;
+}
+
+.foot-note {
+  color: rgba(255,255,255,0.8);
+}
+
+/* Responsive fix */
+@media (max-width: 768px) {
+  .hl_login--body .card {
+    padding: 2rem 1.5rem;
+    max-width: 90%;
+  }
+  .hl_login--body .card::before {
+    background-size: 90px;
+    width: 90px;
+    height: 90px;
+  }
+}
+
+
 
 /* Remove loading */
 html body::after {
