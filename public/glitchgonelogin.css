@@ -227,7 +227,7 @@
   width: 120px;
   height: 75px;
   margin: 0 auto 25px auto; /* centers and adds space below */
-  background-image: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png");
+  background-image: var(--login-company-logo);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;

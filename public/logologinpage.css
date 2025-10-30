@@ -7,7 +7,7 @@
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  background: #fff url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png")
+  background: #fff var(--login-company-logo)
     repeat center center;
   background-size: clamp(100px, 12vw, 220px);
   font-family: "Inter", "Poppins", sans-serif;
@@ -41,7 +41,7 @@
   width: clamp(60px, 8vw, 90px);
   height: clamp(60px, 8vw, 90px);
   margin: 0 auto clamp(20px, 2vw, 30px);
-  background: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png")
+  background: var(--login-company-logo)
     center center / contain no-repeat;
 }
 
