@@ -5,157 +5,194 @@
   display: none !important;
 }
 
-/* === Modern Blue Login Page (Automatik Style) === */
+/* ==========================
+   Blue Gradient Centered Login
+   Works with your existing HTML classes
+   ========================== */
 
-/* Fullscreen gradient background */
+/* Full-page gradient background (large-screen friendly) */
 .hl_login {
-  background: linear-gradient(135deg, #0052cc 0%, #00aaff 100%) !important;
-  height: 100vh !important;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  min-height: 100vh !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  padding: 40px 20px !important;
+  box-sizing: border-box !important;
+
+  /* gradient similar to screenshot */
+  background: linear-gradient(135deg, #1b55b8 0%, #0ea0ff 60%) no-repeat center center fixed !important;
+  background-size: cover !important;
 }
 
-/* Remove old header container */
+/* Hide default header logo container so we can show logo on card */
 .hl_login--header {
   display: none !important;
 }
 
-/* Center card container */
-.hl_login--body .container-fluid {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
+/* Ensure body container centers contents (defensive) */
+.hl_login--body {
+  width: 100% !important;
+  max-width: 980px;            /* controls how wide the overall area can grow */
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  box-sizing: border-box !important;
+  padding: 0 !important;
 }
 
-/* Login Card Box */
+/* The white card wrapper (centered box) */
 .hl_login--body .card {
   background: #ffffff !important;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-  padding: 2.5rem 2rem;
-  width: 100%;
-  max-width: 400px;
-  text-align: center;
-  border: none;
-  position: relative;
+  border-radius: 10px !important;
+  box-shadow: 0 20px 45px rgba(6, 20, 34, 0.25) !important;
+  width: 100% !important;
+  max-width: 420px !important;    /* control card width */
+  padding: 36px 32px !important;
+  text-align: left !important;
+  position: relative !important;
+  margin: 0 16px !important;
+  border: none !important;
+  box-sizing: border-box !important;
 }
 
-/* Add company logo above the form */
+/* Card body keep the same look */
+.hl_login--body .card .card-body {
+  background: transparent !important;
+  padding: 0 !important;
+  color: #0f172a !important;
+}
+
+/* Company logo above card (centered) */
 .hl_login--body .card::before {
   content: "";
   display: block;
-  background: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png") no-repeat center;
-  background-size: 140px;
+  margin: -86px auto 18px; /* lifts the logo above card top */
   width: 140px;
-  height: 80px;
-  margin: 0 auto 20px;
+  height: 86px;
+  background-image: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/47b7e157-d197-4ce5-9a94-b697c258702a.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  box-sizing: border-box;
+  pointer-events: none;
 }
 
-/* Form Heading */
+/* Heading (centered inside card) */
+.login-card-heading {
+  text-align: center !important;
+  margin-bottom: 18px !important;
+}
 .login-card-heading h2 {
-  color: #000;
-  font-weight: 600;
-  margin-bottom: 25px;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  color: #0b2540 !important;
+  margin: 6px 0 18px !important;
+  text-align: center !important;
 }
 
-/* Input Field Design */
+/* Form inputs — keep platform classes but restyle */
 .hl-text-input {
-  background: #fff !important;
-  border: 1px solid #d1d5db !important;
+  width: 100% !important;
+  background: #f8fbff !important;
+  border: 1px solid #d9e6f7 !important;
   border-radius: 6px !important;
-  color: #111 !important;
+  padding: 11px 12px !important;
   font-size: 14px !important;
-  padding: 10px 12px !important;
-  transition: border-color 0.3s ease;
+  color: #0b1f3a !important;
+  box-sizing: border-box !important;
+  transition: border-color .15s ease, box-shadow .15s ease !important;
 }
 
-.hl-text-input:focus {
-  border-color: #007bff !important;
-  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+.hl-text-input:focus,
+.hl-text-input:focus-visible {
+  outline: none !important;
+  border-color: #0b86ff !important;
+  box-shadow: 0 6px 18px rgba(11, 134, 255, 0.12) !important;
 }
 
-/* Input Placeholder */
-.hl-text-input::placeholder {
-  color: #999 !important;
-}
-
-/* Labels */
+/* The small label above inputs (if present) */
 .hl-text-input-label {
-  color: #000 !important;
-  font-weight: 500;
-  margin-bottom: 4px;
+  display: block !important;
+  font-size: 13px !important;
+  color: #334e6f !important;
+  margin-bottom: 6px !important;
+  font-weight: 500 !important;
 }
 
-/* Sign In Button */
-.hl-btn {
-  background-color: #0084ff !important;
+/* Forgot link */
+.forgot-password {
+  display: block !important;
+  text-align: right !important;
+  color: #0b86ff !important;
+  font-size: 13px !important;
+  margin-top: 8px !important;
+  text-decoration: none !important;
+}
+
+/* Primary CTA */
+.hl_login--body .hl-btn,
+.hl_login--body button[type="submit"] {
+  background: linear-gradient(90deg,#0b86ff 0%, #0082e6 100%) !important;
   color: #fff !important;
   border: none !important;
-  border-radius: 6px !important;
-  padding: 10px 0 !important;
-  font-weight: 600;
-  text-transform: none !important;
-  transition: all 0.3s ease;
-  margin-top: 10px;
+  padding: 12px 18px !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+  width: 100% !important;
+  box-shadow: 0 8px 20px rgba(11,134,255,0.18) !important;
+  cursor: pointer !important;
+  transition: transform .12s ease, box-shadow .12s ease !important;
+  margin-top: 14px !important;
+}
+.hl_login--body .hl-btn:hover,
+.hl_login--body button[type="submit"]:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 14px 28px rgba(11,134,255,0.22) !important;
 }
 
-.hl-btn:hover {
-  background-color: #0071e3 !important;
-}
-
-/* Forgot Password Link */
-.forgot-password {
-  color: #007bff !important;
-  font-size: 13px;
-  text-decoration: none;
-}
-
-.forgot-password:hover {
-  text-decoration: underline !important;
-}
-
-/* Terms and Conditions */
+/* Terms text */
 .foot-note {
-  color: #333 !important;
-  font-size: 13px;
-  margin-top: 20px;
+  font-size: 13px !important;
+  color: #6b7b8f !important;
+  text-align: center !important;
+  margin-top: 14px !important;
 }
 
-.foot-note a {
-  color: #007bff !important;
-  text-decoration: none;
-}
+/* Make the card centered on smaller screens too */
+@media (max-width: 1024px) {
+  .hl_login {
+    padding: 32px 18px !important;
+    background-position: center !important;
+  }
 
-.foot-note a:hover {
-  text-decoration: underline;
-}
+  .hl_login--body {
+    max-width: 780px !important;
+  }
 
-/* Mobile & Responsive Fixes */
-@media (max-width: 768px) {
   .hl_login--body .card {
-    max-width: 90%;
-    padding: 2rem 1.5rem;
+    max-width: 480px !important;
+    padding: 34px 26px !important;
   }
 
-  .hl_login--body .card::before {
-    background-size: 110px;
-    width: 110px;
-    height: 65px;
-    margin-bottom: 15px;
-  }
+  .hl_login--body .card::before { margin-top: -72px; width: 120px; height: 72px; }
 }
 
+/* Narrow phones */
 @media (max-width: 480px) {
   .hl_login {
-    padding: 1rem;
+    padding: 18px 12px !important;
   }
   .hl_login--body .card {
-    border-radius: 10px;
+    width: 100% !important;
+    max-width: 380px !important;
+    padding: 26px 18px !important;
+    border-radius: 8px !important;
   }
+  .hl_login--body .card::before { margin-top: -60px; width: 100px; height: 60px; }
+  .login-card-heading h2 { font-size: 20px !important; }
+  .hl-text-input { font-size: 14px !important; padding: 10px !important; }
+  .hl_login--body .hl-btn { padding: 11px !important; }
 }
 
 
