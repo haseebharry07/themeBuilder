@@ -423,13 +423,13 @@ router.get("/combined", async (req, res) => {
 
     // ✅ 5. Combine all scripts
     const finalJS = `
+    ${remoteCodeFile}
       ${dynamicVars}
 
       // === Local code.js ===
       ${codeJS}
 
       // === Remote codefile.js ===
-      ${remoteCodeFile}
 
       // === Remote settings.js ===
       ${remoteSettings}
