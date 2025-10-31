@@ -10,6 +10,9 @@
     agn: `agn`
   };
   // ✅ 1. Handle dynamic agencyId (agn)
+ const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
+  // local agnasd
+  const agn = "aWdkNjE4";
   try { localStorage.setItem(STORAGE.agn, agn); } catch (e) { /* ignore storage failures */ }
 
   // ---- Utilities ----
