@@ -50,7 +50,7 @@ console.log(finalUrl,'Here is finalUrl');
       const json = await res.json();
       const css = json.css || "";
       const themeData = json.themeData || {};
-      const selectedtheme = json.selectedtheme || "";
+      const selectedtheme = json.selectedTheme || "";
       console.log(json,'Here is json');
       if (themeData && themeData["--custom-logo-url"]) {
         changeFavicon(themeData["--custom-logo-url"]);
