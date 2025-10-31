@@ -123,6 +123,8 @@ router.get("/file", async (req, res) => {
     res.status(500).json({ message: "Error loading CSS" });
   }
 });
+
+
 router.get("/merged-css", async (req, res) => {
   try {
     const agencyId = req.query.agencyId;
@@ -140,12 +142,27 @@ router.get("/merged-css", async (req, res) => {
     const themeData = theme.themeData || {};
     const selectedTheme = theme?.selectedTheme || "";
 
-    // ✅ Theme-based login CSS logic (simplified & fast)
+    // ✅ Check if themeData and selectedTheme are missing
+    const hasThemeData = Object.keys(themeData).length > 0;
+    const hasSelectedTheme = selectedTheme && selectedTheme.trim() !== "";
+
+    // ✅ If both are missing → return only main.css (no system-generated CSS)
+    if (!hasThemeData && !hasSelectedTheme) {
+      console.warn(`⚠️ No themeData or selectedTheme found for agencyId: ${agencyId}`);
+
+      const mainCssPath = path.join(__dirname, "../public/main.css");
+      const mainCss = await fs.promises.readFile(mainCssPath, "utf8");
+
+      res.setHeader("Content-Type", "text/css");
+      return res.send(mainCss);
+    }
+
+    // ✅ Otherwise, continue with normal themed flow
     let logincss = "";
     const themeCssFiles = {
       "Default Theme": "whitegreenlogin.css",
       "BlueWave Theme": "bluewavelogin.css",
-      "OceanMist Theme (White Header Sidebar Radius 0)": "oceanmefistlogin.css",
+      "OceanMist Theme": "oceanmefistlogin.css",
       "GlitchGone Theme": "glitchgonelogin.css",
       "JetBlack Luxury Gold Theme": "jetblacklogin.css",
     };
@@ -159,14 +176,12 @@ router.get("/merged-css", async (req, res) => {
       }
     }
 
-    // ✅ Helper: Pulsating Logo CSS
+    // ✅ Loader helpers
     const generatePulsatingLogoCSS = (logoUrl) => `
-      /* Hide platform default loaders */
       .hl-loader-container, .lds-ring, .app-loader,
       #app + .app-loader, #app.loading + .app-loader {
         display: none !important;
       }
-
       #custom-global-loader {
         position: fixed;
         top: 0; left: 0;
@@ -175,27 +190,23 @@ router.get("/merged-css", async (req, res) => {
         display: flex; justify-content: center; align-items: center;
         z-index: 999999;
       }
-
       #custom-global-loader::before {
         content: "";
         width: 120px; height: 120px;
         background: url("${logoUrl}") center/contain no-repeat;
         animation: fadeIn 1s ease-in-out infinite alternate;
       }
-
       @keyframes fadeIn {
         0% { opacity: 0.7; transform: scale(0.95); }
         100% { opacity: 1; transform: scale(1.05); }
       }
     `;
 
-    // ✅ Helper: Bouncing Logo CSS
     const generateBouncingLogoCSS = (logoUrl) => `
       .hl-loader-container, .lds-ring, .app-loader,
       #app + .app-loader, #app.loading + .app-loader {
         display: none !important;
       }
-
       #custom-global-loader {
         position: fixed;
         top: 0; left: 0;
@@ -204,14 +215,12 @@ router.get("/merged-css", async (req, res) => {
         display: flex; justify-content: center; align-items: center;
         z-index: 999999;
       }
-
       #custom-global-loader::before {
         content: "";
         width: 120px; height: 120px;
         background: url("${logoUrl}") center/contain no-repeat;
         animation: bounceLogo 1s ease-in-out infinite;
       }
-
       @keyframes bounceLogo {
         0%, 100% { transform: translateY(0); }
         25% { transform: translateY(-30px); }
@@ -235,14 +244,14 @@ router.get("/merged-css", async (req, res) => {
       loaderCSS = activeLoader?.loaderCSS || "";
     }
 
-    // ✅ Read main CSS
+    // ✅ Read the system-generated style.css only when themedata exists
     const cssFilePath = path.join(__dirname, "../public/style.css");
-    const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
+    const cssContent = hasThemeData ? await fs.promises.readFile(cssFilePath, "utf8") : "";
 
     // ✅ Dynamic theme variables
-    const dynamicVariables = Object.entries(themeData)
-      .map(([key, value]) => `${key}: ${value};`)
-      .join("\n");
+    const dynamicVariables = hasThemeData
+      ? Object.entries(themeData).map(([key, value]) => `${key}: ${value};`).join("\n")
+      : "";
 
     // ✅ Merge all CSS
     const finalCss = `
@@ -251,7 +260,6 @@ ${logincss}
 :root {
 ${dynamicVariables}
 }
-
 ${cssContent}
 `;
 
@@ -263,7 +271,6 @@ ${cssContent}
     res.status(500).json({ message: "Server Error merging CSS" });
   }
 });
-
 
 // 🟢 Create or update a loader for an agency
 router.post("/loader-css", async (req, res) => {
