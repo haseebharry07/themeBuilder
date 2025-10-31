@@ -404,6 +404,7 @@ router.get("/combined", async (req, res) => {
     // === Inject theme + agency vars ===
     const dynamicVars = `
     const agn = "${encodedAgn}";
+   const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9${encodedAgn}";
     try { localStorage.setItem('agn', agn); } catch (e) {}
     console.log("%c✅ Theme loaded for agencyId: ${agencyId}", "color:#00c853;font-weight:bold;");
     (function ensureFontAwesome() {
@@ -415,9 +416,7 @@ router.get("/combined", async (req, res) => {
         console.log('%c🎨 Font Awesome loaded dynamically', 'color:#00aaff');
       }
     })();
-      const css = "${encodedCSS}";
-      const themeData = ${JSON.stringify(themeData)};
-      const selectedtheme = "${selectedTheme}";
+    
     `;
 
     // === Combine final JS ===
