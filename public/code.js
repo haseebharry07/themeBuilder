@@ -10,86 +10,71 @@
     agn: `agn`
   };
   // ✅ 1. Handle dynamic agencyId (agn)
-  // agn is now injected dynamically by the API (Base64-encoded)
-  if (typeof agn !== "undefined" && agn) {
-    try {
-      localStorage.setItem(STORAGE.agn, agn);
-      console.log("%c[ThemeBuilder] Agency ID saved to localStorage", "color:#00c853;font-weight:bold;");
-    } catch (e) {
-      console.warn("[ThemeBuilder] Failed to store agencyId:", e);
-    }
-  } else {
-    console.warn("[ThemeBuilder] ⚠️ No agency ID found in injected data");
-  }
+ const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
+  // local agn
+  const agn = "aWdkNjE4";
+  try { localStorage.setItem(STORAGE.agn, agn); } catch (e) { /* ignore storage failures */ }
 
   // ---- Utilities ----
-  function log(...args) {
-    console.debug("[ThemeBuilder]", ...args);
-  }
-
-  function safeJsonParse(s) {
-    try {
-      return JSON.parse(s);
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function sleep(ms) {
-    return new Promise(r => setTimeout(r, ms));
-  }
-
-  // ---- Apply CSS + Theme Data (NO API FETCH) ----
+  function log(...args) { /*toggle console debug here*/ console.debug("[ThemeBuilder]", ...args); }
+  function safeJsonParse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
+  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+  // ---- Fetch/apply remote CSS JSON ----
   async function applyCSSFile() {
+    
+    const url = (() => {
+      try { return decodeBase64Utf8(remoteEncoded || remoteEncoded === undefined ? remoteEncoded : remoteEncoded); } catch (e) { return atob(remoteEncoded); }
+    })();
+
+    // fallback: try decode remoteEncoded directly
+    let decodedUrl;
+    try { decodedUrl = decodeBase64Utf8(remoteEncoded); } catch (_) { decodedUrl = null; }
+    const finalUrl = decodedUrl || (function () { try { return atob(remoteEncoded); } catch (e) { return null; } })();
+
+    if (!finalUrl) {
+      console.error("[ThemeBuilder] invalid remote URL");
+      return;
+    }
+
+    const cachedCSS = localStorage.getItem(STORAGE.themeCSS);
+    if (cachedCSS) {
+      const text = decodeBase64Utf8(cachedCSS);
+      if (text) injectCSS(text);
+    }
+
     try {
-      // ✅ Use injected values from the combined API
-      const encodedCSS = typeof css !== "undefined" ? css : "";
-      const themeVars = typeof themeData !== "undefined" ? themeData : {};
-      const selected = typeof selectedtheme !== "undefined" ? selectedtheme : "";
+      const res = await fetch(finalUrl, { cache: "no-cache" });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      const css = json.css || "";
+      const themeData = json.themeData || {};
+      const selectedtheme = json.selectedtheme || "";
 
-      // --- Handle favicon ---
-      if (themeVars && themeVars["--custom-logo-url"]) {
-        changeFavicon(themeVars["--custom-logo-url"]);
+      if (themeData && themeData["--custom-logo-url"]) {
+        changeFavicon(themeData["--custom-logo-url"]);
       } else {
-        changeFavicon(
-          "https://storage.googleapis.com/msgsndr/W0un4jEKdf7kQBusAM6W/media/6642738faffa4aad7ee4eb45.png"
-        );
+        changeFavicon('https://storage.googleapis.com/msgsndr/W0un4jEKdf7kQBusAM6W/media/6642738faffa4aad7ee4eb45.png');
       }
 
-      // --- Decode & Inject CSS ---
-      const cssText = decodeBase64Utf8(encodedCSS);
-      if (cssText) {
-        injectCSS(cssText);
-        try {
-          localStorage.setItem(STORAGE.themeCSS, encodedCSS);
-        } catch (e) {
-          /* ignore quota */
-        }
-      }
+      const cssText = decodeBase64Utf8(css);
+      try { localStorage.setItem(STORAGE.themeCSS, css); } catch (e) { /* ignore storage quota */ }
+      try { localStorage.setItem(STORAGE.selectedTheme, selectedtheme); } catch (e) { /* ignore */ }
+      if (!cachedCSS && cssText) injectCSS(cssText);
 
-      // --- Store selected theme ---
-      try {
-        localStorage.setItem(STORAGE.selectedTheme, selected);
-      } catch (e) {
-        /* ignore */
-      }
-
-      // --- Merge theme data safely ---
+      // merge theme data safely
       const savedRaw = localStorage.getItem(STORAGE.userTheme);
       const saved = safeJsonParse(savedRaw) || {};
-      const merged = { ...(saved.themeData || {}), ...themeVars };
+      const merged = { ...(saved.themeData || {}), ...themeData };
       injectThemeData(merged);
 
-      // --- Restore UI changes ---
+      // restore UI changes
       restoreHiddenMenus();
       applyHiddenMenus();
-
-      log("✅ Theme applied from injected data");
+      log("Theme applied from remote");
     } catch (err) {
-      console.error("[ThemeBuilder] Failed to apply theme:", err);
+      console.error("[ThemeBuilder] Failed to fetch theme:", err);
     }
   }
-  // Encoded remote config (same as your cde)
  
 
   function decodeBase64Utf8(base64) {
