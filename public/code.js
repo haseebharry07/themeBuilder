@@ -51,7 +51,7 @@
       const css = json.css || "";
       const themeData = json.themeData || {};
       const selectedtheme = json.selectedtheme || "";
-      console.log(selectedtheme,'Here is selectedtheme');
+      console.log(json,'Here is json');
       if (themeData && themeData["--custom-logo-url"]) {
         changeFavicon(themeData["--custom-logo-url"]);
       } else {
