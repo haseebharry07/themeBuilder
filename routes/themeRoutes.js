@@ -101,23 +101,36 @@ router.get("/file", async (req, res) => {
       return res.status(400).json({ message: "agencyId is required" });
     }
 
+    // ✅ Fetch active theme
     const theme = await Theme.findOne({ agencyId, isActive: true });
     if (!theme) {
       return res.status(403).json({ message: "Invalid or inactive agencyId" });
     }
 
+    const themeData = theme.themeData || {};
+    const selectedTheme = theme.selectedTheme || "";
+
+    // ✅ If no themeData found (null, undefined, or empty object) → send nothing
+    const hasThemeData = themeData && Object.keys(themeData).length > 0;
+    if (!hasThemeData) {
+      console.warn(`⚠️ No Data Related Theme found for agencyId: ${agencyId}`);
+      return res.status(204).send(); // 204 = No Content
+      // OR, if you prefer a message instead of an empty response:
+      // return res.status(404).json({ message: "No theme data found" });
+    }
+
+    // ✅ If themeData exists → load CSS
     const cssFilePath = path.join(__dirname, "../public/style.css");
     const cssContent = await fs.promises.readFile(cssFilePath, "utf8");
-
     const encodedCSS = Buffer.from(cssContent, "utf-8").toString("base64");
-    const themeData = theme.themeData || {};
-    const selectedtheme = theme.selectedTheme;
 
+    // ✅ Send response
     res.json({
       css: encodedCSS,
       themeData: themeData,
-      selectedtheme:selectedtheme
+      selectedTheme: selectedTheme,
     });
+
   } catch (err) {
     console.error("❌ API error:", err.message);
     res.status(500).json({ message: "Error loading CSS" });
