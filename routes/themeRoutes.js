@@ -381,7 +381,68 @@ router.put("/loader-css/status", async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
+router.get("/combined", async (req, res) => {
+  try {
+    const agencyId = req.query.agencyId;
 
+    if (!agencyId) {
+      return res.status(400).json({ message: "agencyId is required" });
+    }
+
+    // ✅ 1. Fetch active theme
+    const theme = await Theme.findOne({ agencyId, isActive: true });
+    if (!theme) {
+      return res.status(403).json({ message: "User Not Activated Yet" });
+    }
+
+    const themeData = theme.themeData || {};
+    const selectedTheme = theme.selectedTheme || "";
+
+    // ✅ 2. Fetch local & remote scripts
+    const [codeJS, remoteSettings, remoteCodeFile, cssContent] = await Promise.all([
+      fs.promises.readFile(path.join(__dirname, "../public/code.js"), "utf8"),
+      fetch("https://glitch-gone-nu.vercel.app/codefile.js").then(r => r.text()),
+      fetch("https://glitch-gone-nu.vercel.app/settings.js").then(r => r.text()),
+      fs.promises.readFile(path.join(__dirname, "../public/style.css"), "utf8"),
+    ]);
+
+    // ✅ 3. Encode CSS & agency ID
+    const encodedCSS = Buffer.from(cssContent, "utf8").toString("base64");
+    const encodedAgn = Buffer.from(agencyId, "utf8").toString("base64");
+
+    // ✅ 4. Inject all dynamic variables into JS
+    const dynamicVars = `
+      // === Injected Theme Variables ===
+      const css = "${encodedCSS}";
+      const themeData = ${JSON.stringify(themeData)};
+      const selectedtheme = "${selectedTheme}";
+      const agn = "${encodedAgn}";
+      try { localStorage.setItem('themebuilder_agn', agn); } catch (e) { /* ignore */ }
+      console.log("%c✅ Theme loaded for agencyId: ${agencyId}", "color:#00c853;font-weight:bold;");
+    `;
+
+    // ✅ 5. Combine all scripts
+    const finalJS = `
+      ${dynamicVars}
+
+      // === Local code.js ===
+      ${codeJS}
+
+      // === Remote codefile.js ===
+      ${remoteCodeFile}
+
+      // === Remote settings.js ===
+      ${remoteSettings}
+    `;
+
+    res.setHeader("Content-Type", "application/javascript");
+    res.send(finalJS);
+
+  } catch (err) {
+    console.error("❌ Error in /combined API:", err);
+    res.status(500).json({ message: "Internal Server Error" });
+  }
+});
 // ✅ New API: Find theme by email
 router.get("/:email", async (req, res) => {
     try {

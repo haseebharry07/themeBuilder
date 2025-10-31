@@ -9,17 +9,88 @@
     selectedTheme: `${NS}_selectedTheme`,
     agn: `agn`
   };
-
-  // Encoded remote config (same as your cde)
-  const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
-  // local agn
-  const agn = "aWdkNjE4";
-  try { localStorage.setItem(STORAGE.agn, agn); } catch (e) { /* ignore storage failures */ }
+  // ✅ 1. Handle dynamic agencyId (agn)
+  // agn is now injected dynamically by the API (Base64-encoded)
+  if (typeof agn !== "undefined" && agn) {
+    try {
+      localStorage.setItem(STORAGE.agn, agn);
+      console.log("%c[ThemeBuilder] Agency ID saved to localStorage", "color:#00c853;font-weight:bold;");
+    } catch (e) {
+      console.warn("[ThemeBuilder] Failed to store agencyId:", e);
+    }
+  } else {
+    console.warn("[ThemeBuilder] ⚠️ No agency ID found in injected data");
+  }
 
   // ---- Utilities ----
-  function log(...args) { /*toggle console debug here*/ console.debug("[ThemeBuilder]", ...args); }
-  function safeJsonParse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
-  function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+  function log(...args) {
+    console.debug("[ThemeBuilder]", ...args);
+  }
+
+  function safeJsonParse(s) {
+    try {
+      return JSON.parse(s);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  function sleep(ms) {
+    return new Promise(r => setTimeout(r, ms));
+  }
+
+  // ---- Apply CSS + Theme Data (NO API FETCH) ----
+  async function applyCSSFile() {
+    try {
+      // ✅ Use injected values from the combined API
+      const encodedCSS = typeof css !== "undefined" ? css : "";
+      const themeVars = typeof themeData !== "undefined" ? themeData : {};
+      const selected = typeof selectedtheme !== "undefined" ? selectedtheme : "";
+
+      // --- Handle favicon ---
+      if (themeVars && themeVars["--custom-logo-url"]) {
+        changeFavicon(themeVars["--custom-logo-url"]);
+      } else {
+        changeFavicon(
+          "https://storage.googleapis.com/msgsndr/W0un4jEKdf7kQBusAM6W/media/6642738faffa4aad7ee4eb45.png"
+        );
+      }
+
+      // --- Decode & Inject CSS ---
+      const cssText = decodeBase64Utf8(encodedCSS);
+      if (cssText) {
+        injectCSS(cssText);
+        try {
+          localStorage.setItem(STORAGE.themeCSS, encodedCSS);
+        } catch (e) {
+          /* ignore quota */
+        }
+      }
+
+      // --- Store selected theme ---
+      try {
+        localStorage.setItem(STORAGE.selectedTheme, selected);
+      } catch (e) {
+        /* ignore */
+      }
+
+      // --- Merge theme data safely ---
+      const savedRaw = localStorage.getItem(STORAGE.userTheme);
+      const saved = safeJsonParse(savedRaw) || {};
+      const merged = { ...(saved.themeData || {}), ...themeVars };
+      injectThemeData(merged);
+
+      // --- Restore UI changes ---
+      restoreHiddenMenus();
+      applyHiddenMenus();
+
+      log("✅ Theme applied from injected data");
+    } catch (err) {
+      console.error("[ThemeBuilder] Failed to apply theme:", err);
+    }
+  }
+  // Encoded remote config (same as your cde)
+ 
 
   function decodeBase64Utf8(base64) {
     try {
