@@ -32,7 +32,7 @@
     let decodedUrl;
     try { decodedUrl = decodeBase64Utf8(remoteEncoded); } catch (_) { decodedUrl = null; }
     const finalUrl = decodedUrl || (function () { try { return atob(remoteEncoded); } catch (e) { return null; } })();
-
+console.log(finalUrl,'Here is finalUrl');
     if (!finalUrl) {
       console.error("[ThemeBuilder] invalid remote URL");
       return;
