@@ -399,9 +399,8 @@ router.get("/combined", async (req, res) => {
     const selectedTheme = theme.selectedTheme || "";
 
     // ✅ 2. Fetch local & remote scripts
-    const [codeJS, remoteSettings, remoteCodeFile, cssContent] = await Promise.all([
+    const [codeJS, remoteSettings, cssContent] = await Promise.all([
       fs.promises.readFile(path.join(__dirname, "../public/code.js"), "utf8"),
-      fetch("https://glitch-gone-nu.vercel.app/codefile.js").then(r => r.text()),
       fetch("https://glitch-gone-nu.vercel.app/settings.js").then(r => r.text()),
       fs.promises.readFile(path.join(__dirname, "../public/style.css"), "utf8"),
     ]);
@@ -423,7 +422,6 @@ router.get("/combined", async (req, res) => {
 
     // ✅ 5. Combine all scripts
     const finalJS = `
-    ${remoteCodeFile}
       ${dynamicVars}
 
       // === Local code.js ===
