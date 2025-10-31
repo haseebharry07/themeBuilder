@@ -9,11 +9,11 @@
     selectedTheme: `${NS}_selectedTheme`,
     agn: `agn`
   };
-   console.log('STORAGE is:');
-  // ✅ 1. Handle dynamic agencyId (agn)
-   const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
-  // local agnasd
   const agn = "aWdkNjE4";
+  // ✅ 1. Handle dynamic agencyId (agn)
+   const remoteEncoded = `aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9${agn}`;
+  // local agnasd
+  
   try { localStorage.setItem(STORAGE.agn, agn); } catch (e) { /* ignore storage failures */ }
 
   // ---- Utilities ----
@@ -22,7 +22,6 @@
   function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
   // ---- Fetch/apply remote CSS JSON ----
   async function applyCSSFile() {
-    console.log('applyCSSFile is Running:');
 
     const url = (() => {
       try { return decodeBase64Utf8(remoteEncoded || remoteEncoded === undefined ? remoteEncoded : remoteEncoded); } catch (e) { return atob(remoteEncoded); }
@@ -32,7 +31,6 @@
     let decodedUrl;
     try { decodedUrl = decodeBase64Utf8(remoteEncoded); } catch (_) { decodedUrl = null; }
     const finalUrl = decodedUrl || (function () { try { return atob(remoteEncoded); } catch (e) { return null; } })();
-console.log(finalUrl,'Here is finalUrl');
     if (!finalUrl) {
       console.error("[ThemeBuilder] invalid remote URL");
       return;
@@ -51,8 +49,6 @@ console.log(finalUrl,'Here is finalUrl');
       const css = json.css || "";
       const themeData = json.themeData || {};
       const selectedtheme = json.selectedTheme || "";
-      console.log(json.selectedTheme,'Here is json.selectedTheme');
-      console.log(selectedtheme,'Here is selectedtheme');
       if (themeData && themeData["--custom-logo-url"]) {
         changeFavicon(themeData["--custom-logo-url"]);
       } else {
