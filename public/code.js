@@ -11,7 +11,7 @@
   };
    console.log('STORAGE is:');
   // ✅ 1. Handle dynamic agencyId (agn)
- const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
+   const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9aWdkNjE4";
   // local agnasd
   const agn = "aWdkNjE4";
   try { localStorage.setItem(STORAGE.agn, agn); } catch (e) { /* ignore storage failures */ }
@@ -51,7 +51,7 @@
       const css = json.css || "";
       const themeData = json.themeData || {};
       const selectedtheme = json.selectedtheme || "";
-console.log(selectedtheme,'Here is selectedtheme');
+      console.log(selectedtheme,'Here is selectedtheme');
       if (themeData && themeData["--custom-logo-url"]) {
         changeFavicon(themeData["--custom-logo-url"]);
       } else {
@@ -77,7 +77,6 @@ console.log(selectedtheme,'Here is selectedtheme');
       console.error("[ThemeBuilder] Failed to fetch theme:", err);
     }
   }
- 
 
   function decodeBase64Utf8(base64) {
     try {
@@ -334,62 +333,6 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
         reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
       }
     } catch (e) { console.error("[ThemeBuilder] reorder agency menus failed", e); }
-  }
-
-  // ---- Fetch/apply remote CSS JSON ----
-  async function applyCSSFile() {
-    const url = (() => {
-      try { return decodeBase64Utf8(remoteEncoded || remoteEncoded === undefined ? remoteEncoded : remoteEncoded); } catch (e) { return atob(remoteEncoded); }
-    })();
-
-    // fallback: try decode remoteEncoded directly
-    let decodedUrl;
-    try { decodedUrl = decodeBase64Utf8(remoteEncoded); } catch (_) { decodedUrl = null; }
-    const finalUrl = decodedUrl || (function () { try { return atob(remoteEncoded); } catch (e) { return null; } })();
-
-    if (!finalUrl) {
-      console.error("[ThemeBuilder] invalid remote URL");
-      return;
-    }
-
-    const cachedCSS = localStorage.getItem(STORAGE.themeCSS);
-    if (cachedCSS) {
-      const text = decodeBase64Utf8(cachedCSS);
-      if (text) injectCSS(text);
-    }
-
-    try {
-      const res = await fetch(finalUrl, { cache: "no-cache" });
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      const json = await res.json();
-      const css = json.css || "";
-      const themeData = json.themeData || {};
-      const selectedtheme = json.selectedtheme || "";
-
-      if (themeData && themeData["--custom-logo-url"]) {
-        changeFavicon(themeData["--custom-logo-url"]);
-      } else {
-        changeFavicon('https://storage.googleapis.com/msgsndr/W0un4jEKdf7kQBusAM6W/media/6642738faffa4aad7ee4eb45.png');
-      }
-
-      const cssText = decodeBase64Utf8(css);
-      try { localStorage.setItem(STORAGE.themeCSS, css); } catch (e) { /* ignore storage quota */ }
-      try { localStorage.setItem(STORAGE.selectedTheme, selectedtheme); } catch (e) { /* ignore */ }
-      if (!cachedCSS && cssText) injectCSS(cssText);
-
-      // merge theme data safely
-      const savedRaw = localStorage.getItem(STORAGE.userTheme);
-      const saved = safeJsonParse(savedRaw) || {};
-      const merged = { ...(saved.themeData || {}), ...themeData };
-      injectThemeData(merged);
-
-      // restore UI changes
-      restoreHiddenMenus();
-      applyHiddenMenus();
-      log("Theme applied from remote");
-    } catch (err) {
-      console.error("[ThemeBuilder] Failed to fetch theme:", err);
-    }
   }
 
   // ---- SPA detection (history) ----
