@@ -9,9 +9,9 @@
     selectedTheme: `${NS}_selectedTheme`,
     agn: `agn`
   };
-  const agn = "aWdkNjE4";
+  // const agn = "aWdkNjE4";
   // ✅ 1. Handle dynamic agencyId (agn)
-   const remoteEncoded = `aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9${agn}`;
+  //  const remoteEncoded = `aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9${agn}`;
   // local agnasd
   
   try { localStorage.setItem(STORAGE.agn, agn); } catch (e) { /* ignore storage failures */ }

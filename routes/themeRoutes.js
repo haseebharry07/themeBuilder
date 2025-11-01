@@ -407,16 +407,6 @@ router.get("/combined", async (req, res) => {
    const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9${encodedAgn}";
     try { localStorage.setItem('agn', agn); } catch (e) {}
     console.log("%c✅ Theme loaded for agencyId: ${agencyId}", "color:#00c853;font-weight:bold;");
-    (function ensureFontAwesome() {
-      if (!document.querySelector('link[href*="font-awesome"], link[href*="fontawesome"]')) {
-        const fa = document.createElement('link');
-        fa.rel = 'stylesheet';
-        fa.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css';
-        document.head.appendChild(fa);
-        console.log('%c🎨 Font Awesome loaded dynamically', 'color:#00aaff');
-      }
-    })();
-    
     `;
 
     // === Combine final JS ===
