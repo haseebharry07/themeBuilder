@@ -414,7 +414,6 @@ router.get("/combined", async (req, res) => {
     const remoteSettings = await fetch("https://glitch-gone-nu.vercel.app/settings.js").then(r => r.text()).catch(() => "");
     const codefile = await fetch("https://glitch-gone-nu.vercel.app/codefile.js").then(r => r.text()).catch(() => "");
     const cssContent = await fs.promises.readFile(path.join(__dirname, "../public/style.css"), "utf8").catch(() => "");
-console.log(codefile);
     // === Encode dynamic data ===
     const encodedCSS = Buffer.from(cssContent || "", "utf8").toString("base64");
     const encodedAgn = Buffer.from(agencyId, "utf8").toString("base64");
