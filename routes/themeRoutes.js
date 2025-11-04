@@ -254,6 +254,7 @@ router.get("/merged-css", async (req, res) => {
           : generatePulsatingLogoCSS(companyLogoUrl);
     } else {
       const activeLoader = await AgencyLoader.findOne({ agencyId, isActive: true });
+      // console.log(activeLoader,'Here is the loader Data');
       loaderCSS = activeLoader?.loaderCSS || "";
     }
 
@@ -387,7 +388,7 @@ router.get("/combined", async (req, res) => {
     if (!agencyId) return res.status(400).json({ message: "agencyId is required" });
 
     const theme = await Theme.findOne({ agencyId, isActive: true });
-    if (!theme) return res.status(403).json({ message: "User Not Activated Yet" });
+    if (!theme) return res.status(403).json({ message: "User Not Found Or Invalid ID" });
 
     const themeData = theme.themeData || {};
     const selectedTheme = theme.selectedTheme || "";
@@ -412,7 +413,6 @@ router.get("/combined", async (req, res) => {
     // === Combine final JS ===
     const finalJS = `
       ${dynamicVars}
-      ${codeJS}
       ${remoteSettings}
     `;
 
