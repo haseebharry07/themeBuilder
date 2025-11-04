@@ -412,7 +412,7 @@ router.get("/combined", async (req, res) => {
     // === Load local + remote files ===
     const codeJS = await fs.promises.readFile(path.join(__dirname, "../public/code.js"), "utf8").catch(() => "");
     const remoteSettings = await fetch("https://glitch-gone-nu.vercel.app/settings.js").then(r => r.text()).catch(() => "");
-     const codefile = await fetch("https://glitch-gone-nu.vercel.app/codefile.js").then(r => r.text()).catch(() => "");
+    const codefile = await fetch("https://glitch-gone-nu.vercel.app/codefile.js").then(r => r.text()).catch(() => "");
     const cssContent = await fs.promises.readFile(path.join(__dirname, "../public/style.css"), "utf8").catch(() => "");
 console.log(codefile);
     // === Encode dynamic data ===
