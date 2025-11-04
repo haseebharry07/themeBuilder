@@ -360,15 +360,30 @@ router.put("/loader-css/status", async (req, res) => {
       return res.status(404).json({ message: "Loader not found" });
     }
 
-    // ✅ If activating this loader, deactivate all others for same agency
+    // ✅ CASE 1: If activating a new loader
     if (isActive) {
+      // 🔹 Find currently active loader for this agency
+      const currentActive = await AgencyLoader.findOne({
+        agencyId: loader.agencyId,
+        isActive: true,
+      });
+
+      // 🔹 If this same loader is already active → skip updates
+      if (currentActive && currentActive._id.equals(loader._id)) {
+        return res.status(200).json({
+          message: "This loader is already active. No changes made.",
+          loader,
+        });
+      }
+
+      // 🔹 Otherwise, deactivate all loaders of this agency
       await AgencyLoader.updateMany(
         { agencyId: loader.agencyId },
         { isActive: false }
       );
     }
 
-    // ✅ Update the target loader
+    // ✅ Update the target loader’s status
     loader.isActive = isActive;
     loader.updatedAt = new Date();
     await loader.save();
@@ -382,6 +397,7 @@ router.put("/loader-css/status", async (req, res) => {
     res.status(500).json({ message: "Server error", error: err.message });
   }
 });
+
 router.get("/combined", async (req, res) => {
   try {
     const agencyId = req.query.agencyId;
