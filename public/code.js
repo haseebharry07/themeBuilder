@@ -356,7 +356,6 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     _reapplyLock: false
   };
 
-  console.log("✅ Subaccount title watcher initialized");
   // ---- Listen to SPA location changes ----
   window.addEventListener("locationchange", () => {
     ThemeBuilder.reapply();
