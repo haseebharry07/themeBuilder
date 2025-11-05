@@ -315,6 +315,7 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     restoreHiddenMenus();
     applyHiddenMenus();
     applyLockedMenus();
+    ensureSidebarTitleStyle();
 
     try {
       if (saved.themeData["--subMenuOrder"]) {
@@ -355,7 +356,117 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     },
     _reapplyLock: false
   };
+ // === Subaccount Sidebar Menu Title Support ===
+  function ensureSidebarTitleStyle() {
+    let style = document.getElementById("tb-subaccount-title-style");
+    if (!style) {
+      style = document.createElement("style");
+      style.id = "tb-subaccount-title-style";
+      document.head.appendChild(style);
+    }
 
+    style.innerHTML = `
+      /* Hide original titles & use CSS variables for each */
+      a[meta="launchpad"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="launchpad"] .nav-title::after { content: var(--sb_launchpad-new-name, "Launchpad"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="dashboard"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="dashboard"] .nav-title::after { content: var(--sb_dashboard-new-name, "Dashboard"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="conversations"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="conversations"] .nav-title::after { content: var(--sb_conversations-new-name, "Conversations"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="calendars"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="calendars"] .nav-title::after { content: var(--sb_calendars-new-name, "Calendars"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="contacts"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="contacts"] .nav-title::after { content: var(--sb_contacts-new-name, "Contacts"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="opportunities"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="opportunities"] .nav-title::after { content: var(--sb_opportunities-new-name, "Opportunities"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="payments"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="payments"] .nav-title::after { content: var(--sb_payments-new-name, "Payments"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="email-marketing"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="email-marketing"] .nav-title::after { content: var(--sb_email-marketing-new-name, "Email Marketing"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="automation"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="automation"] .nav-title::after { content: var(--sb_automation-new-name, "Automation"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="sites"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="sites"] .nav-title::after { content: var(--sb_sites-new-name, "Sites"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="memberships"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="memberships"] .nav-title::after { content: var(--sb_memberships-new-name, "Memberships"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="app-media"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="app-media"] .nav-title::after { content: var(--sb_app-media-new-name, "App Media"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="reputation"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="reputation"] .nav-title::after { content: var(--sb_reputation-new-name, "Reputation"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="reporting"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="reporting"] .nav-title::after { content: var(--sb_reporting-new-name, "Reporting"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="app-marketplace"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="app-marketplace"] .nav-title::after { content: var(--sb_app-marketplace-new-name, "App Marketplace"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="custom-values"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="custom-values"] .nav-title::after { content: var(--sb_custom-values-new-name, "Custom Values"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="manage-scoring"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="manage-scoring"] .nav-title::after { content: var(--sb_manage-scoring-new-name, "Manage Scoring"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="domains-urlRedirects"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="domains-urlRedirects"] .nav-title::after { content: var(--sb_domains-urlRedirects-new-name, "Domains & URL Redirects"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="integrations"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="integrations"] .nav-title::after { content: var(--sb_integrations-new-name, "Integrations"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="tags"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="tags"] .nav-title::after { content: var(--sb_tags-new-name, "Tags"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="labs"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="labs"] .nav-title::after { content: var(--sb_labs-new-name, "Labs"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="audit-logs-location"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="audit-logs-location"] .nav-title::after { content: var(--sb_audit-logs-location-new-name, "Audit Logs"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="brand-boards"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="brand-boards"] .nav-title::after { content: var(--sb_brand-boards-new-name, "Brand Boards"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="business_info"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="business_info"] .nav-title::after { content: var(--sb_business_info-new-name, "Business Profile"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="saas-billing"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="saas-billing"] .nav-title::after { content: var(--sb_saas-billing-new-name, "Billing"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="my-staff"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="my-staff"] .nav-title::after { content: var(--sb_my-staff-new-name, "My Staff"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="location-email-services"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="location-email-services"] .nav-title::after { content: var(--sb_location-email-services-new-name, "Email Services"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="phone-number"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="phone-number"] .nav-title::after { content: var(--sb_phone-number-new-name, "Phone Numbers"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="whatsapp"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="whatsapp"] .nav-title::after { content: var(--sb_whatsapp-new-name, "WhatsApp"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="objects"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="objects"] .nav-title::after { content: var(--sb_objects-new-name, "Objects"); visibility: visible; position: absolute; left: 0; }
+
+      a[meta="custom-fields-settings"] .nav-title { visibility: hidden; position: relative; }
+      a[meta="custom-fields-settings"] .nav-title::after { content: var(--sb_custom-fields-settings-new-name, "Custom Fields"); visibility: visible; position: absolute; left: 0; }
+    `;
+  }
+
+  // Watch for re-renders (GHL dynamically reloads sidebar)
+  const observer = new MutationObserver(() => ensureSidebarTitleStyle());
+  observer.observe(document.body, { childList: true, subtree: true });
+
+  console.log("✅ Subaccount title watcher initialized");
   // ---- Listen to SPA location changes ----
   window.addEventListener("locationchange", () => {
     ThemeBuilder.reapply();
