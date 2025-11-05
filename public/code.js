@@ -356,11 +356,6 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     _reapplyLock: false
   };
 
-
-  // Watch for re-renders (GHL dynamically reloads sidebar)
-  const observer = new MutationObserver(() => ensureSidebarTitleStyle());
-  observer.observe(document.body, { childList: true, subtree: true });
-
   console.log("✅ Subaccount title watcher initialized");
   // ---- Listen to SPA location changes ----
   window.addEventListener("locationchange", () => {
