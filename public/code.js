@@ -272,44 +272,87 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     log("Agency logo not found after retries");
   }
 // ✅ ---- Sidebar Titles Restore ----
-  function applyStoredSidebarTitles() {
-    try {
-      const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
-      if (!saved.themeData || !saved.themeData["--sidebarTitles"]) return;
+function applyStoredSidebarTitles() {
+  try {
+    const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+    if (!saved.themeData || !saved.themeData["--sidebarTitles"]) return;
 
-      const titles = JSON.parse(saved.themeData["--sidebarTitles"]);
-      Object.entries(titles).forEach(([metaKey, data]) => {
-        const value = typeof data === "string" ? data : data.value;
-        const varName = typeof data === "string" ? `--${metaKey}-new-name` : data.varName;
-        const newLabel = value || metaKey;
+    // Parse the stored sidebar title data
+    const titles = JSON.parse(saved.themeData["--sidebarTitles"]);
 
-        if (!document.querySelector(`style[data-meta="${metaKey}"]`)) {
-          const style = document.createElement("style");
-          style.dataset.meta = metaKey;
-          style.innerHTML = `
-            a[meta="${metaKey}"] .nav-title,
-            a#${metaKey} .nav-title {
-              visibility: hidden !important;
-              position: relative !important;
-            }
-            a[meta="${metaKey}"] .nav-title::after,
-            a#${metaKey} .nav-title::after {
-              content: var(${varName}, "${metaKey}");
-              visibility: visible !important;
-              position: absolute !important;
-              left: 0;
-            }
-          `;
-          document.head.appendChild(style);
-        }
+    Object.entries(titles).forEach(([varName, newLabel]) => {
+      // Extract metaKey from variable name, e.g. "--sites-new-name" → "sites"
+      const metaKey = varName.replace(/^--| -new-name$/g, "").replace(/-new-name$/, "");
+      const cleanMetaKey = metaKey.replace(/^--/, "").replace(/-new-name$/, "");
 
-        document.documentElement.style.setProperty(varName, `"${newLabel}"`);
-        log(`✅ Sidebar title applied: ${metaKey} → ${newLabel}`);
-      });
-    } catch (err) {
-      console.error("❌ Failed to apply stored sidebar titles:", err);
-    }
+      // Inject style if missing
+      if (!document.querySelector(`style[data-meta="${cleanMetaKey}"]`)) {
+        const style = document.createElement("style");
+        style.dataset.meta = cleanMetaKey;
+        style.innerHTML = `
+          a[meta="${cleanMetaKey}"] .nav-title,
+          a#${cleanMetaKey} .nav-title {
+            visibility: hidden !important;
+            position: relative !important;
+          }
+          a[meta="${cleanMetaKey}"] .nav-title::after,
+          a#${cleanMetaKey} .nav-title::after {
+            content: var(${varName}, "${cleanMetaKey}");
+            visibility: visible !important;
+            position: absolute !important;
+            left: 0;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+
+      // Apply live CSS variable
+      document.documentElement.style.setProperty(varName, `"${newLabel}"`);
+      console.log(`✅ Sidebar title applied: ${cleanMetaKey} → ${newLabel}`);
+    });
+  } catch (err) {
+    console.error("❌ Failed to apply stored sidebar titles:", err);
   }
+}
+
+  // function applyStoredSidebarTitles() {
+  //   try {
+  //     const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+  //     if (!saved.themeData || !saved.themeData["--sidebarTitles"]) return;
+
+  //     const titles = JSON.parse(saved.themeData["--sidebarTitles"]);
+  //     Object.entries(titles).forEach(([metaKey, data]) => {
+  //       const value = typeof data === "string" ? data : data.value;
+  //       const varName = typeof data === "string" ? `--${metaKey}-new-name` : data.varName;
+  //       const newLabel = value || metaKey;
+
+  //       if (!document.querySelector(`style[data-meta="${metaKey}"]`)) {
+  //         const style = document.createElement("style");
+  //         style.dataset.meta = metaKey;
+  //         style.innerHTML = `
+  //           a[meta="${metaKey}"] .nav-title,
+  //           a#${metaKey} .nav-title {
+  //             visibility: hidden !important;
+  //             position: relative !important;
+  //           }
+  //           a[meta="${metaKey}"] .nav-title::after,
+  //           a#${metaKey} .nav-title::after {
+  //             content: var(${varName}, "${metaKey}");
+  //             visibility: visible !important;
+  //             position: absolute !important;
+  //             left: 0;
+  //           }
+  //         `;
+  //         document.head.appendChild(style);
+  //       }
+
+  //       document.documentElement.style.setProperty(varName, `"${newLabel}"`);
+  //       log(`✅ Sidebar title applied: ${metaKey} → ${newLabel}`);
+  //     });
+  //   } catch (err) {
+  //     console.error("❌ Failed to apply stored sidebar titles:", err);
+  //   }
+  // }
   // ---- Mutation observer (throttled) ----
   function observeSidebarMutations(sidebar) {
     if (!sidebar) return;
