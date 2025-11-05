@@ -271,7 +271,45 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     }
     log("Agency logo not found after retries");
   }
+// ✅ ---- Sidebar Titles Restore ----
+  function applyStoredSidebarTitles() {
+    try {
+      const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+      if (!saved.themeData || !saved.themeData["--sidebarTitles"]) return;
 
+      const titles = JSON.parse(saved.themeData["--sidebarTitles"]);
+      Object.entries(titles).forEach(([metaKey, data]) => {
+        const value = typeof data === "string" ? data : data.value;
+        const varName = typeof data === "string" ? `--${metaKey}-new-name` : data.varName;
+        const newLabel = value || metaKey;
+
+        if (!document.querySelector(`style[data-meta="${metaKey}"]`)) {
+          const style = document.createElement("style");
+          style.dataset.meta = metaKey;
+          style.innerHTML = `
+            a[meta="${metaKey}"] .nav-title,
+            a#${metaKey} .nav-title {
+              visibility: hidden !important;
+              position: relative !important;
+            }
+            a[meta="${metaKey}"] .nav-title::after,
+            a#${metaKey} .nav-title::after {
+              content: var(${varName}, "${metaKey}");
+              visibility: visible !important;
+              position: absolute !important;
+              left: 0;
+            }
+          `;
+          document.head.appendChild(style);
+        }
+
+        document.documentElement.style.setProperty(varName, `"${newLabel}"`);
+        log(`✅ Sidebar title applied: ${metaKey} → ${newLabel}`);
+      });
+    } catch (err) {
+      console.error("❌ Failed to apply stored sidebar titles:", err);
+    }
+  }
   // ---- Mutation observer (throttled) ----
   function observeSidebarMutations(sidebar) {
     if (!sidebar) return;
@@ -360,6 +398,9 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
   window.addEventListener("locationchange", () => {
     ThemeBuilder.reapply();
     ThemeBuilder.applyAgencyLogo();
+    setTimeout(() => {
+      applyStoredSidebarTitles();
+    }, 1200);
   });
 
   // ---- Initial bootstrap ----
@@ -370,6 +411,10 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
   setTimeout(() => { ThemeBuilder.reapply(); }, 400);
   ThemeBuilder.applyAgencyLogo();
 
+    // ✅ Run once on initial load
+  setTimeout(() => {
+    applyStoredSidebarTitles();
+  }, 1500);
   // Expose to global for manual debugging
   window.ThemeBuilder = ThemeBuilder;
   log("ThemeBuilder initialized");
