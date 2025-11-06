@@ -3287,32 +3287,24 @@ input[type="submit"],
   margin-top: 0 !important;
 }
 
-/* Make sure sidebar items are flex-aligned */
-a[id^="sb_"] {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 8px; /* adds space between icon and title */
-}
-
-/* Icon normalization */
+/* Common icon style for <i> tags */
 .tb-sidebar-icon {
+  position: relative !important;
+  right: 25px !important;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 20px;
   height: 20px;
+  margin-right: 0.5rem;
   font-size: 16px;
-  font-family: "Font Awesome 6 Free" !important;
-  font-weight: 900;
-  color: inherit;
   line-height: 1;
-}
-
-/* Optional: normalize text */
-.nav-title {
-  position: relative !important;
-  right: 0 !important;
+  vertical-align: middle;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
 }
 
 /* Optional: Image-based icons */
