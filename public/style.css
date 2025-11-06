@@ -3287,7 +3287,7 @@ input[type="submit"],
   margin-top: 0 !important;
 }
 
-
+/* Common icon style for <i> tags */
 .tb-sidebar-icon {
   display: inline-flex;
   align-items: center;
@@ -3300,4 +3300,16 @@ input[type="submit"],
   vertical-align: middle;
   font-family: "Font Awesome 6 Free";
   font-weight: 900;
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+}
+
+/* Optional: Image-based icons */
+.tb-sidebar-icon-img {
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+  object-fit: contain;
+  vertical-align: middle;
 }
