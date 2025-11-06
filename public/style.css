@@ -3288,3 +3288,16 @@ input[type="submit"],
 }
 
 
+.tb-sidebar-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 0.5rem;
+  font-size: 16px;
+  line-height: 1;
+  vertical-align: middle;
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+}
