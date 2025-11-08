@@ -1590,3 +1590,168 @@ a.info-item {
 		text-align: center;
 	}
 }
+
+
+
+/* NEW: Theme Builder Overview Section */
+.themebuilder-section {
+	padding: 120px 30px;
+	background: linear-gradient(
+		180deg,
+		var(--primary-black) 0%,
+		rgba(153, 69, 255, 0.02) 50%,
+		var(--primary-black) 100%
+	);
+	position: relative;
+	overflow: hidden;
+	text-align: center;
+}
+.themebuilder-section::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.55); /* softer overlay (0.55 instead of 0.85) */
+	z-index: 1;
+}
+
+.themebuilder-container {
+	position: relative;
+	z-index: 2; /* keeps content above overlay */
+}
+
+.themebuilder-section {
+	margin-top: 100px; /* adjust if your header overlaps */
+}
+.themebuilder-container {
+	max-width: 1200px;
+	margin: 0 auto;
+	position: relative;
+	z-index: 2;
+}
+
+/* Animated Gradient Title (same feel as philosophy-headline) */
+.themebuilder-title {
+	font-size: 56px;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 3px;
+	margin-bottom: 25px;
+	line-height: 1.2;
+	background: linear-gradient(
+		135deg,
+		var(--accent-cyan) 0%,
+		var(--accent-purple) 25%,
+		var(--accent-blue) 50%,
+		var(--accent-green) 75%,
+		var(--accent-cyan) 100%
+	);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	background-size: 200% 200%;
+	animation: gradientFlow 5s ease infinite;
+}
+
+/* Subheading / Description */
+.themebuilder-description {
+	font-size: 20px;
+	color: var(--text-secondary);
+	max-width: 750px;
+	margin: 0 auto 70px;
+	line-height: 1.7;
+	font-weight: 300;
+}
+
+/* Image Container */
+.themebuilder-image-wrapper {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin-bottom: 70px;
+	position: relative;
+}
+
+.themebuilder-image {
+	width: 65%;
+	max-width: 200px;
+	border-radius: 20px;
+	border: 1px solid var(--metal-dark);
+	background: rgba(42, 42, 42, 0.2);
+	box-shadow: 0 20px 40px rgba(69, 255, 131, 0.1);
+	transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.themebuilder-image:hover {
+    transform: scale(1.43);
+    box-shadow: 0 25px 50px rgb(69 255 121 / 40%);
+}
+
+/* Features Section */
+.themebuilder-features {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+	gap: 50px;
+	margin-top: 40px;
+}
+
+.themebuilder-features .feature {
+	background: linear-gradient(
+		135deg,
+		rgba(42, 42, 42, 0.2),
+		rgba(26, 26, 26, 0.3)
+	);
+	border: 1px solid var(--metal-dark);
+	border-radius: 20px;
+	padding: 35px 25px;
+	transition: all 0.4s ease;
+}
+
+.themebuilder-features .feature:hover {
+	transform: translateY(-10px);
+	border-color: var(--accent-purple);
+	box-shadow: 0 20px 40px rgba(69, 255, 131, 0.2);
+	background: linear-gradient(
+		135deg,
+		rgba(153, 69, 255, 0.05),
+		rgba(26, 26, 26, 0.3)
+	);
+}
+
+.themebuilder-features h4 {
+	font-size: 24px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	margin-bottom: 10px;
+	color: var(--text-primary);
+}
+
+.themebuilder-features p {
+	font-size: 16px;
+	color: var(--text-secondary);
+	line-height: 1.6;
+}
+
+/* Optional: Floating particles like philosophy background */
+.themebuilder-particles {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.themebuilder-particle {
+	position: absolute;
+	width: 4px;
+	height: 4px;
+	background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+	border-radius: 50%;
+	opacity: 0;
+	animation: float-particle 22s infinite linear;
+}

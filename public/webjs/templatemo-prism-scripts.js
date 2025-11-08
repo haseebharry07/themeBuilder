@@ -53,24 +53,33 @@ https://templatemo.com/tm-600-prism-flux
                 description: 'A connected grid-inspired theme symbolizing innovation, intelligence, and real-time interaction.',
                 image: 'images/agencydashboard.png',
                 tech: ['Connect', 'Smart', 'Edge']
+            },
+            {
+                id: 7,
+                title: 'Theme Builder',
+                description: 'Customize The GHL Websites Using GlitchGone ThemeBuilder.',
+                image: 'images/themebuilder1.png',
+                tech: ['Connect', 'Smart', 'Innovative']
             }
 
         ];
 
         // Skills data
         const skillsData = [
-            { name: 'React.js', icon: '⚛️', level: 95, category: 'frontend' },
-            { name: 'Node.js', icon: '🟢', level: 90, category: 'backend' },
-            { name: 'TypeScript', icon: '📘', level: 88, category: 'frontend' },
+            { name: 'Header Colors', icon: '⚛️', level: 95, category: 'generalsettings' },
+            { name: 'Background Color', icon: '🟢', level: 90, category: 'login' },
+            { name: 'Font Family Selection', icon: '📘', level: 88, category: 'generalsettings' },
             { name: 'AWS', icon: '☁️', level: 92, category: 'cloud' },
             { name: 'Docker', icon: '🐳', level: 85, category: 'cloud' },
-            { name: 'Python', icon: '🐍', level: 93, category: 'backend' },
+            { name: 'Background Wallpaper', icon: '🐍', level: 93, category: 'login' },
             { name: 'Kubernetes', icon: '☸️', level: 82, category: 'cloud' },
-            { name: 'GraphQL', icon: '◈', level: 87, category: 'backend' },
+            { name: 'Font + Card Settings', icon: '◈', level: 87, category: 'login' },
             { name: 'TensorFlow', icon: '🤖', level: 78, category: 'emerging' },
             { name: 'Blockchain', icon: '🔗', level: 75, category: 'emerging' },
-            { name: 'Vue.js', icon: '💚', level: 85, category: 'frontend' },
-            { name: 'MongoDB', icon: '🍃', level: 90, category: 'backend' }
+            { name: 'SideBar Colors', icon: '💚', level: 85, category: 'generalsettings' },
+            { name: 'Icon', icon: '🍃', level: 90, category: 'menucustomizer' },
+            { name: 'Menu Title', icon: '🍃', level: 90, category: 'menucustomizer' },
+            { name: 'Position Update', icon: '🍃', level: 90, category: 'menucustomizer' },
         ];
 
         // Scroll to section function
