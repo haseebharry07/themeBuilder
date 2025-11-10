@@ -2958,10 +2958,10 @@ nav a#sb_app-media {
 }
 
 .hl_nav-settings {
-    border: 1px solid #ffffff00;
-    border-radius: 14px;
-    padding: 0px 0px 0px 0px !important;
-    /* padding-bottom: 12px !important; */
+    max-width: 13rem !important;
+    padding: 0px 0px 0px 6px !important;
+    border-radius: 25px;
+    /* padding-bottom: 11px !important; */
     bottom: 0 !important;
 }
 
