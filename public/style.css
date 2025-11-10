@@ -2958,11 +2958,11 @@ nav a#sb_app-media {
 }
 
 .hl_nav-settings {
+    left: 4px;
     max-width: 13rem !important;
     padding: 0px 0px 0px 6px !important;
     border-radius: 14px;
-    /* padding-bottom: 11px !important; */
-    bottom: 0 !important;
+    bottom: 5px !important;
 }
 
 .sidebar-v2-location
