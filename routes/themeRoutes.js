@@ -261,10 +261,21 @@ router.get("/merged-css", async (req, res) => {
     // ✅ Read the system-generated style.css only when themedata exists
     const cssFilePath = path.join(__dirname, "../public/style.css");
     const cssContent = hasThemeData ? await fs.promises.readFile(cssFilePath, "utf8") : "";
+  // ✅ Before generating dynamicVariables
+  let processedThemeData = { ...themeData };
+
+  // Only keep --theme-mode if selectedTheme is Light or Dark
+  if (!["Dark Theme", "Light Theme"].includes(selectedTheme)) {
+    // Remove mode key from themeData for custom themes
+    if (processedThemeData["--theme-mode"]) {
+      delete processedThemeData["--theme-mode"];
+      console.log(`--theme-mode removed from themeData for ${selectedTheme}`);
+    }
+  }
 
     // ✅ Dynamic theme variables
     const dynamicVariables = hasThemeData
-      ? Object.entries(themeData).map(([key, value]) => `${key}: ${value};`).join("\n")
+      ? Object.entries(processedThemeData).map(([key, value]) => `${key}: ${value};`).join("\n")
       : "";
 
     // ✅ Merge all CSS
