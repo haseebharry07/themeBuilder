@@ -2958,12 +2958,7 @@ nav a#sb_app-media {
 }
 
 .hl_nav-settings {
-    left: 8px;
-    width: 201px !important;
-    height: 42px;
-    border-radius: 17px;
-    border: 1px solid #ffffff00;
-    padding-bottom: 12px !important;
+       padding-bottom: 12px !important;
     bottom: 0 !important;
 }
 
