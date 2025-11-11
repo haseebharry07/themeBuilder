@@ -281,53 +281,59 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
 function reorderAgencyFromOrder(agencyOrder) {
   if (!Array.isArray(agencyOrder) || agencyOrder.length === 0) return false;
 
-  const reorderNow = () => {
-    let sidebar =
-      document.querySelector(".agency-sidebar") ||
-      document.querySelector("#agencySidebar") ||
-      document.querySelector(".hl_nav-header nav[aria-label='header']");
+  const reorderMenu = (order, containerSelector) => {
+    // Try the direct selector first (the same as buildMenuCustomizationSection)
+    let container = document.querySelector(containerSelector);
 
-    if (!sidebar) return false;
+    // Try to infer container from first existing element if selector fails
+    if (!container) {
+      for (let i = 0; i < order.length; i++) {
+        const id = order[i];
+        const el = document.getElementById(id);
+        if (el && el.parentElement) {
+          container = el.parentElement;
+          break;
+        }
+      }
+    }
 
-    let reordered = false;
-    agencyOrder.forEach(menuId => {
-      const menuEl = document.getElementById(menuId);
-      if (menuEl && sidebar.contains(menuEl)) {
-        sidebar.appendChild(menuEl);
-        reordered = true;
+    // As a final fallback, try a generic GHL sidebar selector
+    if (!container) {
+      container =
+        document.querySelector(".hl_nav-header nav[aria-label='header']") ||
+        document.querySelector(".hl_nav-header") ||
+        document.querySelector("#agencySidebar");
+    }
+
+    if (!container) {
+      console.warn("[ThemeBuilder] Sidebar container not found yet");
+      return false;
+    }
+
+    // ✅ Perform the reorder
+    order.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && container.contains(el)) {
+        container.appendChild(el);
       }
     });
 
-    if (reordered) console.log("[ThemeBuilder] Sidebar reordered successfully");
-    else console.warn("[ThemeBuilder] No matching menu elements found");
-
-    return reordered;
+    console.log("[ThemeBuilder] Sidebar reordered successfully using reorderMenu()");
+    return true;
   };
 
-  // If sidebar is ready right now, reorder immediately
-  if (reorderNow()) return true;
-
-  // Otherwise, observe for sidebar load (more reliable than polling)
+  // 🕐 Wait until sidebar is actually rendered (MutationObserver)
   const observer = new MutationObserver((mutations, obs) => {
-    const sidebar =
-      document.querySelector(".agency-sidebar") ||
-      document.querySelector("#agencySidebar") ||
-      document.querySelector(".hl_nav-header nav[aria-label='header']");
-
-    if (sidebar && sidebar.children.length > 5) { // make sure it's populated
-      if (reorderNow()) {
-        obs.disconnect();
-      }
-    }
+    const success = reorderMenu(agencyOrder, "#agencySidebar");
+    if (success) obs.disconnect();
   });
 
-  // Watch the main container for sidebar creation
-  observer.observe(document.body, {
-    childList: true,
-    subtree: true,
-  });
+  observer.observe(document.body, { childList: true, subtree: true });
 
-  // Stop observing after 10 seconds just in case
+  // Try immediately once too
+  reorderMenu(agencyOrder, "#agencySidebar");
+
+  // Stop observer after 10s to avoid memory leaks
   setTimeout(() => observer.disconnect(), 10000);
 
   return true;
