@@ -230,117 +230,25 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     });
   }
 
-  // function reorderSidebarFromOrder(order) {
-  //   const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
-  //   if (!sidebar || !Array.isArray(order)) return false;
-  //   order.forEach(menuId => {
-  //     const item = sidebar.querySelector(`#${menuId}`);
-  //     if (item) sidebar.appendChild(item);
-  //   });
-  //   return true;
-  // }
-
-  function reorderSubAccountFromOrder(subOrder) {
-  if (!Array.isArray(subOrder) || subOrder.length === 0) return false;
-
-  let sidebar =
-    document.querySelector("#subAccountSidebar") ||
-    document.querySelector(".hl_nav-header nav") ||
-    document.querySelector(".hl_nav-header");
-
-  if (!sidebar) {
-    for (let id of subOrder) {
-      const el = document.getElementById(id);
-      if (el && el.parentElement) {
-        sidebar = el.parentElement;
-        break;
-      }
-    }
+  function reorderSidebarFromOrder(order) {
+    const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
+    if (!sidebar || !Array.isArray(order)) return false;
+    order.forEach(menuId => {
+      const item = sidebar.querySelector(`#${menuId}`);
+      if (item) sidebar.appendChild(item);
+    });
+    return true;
   }
 
-  if (!sidebar) return false;
-
-  subOrder.forEach(menuId => {
-    const el = sidebar.querySelector(`#${menuId}`);
-    if (el) sidebar.appendChild(el);
-  });
-
-  return true;
-}
-
-
-  // function reorderAgencyFromOrder(agencyOrder) {
-  //   const sidebar = document.querySelector(".agency-sidebar");
-  //   if (!sidebar || !Array.isArray(agencyOrder)) return false;
-  //   agencyOrder.forEach(menuId => {
-  //     const menuEl = sidebar.querySelector(`#${menuId}`);
-  //     if (menuEl) sidebar.appendChild(menuEl);
-  //   });
-  //   return true;
-  // }
-function reorderAgencyFromOrder(agencyOrder) {
-  if (!Array.isArray(agencyOrder) || agencyOrder.length === 0) return false;
-
-  const reorderMenu = (order, containerSelector) => {
-    // Try the direct selector first (the same as buildMenuCustomizationSection)
-    let container = document.querySelector(containerSelector);
-
-    // Try to infer container from first existing element if selector fails
-    if (!container) {
-      for (let i = 0; i < order.length; i++) {
-        const id = order[i];
-        const el = document.getElementById(id);
-        if (el && el.parentElement) {
-          container = el.parentElement;
-          break;
-        }
-      }
-    }
-
-    // As a final fallback, try a generic GHL sidebar selector
-    if (!container) {
-      container =
-        document.querySelector(".hl_nav-header nav[aria-label='header']") ||
-        document.querySelector(".hl_nav-header") ||
-        document.querySelector("#agencySidebar");
-    }
-
-    if (!container) {
-      console.warn("[ThemeBuilder] Sidebar container not found yet");
-      return false;
-    }
-
-    // ✅ Perform the reorder
-    order.forEach(id => {
-      const el = document.getElementById(id);
-      if (el && container.contains(el)) {
-        container.appendChild(el);
-      }
+  function reorderAgencyFromOrder(agencyOrder) {
+    const sidebar = document.querySelector(".agency-sidebar");
+    if (!sidebar || !Array.isArray(agencyOrder)) return false;
+    agencyOrder.forEach(menuId => {
+      const menuEl = sidebar.querySelector(`#${menuId}`);
+      if (menuEl) sidebar.appendChild(menuEl);
     });
-
-    console.log("[ThemeBuilder] Sidebar reordered successfully using reorderMenu()");
     return true;
-  };
-
-  // 🕐 Wait until sidebar is actually rendered (MutationObserver)
-  const observer = new MutationObserver((mutations, obs) => {
-    const success = reorderMenu(agencyOrder, "#agencySidebar");
-    if (success) obs.disconnect();
-  });
-
-  observer.observe(document.body, { childList: true, subtree: true });
-
-  // Try immediately once too
-  reorderMenu(agencyOrder, "#agencySidebar");
-
-  // Stop observer after 10s to avoid memory leaks
-  setTimeout(() => observer.disconnect(), 10000);
-
-  return true;
-}
-
-
-
+  }
 
   // ---- Logo injection ----
   async function applyAgencyLogo(attempt = 1) {
@@ -406,6 +314,7 @@ function applyStoredSidebarTitles() {
     console.error("❌ Failed to apply stored sidebar titles:", err);
   }
 }
+
   // ---- Mutation observer (throttled) ----
   function observeSidebarMutations(sidebar) {
     if (!sidebar) return;
@@ -438,65 +347,33 @@ function applyStoredSidebarTitles() {
   }
 
   // ---- Core reapply logic ----
-  // function _doReapplyTheme() {
-  //   const savedRaw = localStorage.getItem(STORAGE.userTheme);
-  //   const saved = safeJsonParse(savedRaw) || {};
-  //   if (!saved.themeData) {
-  //     log("No theme data found");
-  //     return;
-  //   }
-  //   injectThemeData(saved.themeData);
-  //   restoreHiddenMenus();
-  //   applyHiddenMenus();
-  //   applyLockedMenus();
-
-  //   try {
-  //     if (saved.themeData["--subMenuOrder"]) {
-  //       const order = safeJsonParse(saved.themeData["--subMenuOrder"]) || [];
-  //       reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
-  //       applySubMenuOrder(order);
-  //     }
-  //   } catch (e) { console.error("[ThemeBuilder] reorder submenu failed", e); }
-
-  //   try {
-  //     if (saved.themeData["--agencyMenuOrder"]) {
-  //       const agencyOrder = safeJsonParse(saved.themeData["--agencyMenuOrder"]) || [];
-  //       reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
-  //     }
-  //   } catch (e) { console.error("[ThemeBuilder] reorder agency menus failed", e); }
-  // }
   function _doReapplyTheme() {
-  const savedRaw = localStorage.getItem(STORAGE.userTheme);
-  const saved = safeJsonParse(savedRaw) || {};
-  if (!saved.themeData) {
-    log("No theme data found");
-    return;
-  }
-
-  injectThemeData(saved.themeData);
-  restoreHiddenMenus();
-  applyHiddenMenus();
-  applyLockedMenus();
-
-  try {
-    if (saved.themeData["--subMenuOrder"]) {
-      const order = safeJsonParse(saved.themeData["--subMenuOrder"]) || [];
-      reorderSubAccountFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
+    const savedRaw = localStorage.getItem(STORAGE.userTheme);
+    const saved = safeJsonParse(savedRaw) || {};
+    if (!saved.themeData) {
+      log("No theme data found");
+      return;
     }
-  } catch (e) {
-    console.error("[ThemeBuilder] reorder submenu failed", e);
-  }
+    injectThemeData(saved.themeData);
+    restoreHiddenMenus();
+    applyHiddenMenus();
+    applyLockedMenus();
 
-  try {
-    if (saved.themeData["--agencyMenuOrder"]) {
-      const agencyOrder = safeJsonParse(saved.themeData["--agencyMenuOrder"]) || [];
-      reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
-    }
-  } catch (e) {
-    console.error("[ThemeBuilder] reorder agency menus failed", e);
-  }
-}
+    try {
+      if (saved.themeData["--subMenuOrder"]) {
+        const order = safeJsonParse(saved.themeData["--subMenuOrder"]) || [];
+        reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
+        applySubMenuOrder(order);
+      }
+    } catch (e) { console.error("[ThemeBuilder] reorder submenu failed", e); }
 
+    try {
+      if (saved.themeData["--agencyMenuOrder"]) {
+        const agencyOrder = safeJsonParse(saved.themeData["--agencyMenuOrder"]) || [];
+        reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
+      }
+    } catch (e) { console.error("[ThemeBuilder] reorder agency menus failed", e); }
+  }
 
   // ---- SPA detection (history) ----
   (function () {
