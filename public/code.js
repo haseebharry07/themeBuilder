@@ -388,9 +388,11 @@ function applyStoredSidebarTitles() {
 
     try {
       if (saved.themeData["--subMenuOrder"]) {
-        const order = safeJsonParse(saved.themeData["--subMenuOrder"]) || [];
-        reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
-        applySubMenuOrder(order);
+         const order = JSON.parse(saved.themeData["--subMenuOrder"]);
+        reorderMenu(order, "#subAccountSidebar");
+        // const order = safeJsonParse(saved.themeData["--subMenuOrder"]) || [];
+        // reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
+        // applySubMenuOrder(order);
       }
     } catch (e) { console.error("[ThemeBuilder] reorder submenu failed", e); }
 
