@@ -434,7 +434,6 @@ router.get("/combined", async (req, res) => {
     const agn = "${encodedAgn}";
    const remoteEncoded = "aHR0cHM6Ly90aGVtZS1idWlsZGVyLWRlbHRhLnZlcmNlbC5hcHAvYXBpL3RoZW1lL2ZpbGU/YWdlbmN5SWQ9${encodedAgn}";
     try { localStorage.setItem('agn', agn); } catch (e) {}
-    console.log("%c✅ Theme loaded for agencyId: ${agencyId}", "color:#00c853;font-weight:bold;");
     `;
 
     // === Combine final JS ===
