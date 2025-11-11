@@ -290,6 +290,7 @@ function reorderAgencyFromOrder(agencyOrder) {
   // If sidebar not found, try to infer it from existing elements
   if (!sidebar) {
     for (let id of agencyOrder) {
+        console.log("sidebar not find ID:",id);
       const el = document.getElementById(id);
       if (el && el.parentElement) {
         sidebar = el.parentElement;
@@ -302,6 +303,7 @@ function reorderAgencyFromOrder(agencyOrder) {
 
   agencyOrder.forEach(menuId => {
     const menuEl = sidebar.querySelector(`#${menuId}`);
+    console.log("Menu ID:",menuId);
     if (menuEl) sidebar.appendChild(menuEl); // moves menu to the end (new order)
   });
 
