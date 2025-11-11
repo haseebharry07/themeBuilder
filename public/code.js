@@ -281,55 +281,58 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
 function reorderAgencyFromOrder(agencyOrder) {
   if (!Array.isArray(agencyOrder) || agencyOrder.length === 0) return false;
 
-  const tryReorder = () => {
+  const reorderNow = () => {
     let sidebar =
       document.querySelector(".agency-sidebar") ||
       document.querySelector("#agencySidebar") ||
       document.querySelector(".hl_nav-header nav[aria-label='header']");
 
-    // Try to detect sidebar from one existing menu element
-    if (!sidebar) {
-      for (let id of agencyOrder) {
-        const el = document.getElementById(id);
-        if (el && el.parentElement) {
-          sidebar = el.parentElement;
-          break;
-        }
-      }
-    }
-
     if (!sidebar) return false;
 
-    let success = false;
-
+    let reordered = false;
     agencyOrder.forEach(menuId => {
       const menuEl = document.getElementById(menuId);
       if (menuEl && sidebar.contains(menuEl)) {
         sidebar.appendChild(menuEl);
-        success = true;
+        reordered = true;
       }
     });
 
-    return success;
+    if (reordered) console.log("[ThemeBuilder] Sidebar reordered successfully");
+    else console.warn("[ThemeBuilder] No matching menu elements found");
+
+    return reordered;
   };
 
-  // Try instantly first
-  if (tryReorder()) return true;
+  // If sidebar is ready right now, reorder immediately
+  if (reorderNow()) return true;
 
-  // Retry a few times until sidebar appears
-  let attempts = 0;
-  const interval = setInterval(() => {
-    attempts++;
-    const done = tryReorder();
-    if (done || attempts > 20) { // 20 × 200ms = 4s max
-      clearInterval(interval);
-      if (done) console.log("[ThemeBuilder] Agency sidebar reordered successfully");
-      else console.warn("[ThemeBuilder] Agency sidebar not found after waiting");
+  // Otherwise, observe for sidebar load (more reliable than polling)
+  const observer = new MutationObserver((mutations, obs) => {
+    const sidebar =
+      document.querySelector(".agency-sidebar") ||
+      document.querySelector("#agencySidebar") ||
+      document.querySelector(".hl_nav-header nav[aria-label='header']");
+
+    if (sidebar && sidebar.children.length > 5) { // make sure it's populated
+      if (reorderNow()) {
+        obs.disconnect();
+      }
     }
-  }, 200);
+  });
+
+  // Watch the main container for sidebar creation
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true,
+  });
+
+  // Stop observing after 10 seconds just in case
+  setTimeout(() => observer.disconnect(), 10000);
 
   return true;
 }
+
 
 
 
