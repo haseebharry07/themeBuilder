@@ -281,34 +281,56 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
 function reorderAgencyFromOrder(agencyOrder) {
   if (!Array.isArray(agencyOrder) || agencyOrder.length === 0) return false;
 
-  // Try main agency sidebar selector
-  let sidebar =
-    document.querySelector(".agency-sidebar") ||
-    document.querySelector("#agencySidebar") ||
-    document.querySelector(".hl_nav-header nav[aria-label='header']");
+  const tryReorder = () => {
+    let sidebar =
+      document.querySelector(".agency-sidebar") ||
+      document.querySelector("#agencySidebar") ||
+      document.querySelector(".hl_nav-header nav[aria-label='header']");
 
-  // If sidebar not found, try to infer it from existing elements
-  if (!sidebar) {
-    for (let id of agencyOrder) {
-        console.log("sidebar not find ID:",id);
-      const el = document.getElementById(id);
-      if (el && el.parentElement) {
-        sidebar = el.parentElement;
-        break;
+    // Try to detect sidebar from one existing menu element
+    if (!sidebar) {
+      for (let id of agencyOrder) {
+        const el = document.getElementById(id);
+        if (el && el.parentElement) {
+          sidebar = el.parentElement;
+          break;
+        }
       }
     }
-  }
 
-  if (!sidebar) return false;
+    if (!sidebar) return false;
 
-  agencyOrder.forEach(menuId => {
-    const menuEl = sidebar.querySelector(`#${menuId}`);
-    console.log("Menu ID:",menuId);
-    if (menuEl) sidebar.appendChild(menuEl); // moves menu to the end (new order)
-  });
+    let success = false;
+
+    agencyOrder.forEach(menuId => {
+      const menuEl = document.getElementById(menuId);
+      if (menuEl && sidebar.contains(menuEl)) {
+        sidebar.appendChild(menuEl);
+        success = true;
+      }
+    });
+
+    return success;
+  };
+
+  // Try instantly first
+  if (tryReorder()) return true;
+
+  // Retry a few times until sidebar appears
+  let attempts = 0;
+  const interval = setInterval(() => {
+    attempts++;
+    const done = tryReorder();
+    if (done || attempts > 20) { // 20 × 200ms = 4s max
+      clearInterval(interval);
+      if (done) console.log("[ThemeBuilder] Agency sidebar reordered successfully");
+      else console.warn("[ThemeBuilder] Agency sidebar not found after waiting");
+    }
+  }, 200);
 
   return true;
 }
+
 
 
   // ---- Logo injection ----
