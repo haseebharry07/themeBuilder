@@ -230,25 +230,84 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     });
   }
 
-  function reorderSidebarFromOrder(order) {
-    const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
-    if (!sidebar || !Array.isArray(order)) return false;
-    order.forEach(menuId => {
-      const item = sidebar.querySelector(`#${menuId}`);
-      if (item) sidebar.appendChild(item);
-    });
-    return true;
+  // function reorderSidebarFromOrder(order) {
+  //   const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
+  //   if (!sidebar || !Array.isArray(order)) return false;
+  //   order.forEach(menuId => {
+  //     const item = sidebar.querySelector(`#${menuId}`);
+  //     if (item) sidebar.appendChild(item);
+  //   });
+  //   return true;
+  // }
+
+  function reorderSubAccountFromOrder(subOrder) {
+  if (!Array.isArray(subOrder) || subOrder.length === 0) return false;
+
+  let sidebar =
+    document.querySelector("#subAccountSidebar") ||
+    document.querySelector(".hl_nav-header nav") ||
+    document.querySelector(".hl_nav-header");
+
+  if (!sidebar) {
+    for (let id of subOrder) {
+      const el = document.getElementById(id);
+      if (el && el.parentElement) {
+        sidebar = el.parentElement;
+        break;
+      }
+    }
   }
 
-  function reorderAgencyFromOrder(agencyOrder) {
-    const sidebar = document.querySelector(".agency-sidebar");
-    if (!sidebar || !Array.isArray(agencyOrder)) return false;
-    agencyOrder.forEach(menuId => {
-      const menuEl = sidebar.querySelector(`#${menuId}`);
-      if (menuEl) sidebar.appendChild(menuEl);
-    });
-    return true;
+  if (!sidebar) return false;
+
+  subOrder.forEach(menuId => {
+    const el = sidebar.querySelector(`#${menuId}`);
+    if (el) sidebar.appendChild(el);
+  });
+
+  return true;
+}
+
+
+  // function reorderAgencyFromOrder(agencyOrder) {
+  //   const sidebar = document.querySelector(".agency-sidebar");
+  //   if (!sidebar || !Array.isArray(agencyOrder)) return false;
+  //   agencyOrder.forEach(menuId => {
+  //     const menuEl = sidebar.querySelector(`#${menuId}`);
+  //     if (menuEl) sidebar.appendChild(menuEl);
+  //   });
+  //   return true;
+  // }
+function reorderAgencyFromOrder(agencyOrder) {
+  if (!Array.isArray(agencyOrder) || agencyOrder.length === 0) return false;
+
+  // Try main agency sidebar selector
+  let sidebar =
+    document.querySelector(".agency-sidebar") ||
+    document.querySelector("#agencySidebar") ||
+    document.querySelector(".hl_nav-header nav[aria-label='header']");
+
+  // If sidebar not found, try to infer it from existing elements
+  if (!sidebar) {
+    for (let id of agencyOrder) {
+      const el = document.getElementById(id);
+      if (el && el.parentElement) {
+        sidebar = el.parentElement;
+        break;
+      }
+    }
   }
+
+  if (!sidebar) return false;
+
+  agencyOrder.forEach(menuId => {
+    const menuEl = sidebar.querySelector(`#${menuId}`);
+    if (menuEl) sidebar.appendChild(menuEl); // moves menu to the end (new order)
+  });
+
+  return true;
+}
+
 
   // ---- Logo injection ----
   async function applyAgencyLogo(attempt = 1) {
@@ -314,45 +373,6 @@ function applyStoredSidebarTitles() {
     console.error("❌ Failed to apply stored sidebar titles:", err);
   }
 }
-
-  // function applyStoredSidebarTitles() {
-  //   try {
-  //     const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
-  //     if (!saved.themeData || !saved.themeData["--sidebarTitles"]) return;
-
-  //     const titles = JSON.parse(saved.themeData["--sidebarTitles"]);
-  //     Object.entries(titles).forEach(([metaKey, data]) => {
-  //       const value = typeof data === "string" ? data : data.value;
-  //       const varName = typeof data === "string" ? `--${metaKey}-new-name` : data.varName;
-  //       const newLabel = value || metaKey;
-
-  //       if (!document.querySelector(`style[data-meta="${metaKey}"]`)) {
-  //         const style = document.createElement("style");
-  //         style.dataset.meta = metaKey;
-  //         style.innerHTML = `
-  //           a[meta="${metaKey}"] .nav-title,
-  //           a#${metaKey} .nav-title {
-  //             visibility: hidden !important;
-  //             position: relative !important;
-  //           }
-  //           a[meta="${metaKey}"] .nav-title::after,
-  //           a#${metaKey} .nav-title::after {
-  //             content: var(${varName}, "${metaKey}");
-  //             visibility: visible !important;
-  //             position: absolute !important;
-  //             left: 0;
-  //           }
-  //         `;
-  //         document.head.appendChild(style);
-  //       }
-
-  //       document.documentElement.style.setProperty(varName, `"${newLabel}"`);
-  //       log(`✅ Sidebar title applied: ${metaKey} → ${newLabel}`);
-  //     });
-  //   } catch (err) {
-  //     console.error("❌ Failed to apply stored sidebar titles:", err);
-  //   }
-  // }
   // ---- Mutation observer (throttled) ----
   function observeSidebarMutations(sidebar) {
     if (!sidebar) return;
@@ -385,33 +405,65 @@ function applyStoredSidebarTitles() {
   }
 
   // ---- Core reapply logic ----
+  // function _doReapplyTheme() {
+  //   const savedRaw = localStorage.getItem(STORAGE.userTheme);
+  //   const saved = safeJsonParse(savedRaw) || {};
+  //   if (!saved.themeData) {
+  //     log("No theme data found");
+  //     return;
+  //   }
+  //   injectThemeData(saved.themeData);
+  //   restoreHiddenMenus();
+  //   applyHiddenMenus();
+  //   applyLockedMenus();
+
+  //   try {
+  //     if (saved.themeData["--subMenuOrder"]) {
+  //       const order = safeJsonParse(saved.themeData["--subMenuOrder"]) || [];
+  //       reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
+  //       applySubMenuOrder(order);
+  //     }
+  //   } catch (e) { console.error("[ThemeBuilder] reorder submenu failed", e); }
+
+  //   try {
+  //     if (saved.themeData["--agencyMenuOrder"]) {
+  //       const agencyOrder = safeJsonParse(saved.themeData["--agencyMenuOrder"]) || [];
+  //       reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
+  //     }
+  //   } catch (e) { console.error("[ThemeBuilder] reorder agency menus failed", e); }
+  // }
   function _doReapplyTheme() {
-    const savedRaw = localStorage.getItem(STORAGE.userTheme);
-    const saved = safeJsonParse(savedRaw) || {};
-    if (!saved.themeData) {
-      log("No theme data found");
-      return;
-    }
-    injectThemeData(saved.themeData);
-    restoreHiddenMenus();
-    applyHiddenMenus();
-    applyLockedMenus();
-
-    try {
-      if (saved.themeData["--subMenuOrder"]) {
-        const order = safeJsonParse(saved.themeData["--subMenuOrder"]) || [];
-        reorderSidebarFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
-        applySubMenuOrder(order);
-      }
-    } catch (e) { console.error("[ThemeBuilder] reorder submenu failed", e); }
-
-    try {
-      if (saved.themeData["--agencyMenuOrder"]) {
-        const agencyOrder = safeJsonParse(saved.themeData["--agencyMenuOrder"]) || [];
-        reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
-      }
-    } catch (e) { console.error("[ThemeBuilder] reorder agency menus failed", e); }
+  const savedRaw = localStorage.getItem(STORAGE.userTheme);
+  const saved = safeJsonParse(savedRaw) || {};
+  if (!saved.themeData) {
+    log("No theme data found");
+    return;
   }
+
+  injectThemeData(saved.themeData);
+  restoreHiddenMenus();
+  applyHiddenMenus();
+  applyLockedMenus();
+
+  try {
+    if (saved.themeData["--subMenuOrder"]) {
+      const order = safeJsonParse(saved.themeData["--subMenuOrder"]) || [];
+      reorderSubAccountFromOrder(order.filter(m => m && m.trim() !== "sb_agency-accounts"));
+    }
+  } catch (e) {
+    console.error("[ThemeBuilder] reorder submenu failed", e);
+  }
+
+  try {
+    if (saved.themeData["--agencyMenuOrder"]) {
+      const agencyOrder = safeJsonParse(saved.themeData["--agencyMenuOrder"]) || [];
+      reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
+    }
+  } catch (e) {
+    console.error("[ThemeBuilder] reorder agency menus failed", e);
+  }
+}
+
 
   // ---- SPA detection (history) ----
   (function () {
