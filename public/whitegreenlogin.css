@@ -5,8 +5,7 @@
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  background: url("https://msgsndr-private.storage.googleapis.com/companyPhotos/6f4319f8-b037-4dec-b690-f1dd220cba75.png")
-    center center / cover no-repeat, linear-gradient(130deg, rgba(26, 176, 44, 1) 40%, rgba(245, 245, 245, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(26, 176, 44, 1) 60%);
+  background: linear-gradient(130deg, rgba(26, 176, 44, 1) 40%, rgba(245, 245, 245, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(26, 176, 44, 1) 60%);
   font-family: "Poppins", "Inter", sans-serif;
   overflow: hidden;
   padding: 20px;
