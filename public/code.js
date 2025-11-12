@@ -217,38 +217,6 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     document.body.appendChild(overlay);
   }
 
-  // ---- Submenu / sidebar reordering ----
-  function applySubMenuOrder(order) {
-    if (!Array.isArray(order)) {
-      console.warn("[ThemeBuilder] No valid submenu order provided");
-      return;
-    }
-    const root = document.documentElement;
-    order.forEach((menuId, index) => {
-      const varName = `--${menuId.replace("sb_", "")}-order`;
-      try { root.style.setProperty(varName, index); } catch (e) {}
-    });
-  }
-
-  function reorderSidebarFromOrder(order) {
-    const sidebar = document.querySelector(".hl_nav-header nav.flex-1.w-full");
-    if (!sidebar || !Array.isArray(order)) return false;
-    order.forEach(menuId => {
-      const item = sidebar.querySelector(`#${menuId}`);
-      if (item) sidebar.appendChild(item);
-    });
-    return true;
-  }
-
-  function reorderAgencyFromOrder(agencyOrder) {
-    const sidebar = document.querySelector(".agency-sidebar");
-    if (!sidebar || !Array.isArray(agencyOrder)) return false;
-    agencyOrder.forEach(menuId => {
-      const menuEl = sidebar.querySelector(`#${menuId}`);
-      if (menuEl) sidebar.appendChild(menuEl);
-    });
-    return true;
-  }
 function reorderMenu(order, containerSelector) {
     // Try the exact selector first (keeps agency behavior unchanged)
     let container = document.querySelector(containerSelector);
