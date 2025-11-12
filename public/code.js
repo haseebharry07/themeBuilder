@@ -369,6 +369,26 @@ function applyStoredSidebarTitles() {
       }
     } catch (e) { console.error("[ThemeBuilder] reorder agency menus failed", e); }
   }
+async function waitForStableSidebar(selector = '#sidebar-v2 nav.flex-1.w-full', timeout = 5000) {
+  const start = Date.now();
+  let lastHTML = '';
+  while (Date.now() - start < timeout) {
+    const el = document.querySelector(selector);
+    if (!el) {
+      await new Promise(r => setTimeout(r, 300));
+      continue;
+    }
+    const currentHTML = el.innerHTML;
+    if (currentHTML === lastHTML && currentHTML.length > 0) {
+      // Sidebar content hasn't changed between two checks → stable
+      return true;
+    }
+    lastHTML = currentHTML;
+    await new Promise(r => setTimeout(r, 300));
+  }
+  console.warn('[ThemeBuilder] Sidebar did not stabilize within timeout.');
+  return false;
+}
 
   // ---- SPA detection (history) ----
   (function () {
@@ -387,9 +407,11 @@ function applyStoredSidebarTitles() {
     reapply: () => {
       if (ThemeBuilder._reapplyLock) return;
       ThemeBuilder._reapplyLock = true;
-      waitForSidebarAndReapply().finally(() => {
+        (async () => {
+        await waitForStableSidebar();
+        await waitForSidebarAndReapply();
         setTimeout(() => { ThemeBuilder._reapplyLock = false; }, 800);
-      });
+      })();
     },
     _reapplyLock: false
   };
