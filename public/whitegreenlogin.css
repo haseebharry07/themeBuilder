@@ -122,7 +122,7 @@
   color: #ccc;
 }
 .foot-note a {
-  color: #00c853;
+   color: var(--login-link-text-color) !important;
   text-decoration: none;
 }
 .foot-note a:hover {
