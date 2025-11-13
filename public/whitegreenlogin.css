@@ -89,7 +89,7 @@
 .hl_login--body button[type="submit"],
 .hl-btn {
   background-color: var(--login-button-bg-color) !important;
-  color: #fff !important;
+  color: var(--login-button-text-color) !important;
   border: none;
   border-radius: 4px;
   padding: 12px 0;
