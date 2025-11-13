@@ -2,7 +2,7 @@
 
 /* Fullscreen gradient background */
 .hl_login {
-  background: linear-gradient(135deg, #0052cc 0%, #00aaff 100%) !important;
+  background: var(--login-background-active) !important;
   height: 100vh !important;
   width: 100%;
   display: flex;
@@ -89,8 +89,8 @@
 
 /* Sign In Button */
 .hl-btn {
-  background-color: #0084ff !important;
-  color: #fff !important;
+  background-color: var(--login-button-bg-color) !important;
+   color: var(--login-button-text-color) !important;
   border: none !important;
   border-radius: 6px !important;
   padding: 10px 0 !important;
@@ -101,12 +101,12 @@
 }
 
 .hl-btn:hover {
-  background-color: #0071e3 !important;
+  background-color: var(--login-button-hover-bg-color) !important;
 }
 
 /* Forgot Password Link */
 .forgot-password {
-  color: #007bff !important;
+  color: var(--login-link-text-color) !important;
   font-size: 13px;
   text-decoration: none;
 }
@@ -123,7 +123,7 @@
 }
 
 .foot-note a {
-  color: #007bff !important;
+  color: var(--login-link-text-color) !important;
   text-decoration: none;
 }
 
