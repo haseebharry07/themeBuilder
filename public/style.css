@@ -3324,3 +3324,67 @@ input[type="submit"],
   object-fit: contain;
   vertical-align: middle;
 }
+
+
+/* ----------------------------------------------------
+   TOP NAVIGATION FOR BLUEWAVE THEME
+---------------------------------------------------- */
+
+body.bluewave-topnav-active header.hl_header,
+body.bluewave-topnav-active header.hl_header.--agency {
+    width: 100vw !important;
+    left: 0 !important;
+    right: 0 !important;
+    margin: 0 !important;
+    padding: 6px 16px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    z-index: 9999 !important;
+    background: var(--primary-color) !important;
+}
+
+/* wrapper container */
+body.bluewave-topnav-active #ghl_custom_topnav_wrapper {
+    display: flex !important;
+    align-items: center !important;
+    gap: 14px !important;
+    flex: 1 !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+}
+
+/* nav links */
+body.bluewave-topnav-active #ghl_custom_topnav_wrapper nav a {
+    color: var(--top-nav-menu-color) !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+}
+
+body.bluewave-topnav-active #ghl_custom_topnav_wrapper nav a:hover {
+    background: var(--top-nav-menu-hover-bg) !important;
+}
+
+/* hide sidebar completely */
+body.bluewave-topnav-active aside#sidebar-v2,
+body.bluewave-topnav-active .hl_sidebar,
+body.bluewave-topnav-active .hl_app_sidebar {
+    display: none !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* expand main area */
+body.bluewave-topnav-active main,
+body.bluewave-topnav-active #app,
+body.bluewave-topnav-active .hl_main-content,
+body.bluewave-topnav-active .container {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+}
