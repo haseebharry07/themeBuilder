@@ -234,30 +234,35 @@
   background-position: center;
   background-size: contain;
 
-  /* Bounce + Glow Animation */
-  animation: bounceGlow 3.2s ease-in-out infinite;
+  /* Continuous Bounce + Glow */
+  animation: bounceGlow 2.8s ease-in-out infinite;
 }
 
-/* Keyframes */
+/* Smooth continuous bounce + glowing green aura */
 @keyframes bounceGlow {
   0% {
     transform: translateY(0);
-    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+    filter: drop-shadow(0 0 4px rgba(0, 255, 0, 0.35));
   }
 
-  30% {
-    transform: translateY(-10px);
-    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.55));
+  25% {
+    transform: translateY(-12px);
+    filter: drop-shadow(0 0 16px rgba(102, 255, 102, 0.75));
   }
 
-  60% {
+  50% {
     transform: translateY(0);
-    filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.65));
+    filter: drop-shadow(0 0 22px rgba(0, 255, 0, 0.9));
+  }
+
+  75% {
+    transform: translateY(-8px);
+    filter: drop-shadow(0 0 14px rgba(130, 255, 130, 0.65));
   }
 
   100% {
     transform: translateY(0);
-    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+    filter: drop-shadow(0 0 6px rgba(0, 255, 0, 0.45));
   }
 }
 
