@@ -228,12 +228,39 @@
   display: block;
   width: 120px;
   height: 75px;
-  margin: 0 auto 25px auto; /* centers and adds space below */
+  margin: 0 auto 25px auto;
   background-image: var(--login-company-logo);
   background-repeat: no-repeat;
   background-position: center;
   background-size: contain;
+
+  /* Bounce + Glow Animation */
+  animation: bounceGlow 3.2s ease-in-out infinite;
 }
+
+/* Keyframes */
+@keyframes bounceGlow {
+  0% {
+    transform: translateY(0);
+    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+  }
+
+  30% {
+    transform: translateY(-10px);
+    filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.55));
+  }
+
+  60% {
+    transform: translateY(0);
+    filter: drop-shadow(0 0 18px rgba(255, 255, 255, 0.65));
+  }
+
+  100% {
+    transform: translateY(0);
+    filter: drop-shadow(0 0 0px rgba(255, 255, 255, 0));
+  }
+}
+
 
 /* Responsive version for tablets and mobiles */
 @media (max-width: 768px) {
