@@ -40,7 +40,9 @@
   width: 100px;
   height: 100px;
   margin: 0 auto 25px;
-  background: var(--login-company-logo)
+  background:
+    url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d") center center /
+      cover no-repeat
     center center / contain no-repeat;
 }
 

@@ -41,8 +41,9 @@
 .hl_login--body .card::before {
   content: "";
   display: block;
-  background: var(--login-company-logo)
-    no-repeat center;
+  background: 
+    url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d") center center /
+      cover no-repeat;
   background-size: 120px;
   width: 120px;
   height: 120px;
