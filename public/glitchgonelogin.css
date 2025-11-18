@@ -16,6 +16,8 @@
 
 /* === LEFT SIDE IMAGE === */
 .hl_login::before {
+  border-bottom-right-radius: 80px !important;
+  border-top-right-radius: 80px !important;
   content: "";
   flex: 1;
   min-width: 50%;
@@ -23,7 +25,7 @@
       rgba(0, 0, 0, 0.4),
       rgba(0, 0, 0, 0.4)
     ),
-    url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d") center center /
+    var(--login-background-image) center center /
       cover no-repeat;
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
