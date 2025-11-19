@@ -445,7 +445,6 @@ router.get("/combined", async (req, res) => {
     ${codefile}
     ${dynamicVars}
       ${codeJS}
-      ${remoteSettings}
     `;
 
     res.setHeader("Content-Type", "application/javascript");
