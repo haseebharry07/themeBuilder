@@ -170,7 +170,6 @@ function applySidebarLogoFromTheme() {
     const savedRaw = localStorage.getItem(STORAGE.userTheme);
     const saved = safeJsonParse(savedRaw) || {};
     const mergedTheme = { ...(saved.themeData || {}), ...themeData };
-    console.log(mergedTheme,'Here is the mergedTheme Data');
 
     try { localStorage.setItem(STORAGE.userTheme, JSON.stringify({ themeData: mergedTheme })); } catch (e) { /* ignore */ }
 
