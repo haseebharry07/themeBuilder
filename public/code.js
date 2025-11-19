@@ -57,6 +57,7 @@
       if (!cachedCSS && cssText) injectCSS(cssText);
 
       // merge theme data safely
+      applySidebarLogoFromTheme();
       const savedRaw = localStorage.getItem(STORAGE.userTheme);
       const saved = safeJsonParse(savedRaw) || {};
       const merged = { ...(saved.themeData || {}), ...themeData };
@@ -70,6 +71,52 @@
       console.error("[ThemeBuilder] Failed to fetch theme:", err);
     }
   }
+/**
+ * Update Sidebar Logo from CSS Variable
+ * Reads: --agency-logo-url (raw URL)
+ * Fallback: --agency-logo (url("..."))
+ */
+function applySidebarLogoFromTheme() {
+    try {
+        const root = document.documentElement;
+        const img = document.querySelector(".agency-logo");
+        if (!img) return;
+
+        // First check --agency-logo-url (raw clean URL)
+        let url = getComputedStyle(root)
+            .getPropertyValue("--agency-logo-url")
+            .trim()
+            .replace(/^"|"$/g, ""); // remove quotes
+
+        if (!url) {
+            // fallback to --agency-logo: url("...")
+            let cssUrl = getComputedStyle(root)
+                .getPropertyValue("--agency-logo")
+                .trim()
+                .replace(/^"|"$/g, "");
+
+            const match = cssUrl.match(/url\(['"]?(.*?)['"]?\)/);
+            if (match) {
+                url = match[1];
+            }
+        }
+
+        if (!url) return;
+
+        img.src = url;
+        img.style.objectFit = "contain";
+
+        // Optional: apply dynamic width & height from vars
+        const w = getComputedStyle(root).getPropertyValue("--logo-width").trim();
+        const h = getComputedStyle(root).getPropertyValue("--logo-height").trim();
+        if (w) img.style.width = w;
+        if (h) img.style.height = h;
+
+        console.debug("[ThemeBuilder] Sidebar logo updated →", url);
+    } catch (e) {
+        console.error("[ThemeBuilder] Failed applying sidebar logo", e);
+    }
+}
 
   function decodeBase64Utf8(base64) {
     try {
@@ -346,6 +393,7 @@ function applyStoredSidebarTitles() {
       return;
     }
     injectThemeData(saved.themeData);
+    applySidebarLogoFromTheme();
     restoreHiddenMenus();
     applyHiddenMenus();
     applyLockedMenus();
