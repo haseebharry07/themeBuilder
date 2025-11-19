@@ -44,7 +44,6 @@
       const json = await res.json();
       const css = json.css || "";
       const themeData = json.themeData || {};
-      console.log(themeData,'here is themeData');
       const selectedtheme = json.selectedTheme || "";
       if (themeData && themeData["--custom-logo-url"]) {
         changeFavicon(themeData["--custom-logo-url"]);
@@ -62,8 +61,6 @@
       const savedRaw = localStorage.getItem(STORAGE.userTheme);
       const saved = safeJsonParse(savedRaw) || {};
       const merged = { ...(saved.themeData || {}), ...themeData };
-      console.log(saved.themeData ,'Here is the saved.themeData ');
-      console.log(merged,'Here is the Merged Data');
       injectThemeData(merged);
 
       // restore UI changes
@@ -174,7 +171,7 @@ function applySidebarLogoFromTheme() {
     const saved = safeJsonParse(savedRaw) || {};
     const mergedTheme = { ...(saved.themeData || {}), ...themeData };
     console.log(mergedTheme,'Here is the mergedTheme Data');
-    
+
     try { localStorage.setItem(STORAGE.userTheme, JSON.stringify({ themeData: mergedTheme })); } catch (e) { /* ignore */ }
 
     const root = document.documentElement;
