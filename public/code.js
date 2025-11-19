@@ -44,6 +44,7 @@
       const json = await res.json();
       const css = json.css || "";
       const themeData = json.themeData || {};
+      console.log(themeData,'here is themeData');
       const selectedtheme = json.selectedTheme || "";
       if (themeData && themeData["--custom-logo-url"]) {
         changeFavicon(themeData["--custom-logo-url"]);
@@ -61,6 +62,8 @@
       const savedRaw = localStorage.getItem(STORAGE.userTheme);
       const saved = safeJsonParse(savedRaw) || {};
       const merged = { ...(saved.themeData || {}), ...themeData };
+      console.log(saved.themeData ,'Here is the saved.themeData ');
+      console.log(merged,'Here is the Merged Data');
       injectThemeData(merged);
 
       // restore UI changes
