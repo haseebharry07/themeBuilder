@@ -284,13 +284,13 @@ router.get("/merged-css", async (req, res) => {
 
     // ✅ Merge all CSS
     const finalCss = `
-${loaderCSS}
-${logincss}
-:root {
-${dynamicVariables}
-}
-${cssContent}
-`;
+    :root {
+    ${dynamicVariables}
+    }
+    ${loaderCSS}
+    ${logincss}
+    ${cssContent}
+    `;
 
     res.setHeader("Content-Type", "text/css");
     res.send(finalCss);
