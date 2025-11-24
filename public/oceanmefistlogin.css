@@ -2,7 +2,7 @@
 
 /* Full page background */
 .hl_login {
-  background: linear-gradient(135deg, #0288d1 0%, #01579b 100%) !important;
+  background: var(--login-background-active ,linear-gradient(135deg, #0288d1 0%, #01579b 100%)) !important;
   height: 100vh !important;
   width: 100%;
   display: flex;
