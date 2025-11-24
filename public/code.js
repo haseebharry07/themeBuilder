@@ -842,22 +842,22 @@ function forceSidebarOpen() {
      }).observe(document, { subtree: true, childList: true });
 
  })();
-(function () {
-    const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
-    const themeName = savedThemeObj.selectedTheme;
+ function handleUrlChange() {
+     const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
+     const themeName = savedThemeObj.selectedTheme;
+  console.log('Code is working');
+     if (!themeName) return;
 
-    if (!themeName) return;
+     const isSubAccount = window.location.pathname.startsWith("/v2/location/");
 
-    const isSubAccount = window.location.pathname.startsWith("/v2/location/");
-
-    if (themeName === "BlueWave Theme" && isSubAccount) {
-        window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
-        console.log('Top Nav code is working');
-        enableBlueWaveTopNav();
-    }
-    else {
+     if (themeName === "BlueWave Theme" && isSubAccount) {
+         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
+         enableBlueWaveTopNav();
+     } else {
          window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
          resetGhlSidebar();
          disableBlueWaveTopNav();
      }
-})();
+ }
+
+ handleUrlChange();
