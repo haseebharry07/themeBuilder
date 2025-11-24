@@ -300,7 +300,11 @@ function resetGhlSidebarb() {
    
     const sidebar = document.querySelector("#sidebar-v2");
     const body = document.body;
-
+  // 🚨 SAFETY CHECK — prevents script crash
+    if (!sidebar) {
+        console.warn("Sidebar not found — safely skipping reset.");
+        return;
+    }
     // Remove forced hidden inline styles
     sidebar.style.display = "";
     sidebar.style.width = "";
@@ -369,10 +373,14 @@ function handleUrlChangeb(themeName) {
 
     const isSubAccount = window.location.pathname.startsWith("/v2/location/");
 
-    if (themeName === "BlueWave Light Theme"|| themeName === "BlueWave TopNav Theme" && isSubAccount) {
+    if (
+    (themeName === "BlueWave Light Theme" || themeName === "BlueWave TopNav Theme") 
+    && isSubAccount
+) {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
         enableBlueWaveTopNavb();
-    } else {
+    } 
+    else {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
         resetGhlSidebarb();
         disableBlueWaveTopNavb();
