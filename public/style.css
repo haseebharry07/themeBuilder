@@ -3345,7 +3345,7 @@ body.bluewave-topnav-active header.hl_header.--agency {
 }
 
 /* wrapper container */
-body.bluewave-topnav-active #ghl_custom_topnav_wrapper {
+#ghl_custom_topnav_wrapper {
     display: flex !important;
     align-items: center !important;
     gap: 14px !important;
@@ -3355,7 +3355,7 @@ body.bluewave-topnav-active #ghl_custom_topnav_wrapper {
 }
 
 /* nav links */
-body.bluewave-topnav-active #ghl_custom_topnav_wrapper nav a {
+#ghl_custom_topnav_wrapper nav a {
     color: var(--top-nav-menu-color) !important;
     padding: 8px 12px !important;
     border-radius: 4px !important;
@@ -3364,14 +3364,14 @@ body.bluewave-topnav-active #ghl_custom_topnav_wrapper nav a {
     background: #1d7bcd40;
 }
 
-body.bluewave-topnav-active #ghl_custom_topnav_wrapper nav a:hover {
+#ghl_custom_topnav_wrapper nav a:hover {
     background: var(--top-nav-menu-hover-bg) !important;
 }
 
 /* hide sidebar completely */
-body.bluewave-topnav-active aside#sidebar-v2,
-body.bluewave-topnav-active .hl_sidebar,
-body.bluewave-topnav-active .hl_app_sidebar {
+ aside#sidebar-v2,
+ .hl_sidebar,
+ .hl_app_sidebar {
     display: none !important;
     width: 0 !important;
     min-width: 0 !important;
@@ -3380,10 +3380,10 @@ body.bluewave-topnav-active .hl_app_sidebar {
 }
 
 /* expand main area */
-body.bluewave-topnav-active main,
-body.bluewave-topnav-active #app,
-body.bluewave-topnav-active .hl_main-content,
-body.bluewave-topnav-active .container {
+ main,
+ #app,
+ .hl_main-content,
+ .container {
     margin-left: 0 !important;
     padding-left: 0 !important;
     width: 100% !important;
