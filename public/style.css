@@ -3369,9 +3369,9 @@ body.bluewave-topnav-active header.hl_header.--agency {
 }
 
 /* hide sidebar completely */
- aside#sidebar-v2,
- .hl_sidebar,
- .hl_app_sidebar {
+body.bluewave-topnav-active aside#sidebar-v2,
+body.bluewave-topnav-active .hl_sidebar,
+body.bluewave-topnav-active .hl_app_sidebar {
     display: none !important;
     width: 0 !important;
     min-width: 0 !important;
@@ -3380,10 +3380,10 @@ body.bluewave-topnav-active header.hl_header.--agency {
 }
 
 /* expand main area */
- main,
- #app,
- .hl_main-content,
- .container {
+body.bluewave-topnav-active main,
+body.bluewave-topnav-active #app,
+body.bluewave-topnav-active .hl_main-content,
+body.bluewave-topnav-active .container {
     margin-left: 0 !important;
     padding-left: 0 !important;
     width: 100% !important;
