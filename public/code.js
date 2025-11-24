@@ -855,9 +855,9 @@ function forceSidebarOpen() {
         console.log('Top Nav code is working');
         enableBlueWaveTopNav();
     }
-    // else {
-    //      window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
-    //      resetGhlSidebar();
-    //      disableBlueWaveTopNav();
-    //  }
+    else {
+         window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
+         resetGhlSidebar();
+         disableBlueWaveTopNav();
+     }
 })();
