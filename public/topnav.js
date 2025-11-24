@@ -340,8 +340,7 @@ function forceSidebarOpenb() {
 function waitForThemeToLoad(callback) {
     console.log('till here code Runs');
     const check = () => {
-        const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
-        const themeName = savedThemeObj?.selectedTheme;
+        const themeName = localStorage.getItem("themebuilder_selectedTheme");
  console.log('themeName',themeName);
         if (themeName) {
             callback(themeName);
