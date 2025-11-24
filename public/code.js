@@ -852,6 +852,7 @@ function forceSidebarOpen() {
 
     if (themeName === "BlueWave Theme" && isSubAccount) {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
+        console.log('Top Nav code is working');
         enableBlueWaveTopNav();
     }
     // else {
