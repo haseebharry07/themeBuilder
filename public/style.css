@@ -3388,3 +3388,17 @@ body.bluewave-topnav-active .container {
     width: 100% !important;
     max-width: 100% !important;
 }
+/* Custom scrollbar for the top navigation bar */
+#ghl_custom_topnav_wrapper_v4::-webkit-scrollbar {
+    height: 7px !important;  /* horizontal scrollbar */
+    width: 7px !important;   /* vertical scrollbar (just in case) */
+}
+
+#ghl_custom_topnav_wrapper_v4::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.4) !important;
+    border-radius: 10px !important;
+}
+
+#ghl_custom_topnav_wrapper_v4::-webkit-scrollbar-track {
+    background: transparent !important;
+}
