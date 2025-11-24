@@ -503,7 +503,7 @@ window.addEventListener("load", () => {
 function enableBlueWaveTopNav() {
     // Prevent duplicates
     if (document.getElementById("ghl_custom_topnav_wrapper_v4")) return;
-
+console.log('came here');
     (function () {
         "use strict";
         if (!window.__BLUEWAVE_TOPNAV_ENABLED__) return;
@@ -845,13 +845,14 @@ function forceSidebarOpen() {
  function handleUrlChange() {
      const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
      const themeName = savedThemeObj.selectedTheme;
-  console.log('Code is working');
+
      if (!themeName) return;
 
      const isSubAccount = window.location.pathname.startsWith("/v2/location/");
-
+  console.log('isSubAccount:',isSubAccount);
      if (themeName === "BlueWave Theme" && isSubAccount) {
          window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
+           console.log('Code is working');
          enableBlueWaveTopNav();
      } else {
          window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
