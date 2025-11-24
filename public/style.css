@@ -3361,6 +3361,7 @@ body.bluewave-topnav-active #ghl_custom_topnav_wrapper nav a {
     border-radius: 4px !important;
     text-decoration: none !important;
     font-weight: 500 !important;
+    background: #1d7bcd40;
 }
 
 body.bluewave-topnav-active #ghl_custom_topnav_wrapper nav a:hover {
