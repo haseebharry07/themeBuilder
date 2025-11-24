@@ -3357,7 +3357,7 @@ body.bluewave-topnav-active header.hl_header.--agency {
 /* nav links */
 #ghl_custom_topnav_wrapper nav a {
     color: var(--top-nav-menu-color) !important;
-    padding: 8px 12px !important;
+    padding: 14px 17px !important;
     border-radius: 4px !important;
     text-decoration: none !important;
     font-weight: 500 !important;
