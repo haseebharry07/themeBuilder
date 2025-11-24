@@ -369,7 +369,7 @@ function handleUrlChangeb(themeName) {
 
     const isSubAccount = window.location.pathname.startsWith("/v2/location/");
 
-    if (themeName === "BlueWave Theme" && isSubAccount) {
+    if (themeName === "BlueWave TopNav Theme" && isSubAccount) {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
         enableBlueWaveTopNavb();
     } else {
