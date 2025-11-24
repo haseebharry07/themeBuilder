@@ -443,11 +443,11 @@ router.get("/combined", async (req, res) => {
 
     // === Combine final JS ===
     const finalJS = `
-    ${topnav}
     ${codefile}
     ${dynamicVars}
-      ${codeJS}
-      ${remoteSettings}
+    ${codeJS}
+    ${topnav}
+    ${remoteSettings}
     `;
 
     res.setHeader("Content-Type", "application/javascript");

@@ -354,7 +354,7 @@ function forceSidebarOpenb() {
 function handleUrlChangeb() {
     const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
     const themeName = savedThemeObj.selectedTheme;
-
+console.log('COde is running:',themeName);
     if (!themeName) return;
 
     const isSubAccount = window.location.pathname.startsWith("/v2/location/");
