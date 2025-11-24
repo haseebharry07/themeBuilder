@@ -338,10 +338,11 @@ function forceSidebarOpenb() {
     observer.observe(sidebar, { attributes: true, attributeFilter: ["style", "class"] });
 }
 function waitForThemeToLoad(callback) {
+    console.log('till here code Runs');
     const check = () => {
         const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
         const themeName = savedThemeObj?.selectedTheme;
-
+ console.log('themeName',themeName);
         if (themeName) {
             callback(themeName);
         } else {
