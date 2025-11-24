@@ -871,5 +871,5 @@ function forceSidebarOpen() {
          disableBlueWaveTopNav();
      }
  }
-
+console.log('Runs till here');
  handleUrlChange();
