@@ -1,4 +1,4 @@
-function enableBlueWaveTopNav() {
+function enableBlueWaveTopNavb() {
     // Prevent duplicates
     const existingWrapper = document.getElementById("ghl_custom_topnav_wrapper_v4");
 
@@ -84,7 +84,7 @@ console.log('came here');
             }, 250);
         }
 
-        function buildNavbarFromSidebar(aside) {
+        function buildNavbarFromSidebarb(aside) {
             const wrapper = document.createElement("div");
             wrapper.id = WRAPPER_ID;
 
@@ -136,11 +136,11 @@ console.log('came here');
             return wrapper;
         }
 
-        function insertWrapperIfNeeded(aside) {
+        function insertWrapperIfNeededb(aside) {
             const header = $q("header.hl_header.--agency") || $q("header.hl_header");
             if (!header || $q(`#${WRAPPER_ID}`)) return false;
 
-            const wrapper = buildNavbarFromSidebar(aside);
+            const wrapper = buildNavbarFromSidebarb(aside);
             const right = header.querySelector(".hl_header__right,.hl_header--controls");
             const container = header.querySelector(".container-fluid") || header;
             //Old COde and working Fine without Location Selector
@@ -207,7 +207,7 @@ console.log('came here');
                 let attempts = 0;
                 const timer = setInterval(() => {
                     attempts++;
-                    const ok = insertWrapperIfNeeded(aside);
+                    const ok = insertWrapperIfNeededb(aside);
                     hideSidebar();
                     if (ok || attempts >= MAX_BUILD_ATTEMPTS) clearInterval(timer);
                 }, BUILD_INTERVAL_MS);
@@ -249,7 +249,7 @@ console.log('came here');
 
     })();
 }
-function forceRemoveBlueWaveTopNav() {
+function forceRemoveBlueWaveTopNavb() {
     let attempts = 0;
     const maxAttempts = 20; // 20 × 50ms = 1 second
 
@@ -268,7 +268,7 @@ function forceRemoveBlueWaveTopNav() {
 
     }, 50);
 }
-function disableBlueWaveTopNav() {
+function disableBlueWaveTopNavb() {
     // ⛔ Stop re-inserting TopNav
     if (window.__BLUEWAVE_OBSERVER__) {
         window.__BLUEWAVE_OBSERVER__.disconnect();
@@ -292,11 +292,11 @@ function disableBlueWaveTopNav() {
         el.style.removeProperty("opacity");
     });
 
-    forceRemoveBlueWaveTopNav();
+    forceRemoveBlueWaveTopNavb();
 
-    forceSidebarOpen();
+    forceSidebarOpenb();
 }
-function resetGhlSidebar() {
+function resetGhlSidebarb() {
    
     const sidebar = document.querySelector("#sidebar-v2");
     const body = document.body;
@@ -314,7 +314,7 @@ function resetGhlSidebar() {
     // Reset localStorage collapse state
     localStorage.setItem("sidebarCollapsed", "false");
 }
-function forceSidebarOpen() {
+function forceSidebarOpenb() {
  
     const sidebar = document.querySelector("#sidebar-v2")
         || document.querySelector(".hl_app_sidebar")
@@ -346,12 +346,12 @@ function forceSidebarOpen() {
 
         if (currentUrl !== lastUrl) {
             lastUrl = currentUrl;
-            handleUrlChange();   // <-- now this works
+            handleUrlChangeb();   // <-- now this works
         }
     }).observe(document, { subtree: true, childList: true });
 
 })();
-function handleUrlChange() {
+function handleUrlChangeb() {
     const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
     const themeName = savedThemeObj.selectedTheme;
 
@@ -363,12 +363,12 @@ function handleUrlChange() {
     if (themeName === "BlueWave Theme" && isSubAccount) {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
         console.log("Code is working");
-        enableBlueWaveTopNav();
+        enableBlueWaveTopNavb();
     } else {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
-        resetGhlSidebar();
-        disableBlueWaveTopNav();
+        resetGhlSidebarb();
+        disableBlueWaveTopNavb();
     }
 }
 console.log("Runs till here");
-handleUrlChange();    // <-- Now runs safely
+handleUrlChangeb();    // <-- Now runs safely
