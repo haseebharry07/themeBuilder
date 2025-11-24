@@ -491,8 +491,6 @@ async function waitForStableSidebar(selector = '#sidebar-v2 nav.flex-1.w-full', 
   log("ThemeBuilder initialized");
 })();
 
-
-
 window.addEventListener("load", () => {
   console.log('Loader related It is working');
   document.body.classList.add("loaded");
@@ -840,36 +838,38 @@ function forceSidebarOpen() {
     observer.observe(sidebar, { attributes: true, attributeFilter: ["style", "class"] });
 }
 
- (function () {
-     let lastUrl = location.href;
+(function () {
+    let lastUrl = location.href;
 
-     new MutationObserver(() => {
-         const currentUrl = location.href;
+    new MutationObserver(() => {
+        const currentUrl = location.href;
 
-         if (currentUrl !== lastUrl) {
-             lastUrl = currentUrl;
-             handleUrlChange();
-         }
-     }).observe(document, { subtree: true, childList: true });
+        if (currentUrl !== lastUrl) {
+            lastUrl = currentUrl;
+            handleUrlChange();   // <-- now this works
+        }
+    }).observe(document, { subtree: true, childList: true });
 
- })();
- function handleUrlChange() {
-     const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
-     const themeName = savedThemeObj.selectedTheme;
+})();
+function handleUrlChange() {
+    const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
+    const themeName = savedThemeObj.selectedTheme;
 
-     if (!themeName) return;
+    if (!themeName) return;
 
-     const isSubAccount = window.location.pathname.startsWith("/v2/location/");
-  console.log('isSubAccount:',isSubAccount);
-     if (themeName === "BlueWave Theme" && isSubAccount) {
-         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
-           console.log('Code is working');
-         enableBlueWaveTopNav();
-     } else {
-         window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
-         resetGhlSidebar();
-         disableBlueWaveTopNav();
-     }
- }
-console.log('Runs till here');
- handleUrlChange();
+    const isSubAccount = window.location.pathname.startsWith("/v2/location/");
+    console.log("isSubAccount:", isSubAccount);
+
+    if (themeName === "BlueWave Theme" && isSubAccount) {
+        window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
+        console.log("Code is working");
+        enableBlueWaveTopNav();
+    } else {
+        window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
+        resetGhlSidebar();
+        disableBlueWaveTopNav();
+    }
+}
+console.log("Runs till here");
+handleUrlChange();    // <-- Now runs safely
+
