@@ -337,6 +337,20 @@ function forceSidebarOpenb() {
     const observer = new MutationObserver(() => fix());
     observer.observe(sidebar, { attributes: true, attributeFilter: ["style", "class"] });
 }
+function waitForThemeToLoad(callback) {
+    const check = () => {
+        const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
+        const themeName = savedThemeObj?.selectedTheme;
+
+        if (themeName) {
+            callback(themeName);
+        } else {
+            setTimeout(check, 100); // keep checking every 100ms
+        }
+    };
+
+    check();
+}
 
 (function () {
     let lastUrl = location.href;
@@ -346,23 +360,24 @@ function forceSidebarOpenb() {
 
         if (currentUrl !== lastUrl) {
             lastUrl = currentUrl;
-            handleUrlChangeb();   // <-- now this works
+
+            waitForThemeToLoad((themeName) => {
+                handleUrlChangeb(themeName);
+            });
         }
     }).observe(document, { subtree: true, childList: true });
 
 })();
-function handleUrlChangeb() {
-    const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
-    const themeName = savedThemeObj.selectedTheme;
-console.log('COde is running:',themeName);
-    if (!themeName) return;
+
+function handleUrlChangeb(themeName) {
+    console.log("Code is running:", themeName);
 
     const isSubAccount = window.location.pathname.startsWith("/v2/location/");
     console.log("isSubAccount:", isSubAccount);
 
     if (themeName === "BlueWave Theme" && isSubAccount) {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
-        console.log("Code is working");
+        console.log("TopNav activated");
         enableBlueWaveTopNavb();
     } else {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
@@ -371,4 +386,7 @@ console.log('COde is running:',themeName);
     }
 }
 console.log("Runs till here");
-handleUrlChangeb();    // <-- Now runs safely
+
+waitForThemeToLoad((themeName) => {
+    handleUrlChangeb(themeName);
+});
