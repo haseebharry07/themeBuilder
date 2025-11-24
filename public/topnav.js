@@ -338,10 +338,8 @@ function forceSidebarOpenb() {
     observer.observe(sidebar, { attributes: true, attributeFilter: ["style", "class"] });
 }
 function waitForThemeToLoad(callback) {
-    console.log('till here code Runs');
     const check = () => {
         const themeName = localStorage.getItem("themebuilder_selectedTheme");
- console.log('themeName',themeName);
         if (themeName) {
             callback(themeName);
         } else {
@@ -351,7 +349,6 @@ function waitForThemeToLoad(callback) {
 
     check();
 }
-
 (function () {
     let lastUrl = location.href;
 
@@ -368,16 +365,12 @@ function waitForThemeToLoad(callback) {
     }).observe(document, { subtree: true, childList: true });
 
 })();
-
 function handleUrlChangeb(themeName) {
-    console.log("Code is running:", themeName);
 
     const isSubAccount = window.location.pathname.startsWith("/v2/location/");
-    console.log("isSubAccount:", isSubAccount);
 
     if (themeName === "BlueWave Theme" && isSubAccount) {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
-        console.log("TopNav activated");
         enableBlueWaveTopNavb();
     } else {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
@@ -385,8 +378,6 @@ function handleUrlChangeb(themeName) {
         disableBlueWaveTopNavb();
     }
 }
-console.log("Runs till here");
-
 waitForThemeToLoad((themeName) => {
     handleUrlChangeb(themeName);
 });
