@@ -853,5 +853,9 @@ function forceSidebarOpen() {
     if (themeName === "BlueWave Theme" && isSubAccount) {
         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
         enableBlueWaveTopNav();
-    }
+    }else {
+         window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
+         resetGhlSidebar();
+         disableBlueWaveTopNav();
+     }
 })();
