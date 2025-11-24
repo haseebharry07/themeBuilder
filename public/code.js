@@ -842,20 +842,16 @@ function forceSidebarOpen() {
      }).observe(document, { subtree: true, childList: true });
 
  })();
- function handleUrlChange() {
-     const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
-     const themeName = savedThemeObj.selectedTheme;
+(function () {
+    const savedThemeObj = JSON.parse(localStorage.getItem("userTheme") || "{}");
+    const themeName = savedThemeObj.selectedTheme;
 
-     if (!themeName) return;
+    if (!themeName) return;
 
-     const isSubAccount = window.location.pathname.startsWith("/v2/location/");
+    const isSubAccount = window.location.pathname.startsWith("/v2/location/");
 
-     if (themeName === "BlueWave Theme" && isSubAccount) {
-         window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
-         enableBlueWaveTopNav();
-     } else {
-         window.__BLUEWAVE_TOPNAV_ENABLED__ = false;
-         resetGhlSidebar();
-         disableBlueWaveTopNav();
-     }
- }
+    if (themeName === "BlueWave Theme" && isSubAccount) {
+        window.__BLUEWAVE_TOPNAV_ENABLED__ = true;
+        enableBlueWaveTopNav();
+    }
+})();
