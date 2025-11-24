@@ -31,7 +31,7 @@ console.log('came here');
             const css = `
           header.hl_header, header.hl_header.--agency {
             width:100vw!important;left:0!important;right:0!important;margin:0!important;
-            padding:6px 16px!important;background:#006AFF!important;z-index:9999!important;
+            padding:6px 16px!important;background:var(--header-main-bg-gradient) !important;z-index:9999!important;
             display:flex!important;align-items:center!important;justify-content:space-between!important;
           }
           #${WRAPPER_ID} {
