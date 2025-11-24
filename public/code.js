@@ -502,7 +502,18 @@ window.addEventListener("load", () => {
 
 function enableBlueWaveTopNav() {
     // Prevent duplicates
-    if (document.getElementById("ghl_custom_topnav_wrapper_v4")) return;
+    const existingWrapper = document.getElementById("ghl_custom_topnav_wrapper_v4");
+
+// If wrapper exists but topnav is disabled → remove it and rebuild
+if (existingWrapper && !window.__BLUEWAVE_TOPNAV_ENABLED__) {
+    existingWrapper.remove();
+}
+
+// If wrapper exists AND topnav is enabled → allow observer to re-init instead of blocking
+if (existingWrapper && window.__BLUEWAVE_TOPNAV_ENABLED__) {
+    console.log("TopNav already active — skipping rebuild");
+    return;
+}
 console.log('came here');
     (function () {
         "use strict";
