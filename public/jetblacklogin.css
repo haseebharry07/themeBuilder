@@ -130,7 +130,7 @@
 
 /* Golden Sign In Button */
 .hl-btn {
-  background-color: var(--login-button-bg-gradient,linear-gradient(90deg, #b8860b, #ffd700, #b8860b)) !important;
+  background: var(--login-button-bg-gradient,linear-gradient(90deg, #b8860b, #ffd700, #b8860b)) !important;
   color: var(--login-button-text-color,#000) !important;
   background-size: 200% 100%;
   border: none !important;

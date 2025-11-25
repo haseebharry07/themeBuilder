@@ -91,7 +91,7 @@
 /* === BUTTON === */
 .hl_login--body button[type="submit"],
 .hl-btn {
-  background-color: var(--login-button-bg-gradient,#00c853) !important;
+  background: var(--login-button-bg-gradient,#00c853) !important;
   color: var(--login-button-text-color) !important;
   border: none;
    border-radius: var(--login-button-border-radius,8px) !important;
