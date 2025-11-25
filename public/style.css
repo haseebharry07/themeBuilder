@@ -1933,8 +1933,6 @@ nav a#sb_location-mobile-app,
   top: 0 !important;
   bottom: 0 !important;
   z-index: 999 !important;
-  width: 100% !important;
-  height: 100% !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
@@ -2026,18 +2024,18 @@ nav a#sb_location-mobile-app,
 }
 
 #hl_header--help-icon::before {
+  width: 20px !important;
+  height: 20px !important;
   content: "" !important;
   mask-image: var(--header-menu-icon-help);
   -webkit-mask-image: var(--header-menu-icon-help);
-  background-color: var(--sidebar-menu-icon-color); /* default icon color */
+  background-color: var(--sidebar-menu-icon-color) !important; /* default icon color */
   background-repeat: no-repeat !important;
   background-position: center center !important;
   position: absolute !important;
   top: 0 !important;
   bottom: 0 !important;
   z-index: 999 !important;
-  width: 100% !important;
-  height: 100% !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
