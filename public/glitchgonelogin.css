@@ -227,9 +227,9 @@
 .hl_login--body::before {
   content: "";
   display: block;
-  width: 100px;
-  height: 75px;
-  margin: 0 auto 0px auto;
+  width: 110px;
+  height: 100px;
+  margin: 0 auto -22px auto;
   background-image: var(--login-company-logo);
   background-repeat: no-repeat;
   background-position: center;
