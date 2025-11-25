@@ -101,7 +101,7 @@
   background: #111;
   border: 1px solid #222;
   border-radius: 8px;
-  padding: 12px 14px;
+  padding: 12px 14px; 
   font-size: 14px;
   color: #fff;
   transition: border-color 0.3s, box-shadow 0.3s;
@@ -227,9 +227,9 @@
 .hl_login--body::before {
   content: "";
   display: block;
-  width: 120px;
+  width: 100px;
   height: 75px;
-  margin: 0 auto 25px auto;
+  margin: 0 auto 0px auto;
   background-image: var(--login-company-logo);
   background-repeat: no-repeat;
   background-position: center;
