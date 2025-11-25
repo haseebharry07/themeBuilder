@@ -457,7 +457,15 @@ button {
 .sidebar-v2-location #sidebar-v2 .hl_nav-header nav a:hover span > i {
   color: var(--sidebar-menu-icon-hover-color) !important;
 }
+/* Default icon color */
+.sidebar-v2-location #sidebar-v2 nav a img {
+  filter: invert( var(--sidebar-menu-icon-color-invert, 50%) );
+}
 
+/* Hover icon color */
+.sidebar-v2-location #sidebar-v2 nav a:hover img {
+  filter: invert( var(--sidebar-menu-icon-hover-invert, 80%) );
+}
 /* Sidebar menu border */
 #sidebar-v2 nav a {
   border-width: 0 !important;
