@@ -1892,35 +1892,6 @@ nav a#sb_location-mobile-app,
 #recent_activities-toggle:hover {
   background-color: var(--header-icon-hover-bg) !important;
 }
-#hl_header--help-icon::before {
-  content: "" !important;
-  mask-image: var(--header-menu-icon-help);
-  -webkit-mask-image: var(--header-menu-icon-help);
-  background-color: var(--sidebar-menu-icon-color) !important; /* default icon color */
-  background-repeat: no-repeat !important;
-  background-position: center center !important;
-  position: absolute !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  z-index: 999 !important;
-  width: 100% !important;
-  height: 100% !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  margin: auto !important;
-  height: 20px !important;
-  width: 20px !important;
-}
-
-#hl_header--help-icon:hover::before {
-  background-color: #fdfdfd; /* hover color */
-}
-
-#hl_header--help-icon:active::before,
-#hl_header--help-icon.active::before {
-  background-color: #ffffff; /* active color */
-}
 
 #recent_activities-toggle::before {
   content: "" !important;
