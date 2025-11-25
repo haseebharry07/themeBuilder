@@ -86,11 +86,11 @@
 /* Forgot password + remember me */
 .forgot-password,
 .foot-note a {
-  color: #fff !important;
+  color: var(--login-link-text-color) !important;
 }
 
 .foot-note {
-  color: rgba(255,255,255,0.8);
+  color: var(--login-link-text-color) !important;
 }
 
 /* Responsive fix */
