@@ -38,10 +38,9 @@
   content: "";
   display: block;
   width: 100px;
-  height: 100px;
+  height: 75px;
   margin: 0 auto 25px;
-  background:
-    url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d") center center /
+  background: var(--login-company-logo) center center /
       cover no-repeat
     center center / contain no-repeat;
 }
