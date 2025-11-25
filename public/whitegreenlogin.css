@@ -5,7 +5,7 @@
   align-items: center;
   min-height: 100vh;
   width: 100%;
-  background: linear-gradient(130deg, rgba(26, 176, 44, 1) 40%, rgba(245, 245, 245, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(26, 176, 44, 1) 60%);
+  background: var(--login-background-active, linear-gradient(130deg, rgba(26, 176, 44, 1) 40%, rgba(245, 245, 245, 1) 40%, rgba(255, 255, 255, 1) 60%, rgba(26, 176, 44, 1) 60%));
   font-family: "Poppins", "Inter", sans-serif;
   overflow: hidden;
   padding: 20px;
@@ -37,9 +37,9 @@
 .hl_login--body::before {
   content: "";
   display: block;
-  width: 100px;
-  height: 75px;
-  margin: 0 auto 25px;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto -25px;
   background-image: var(--login-company-logo);
   background-repeat: no-repeat;
   background-position: center;
