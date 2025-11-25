@@ -15,7 +15,10 @@
 .hl_login--header {
   display: none !important;
 }
-
+/* === HEADINGS === */
+.login-card-heading h2 {
+  color: var(--login-headline-text-color,#f7f7f7) !important;
+}
 /* Card centering */
 .hl_login--body .container-fluid {
   display: flex;
