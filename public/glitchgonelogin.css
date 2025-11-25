@@ -50,7 +50,7 @@
 
 /* === CARD === */
 .hl_login--body .card {
-  background: var(--login-card-bg-gradient,#0b0b0b00);
+  background: var(--login-card-bg-gradient,#0b0b0b00) !important;
   width: 100%;
   background: transparent;
   border: none;
