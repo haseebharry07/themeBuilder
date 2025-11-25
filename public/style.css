@@ -459,12 +459,12 @@ button {
 }
 /* Default icon color */
 .sidebar-v2-location #sidebar-v2 nav a img {
-  filter: invert( var(--sidebar-menu-icon-color-invert, 50%) );
+  filter: invert( var(--sidebar-menu-icon-color, 50%) );
 }
 
 /* Hover icon color */
 .sidebar-v2-location #sidebar-v2 nav a:hover img {
-  filter: invert( var(--sidebar-menu-icon-hover-invert, 80%) );
+  filter: invert( var(--sidebar-menu-icon-hover-color, 80%) );
 }
 /* Sidebar menu border */
 #sidebar-v2 nav a {
