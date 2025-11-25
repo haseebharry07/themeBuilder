@@ -115,9 +115,9 @@
 
 /* === BUTTON === */
 .hl_login--body button[type="submit"] {
-  background-color: var(--login-button-bg-color,#00c853) !important;
+  background-color: var(--login-button-bg-gradient,#00c853) !important;
   border: none;
-  border-radius: 8px;
+   border-radius: var(--login-button-border-radius,8px) !important;
   padding: 12px;
   font-size: 15px;
   font-weight: 600;
@@ -127,6 +127,7 @@
   transition: all 0.3s ease;
 }
 .hl_login--body button[type="submit"]:hover {
+  color: var(--login-button-hover-text-color, #000) !important;
   background-color:var(--login-button-hover-bg-color,#00e676) !important;
   transform: translateY(-2px);
 }
@@ -230,7 +231,7 @@
   display: block;
   width: 110px;
   height: 100px;
-  margin: 0 auto -22px auto;
+  margin: 0 auto -17px auto;
   background-image: var(--login-company-logo);
   background-repeat: no-repeat;
   background-position: center;

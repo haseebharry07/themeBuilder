@@ -130,11 +130,11 @@
 
 /* Golden Sign In Button */
 .hl-btn {
-  background-color: var(--login-button-bg-color,linear-gradient(90deg, #b8860b, #ffd700, #b8860b)) !important;
+  background-color: var(--login-button-bg-gradient,linear-gradient(90deg, #b8860b, #ffd700, #b8860b)) !important;
   color: var(--login-button-text-color,#000) !important;
   background-size: 200% 100%;
   border: none !important;
-  border-radius: 8px !important;
+  border-radius: var(--login-button-border-radius,8px) !important;
   padding: 12px 0 !important;
   font-weight: 700;
   text-transform: uppercase !important;
@@ -156,6 +156,8 @@
 }
 
 .hl-btn:hover {
+  color: var(--login-button-hover-text-color, #000) !important;
+  background-color:var(--login-button-hover-bg-color,rgba(255, 215, 0, 0.5)) !important;
   transform: scale(1.05);
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
 }
