@@ -1178,7 +1178,7 @@ nav a#sb_location-mobile-app {
   -webkit-mask-size: contain;
   mask-size: contain;
 
-  background-color: #4caf50; /* <— the icon color */
+  background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
   content: "";
   width: 20px;
   height: 20px;
