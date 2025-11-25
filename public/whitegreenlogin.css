@@ -19,7 +19,7 @@
 
 /* === LOGIN CARD === */
 .hl_login--body {
-  background: var(--login-card-bg-color, rgba(17, 17, 17, 0.95));/* semi-transparent for better contrast */
+  background: var(--login-card-bg-gradient, rgba(17, 17, 17, 0.95));/* semi-transparent for better contrast */
   border-radius: 8px;
   padding: 50px 60px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
