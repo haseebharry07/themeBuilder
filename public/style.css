@@ -1619,9 +1619,19 @@ nav a#sb_location-mobile-app {
 /* Settings */
 
 #sb_settings::after {
+  content: "";
   mask-image: var(--sidebar-menu-icon-settings);
   -webkit-mask-image: var(--sidebar-menu-icon-settings);
-  background-color: var(--sidebar-menu-icon-color); /* default color */
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+  background-color: var(--sidebar-menu-icon-color);
+  background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_settings:hover::after {
