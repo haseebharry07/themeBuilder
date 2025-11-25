@@ -26,7 +26,7 @@
 
 /* Card design */
 .hl_login--body .card {
-  background: rgba(255, 255, 255, 0.08);
+  background: var(--login-card-bg-gradient,rgba(255, 255, 255, 0.08));
   border-radius: 20px;
   border: 1px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
@@ -41,9 +41,7 @@
 .hl_login--body .card::before {
   content: "";
   display: block;
-  background: 
-    url("https://images.unsplash.com/photo-1504384308090-c894fdcc538d") center center /
-      cover no-repeat;
+  background:var(--login-company-logo);
   background-size: 120px;
   width: 120px;
   height: 120px;
