@@ -1188,16 +1188,11 @@ nav a#sb_location-mobile-app {
 }
 /* Hover */
 #sb_launchpad:hover::after {
-  -webkit-mask-image: var(--sidebar-menu-icon-lunchpad-hover);
-  mask-image: var(--sidebar-menu-icon-lunchpad-hover);
-  background-color: var(--sidebar-menu-icon-hover-color);
+  background-color: #ffffff; /* hover */
 }
 
-/* Active */
 #sb_launchpad.active::after {
-  -webkit-mask-image: var(--sidebar-menu-icon-lunchpad-active);
-  mask-image: var(--sidebar-menu-icon-lunchpad-active);
-  background-color: var(--sidebar-menu-icon-active-color);
+  background-color: #cfcfcf; /* active */
 }
 /* #sb_launchpad:hover::after {
   background-image: var(--sidebar-menu-icon-lunchpad-hover) !important;
