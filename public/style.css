@@ -3403,3 +3403,8 @@ body.bluewave-topnav-active .container {
 #ghl_custom_topnav_wrapper_v4::-webkit-scrollbar-track {
     background: transparent !important;
 }
+.disabled-section {
+    pointer-events: none;   /* prevents clicking */
+    opacity: 0.5;           /* makes it look disabled */
+    user-select: none;      /* prevents text selection */
+}
