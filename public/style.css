@@ -1233,6 +1233,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-dashboard);
   -webkit-mask-image: var(--sidebar-menu-icon-dashboard);
   background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+      mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_dashboard:hover::after {
@@ -1259,6 +1268,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-conversations);
   -webkit-mask-image: var(--sidebar-menu-icon-conversations);
     background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+        mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_conversations:hover::after {
@@ -1288,6 +1306,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-calendars);
   -webkit-mask-image: var(--sidebar-menu-icon-calendars);
    background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+       mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 
 }
 
@@ -1318,6 +1345,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-contact);
   -webkit-mask-image: var(--sidebar-menu-icon-contact);
     background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+        mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 
 }
 
@@ -1347,6 +1383,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-opportunities);
   -webkit-mask-image: var(--sidebar-menu-icon-opportunities);
  background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+     mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_opportunities:hover::after {
@@ -1375,6 +1420,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-payments);
   -webkit-mask-image: var(--sidebar-menu-icon-payments);
    background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+       mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 
 }
 
@@ -1404,6 +1458,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-marketing);
   -webkit-mask-image: var(--sidebar-menu-icon-marketing);
   background-color: var(--sidebar-menu-icon-color); /* <— the icon color */
+      mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 /* hover and active colors (example values — change as needed) */
@@ -1432,6 +1495,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-automation);
   -webkit-mask-image: var(--sidebar-menu-icon-automation);
   background-color: var(--sidebar-menu-icon-color); /* default icon color */
+      mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_automation:hover::after {
@@ -1459,6 +1531,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-site);
   -webkit-mask-image: var(--sidebar-menu-icon-site);
   background-color: var(--sidebar-menu-icon-color); /* default color */
+      mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_sites:hover::after {
@@ -1486,6 +1567,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-memberships);
   -webkit-mask-image: var(--sidebar-menu-icon-memberships);
   background-color: var(--sidebar-menu-icon-color); /* default color */
+      mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_memberships:hover::after {
@@ -1513,6 +1603,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-reputation);
   -webkit-mask-image: var(--sidebar-menu-icon-reputation);
   background-color: var(--sidebar-menu-icon-color); /* default color */
+      mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_reputation:hover::after {
@@ -1540,6 +1639,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-reporting);
   -webkit-mask-image: var(--sidebar-menu-icon-reporting);
   background-color: var(--sidebar-menu-icon-color); /* default color */
+      mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_reporting:hover::after {
@@ -1567,6 +1675,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-app-marketplace);
   -webkit-mask-image: var(--sidebar-menu-icon-app-marketplace);
   background-color: var(--sidebar-menu-icon-color); /* default color */
+    mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_app-marketplace:hover::after {
@@ -1594,6 +1711,15 @@ nav a#sb_location-mobile-app {
   mask-image: var(--sidebar-menu-icon-mobile-app);
   -webkit-mask-image: var(--sidebar-menu-icon-mobile-app);
   background-color: var(--sidebar-menu-icon-color); /* default color */
+    mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_location-mobile-app:hover::after {
@@ -1784,6 +1910,10 @@ nav a#sb_location-mobile-app,
   justify-content: center !important;
   align-items: center !important;
   margin: auto !important;
+    mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
 }
 
 #recent_activities-toggle:hover::before {
@@ -1881,6 +2011,10 @@ nav a#sb_location-mobile-app,
   justify-content: center !important;
   align-items: center !important;
   margin: auto !important;
+    mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
 }
 
 #hl_header--help-icon:hover::before {
@@ -1952,6 +2086,10 @@ nav a#sb_location-mobile-app,
   justify-content: center !important;
   align-items: center !important;
   margin: auto !important;
+    mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
 }
 
 #dialer-error-toggle span:hover::before {
@@ -3237,6 +3375,15 @@ nav a#sb_app-media {
   mask-image: var(--sidebar-menu-icon-media-storage);
   -webkit-mask-image: var(--sidebar-menu-icon-media-storage);
     background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+        mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 #sb_app-media:hover::after {
@@ -3473,6 +3620,15 @@ nav a[id="sb_AI Agents"] {
   mask-image: var(--sidebar-menu-icon-ai-agents);
   -webkit-mask-image: var(--sidebar-menu-icon-ai-agents);
     background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+        mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;      /* prevent repeating */
+  -webkit-mask-size: contain;
+    background-repeat: no-repeat;
+  background-position: center;
+  position: absolute;
+  width: 20px;
+  height: 20px;
 }
 
 [id="sb_AI Agents"]:hover::after {
