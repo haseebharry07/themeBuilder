@@ -446,7 +446,6 @@ router.get("/combined", async (req, res) => {
     ${codefile}
     ${dynamicVars}
     ${codeJS}
-    ${topnav}
     ${remoteSettings}
     `;
 
