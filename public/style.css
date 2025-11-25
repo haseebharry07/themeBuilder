@@ -444,6 +444,7 @@ button {
 
 /* Sidebar menu icons */
 #sidebar-v2 nav a img {
+  color: var(--sidebar-menu-icon-color) !important;
   height: var(--sidebar-menu-icon-font-size);
   width: var(--sidebar-menu-icon-font-size);
 }
@@ -458,12 +459,12 @@ button {
   color: var(--sidebar-menu-icon-hover-color) !important;
 }
 /* Default icon color */
-.sidebar-v2-location #sidebar-v2 nav a img {
+#sidebar-v2 nav a img {
   filter: invert( var(--sidebar-menu-icon-color, 50%) );
 }
 
 /* Hover icon color */
-.sidebar-v2-location #sidebar-v2 nav a:hover img {
+#sidebar-v2 nav a:hover img {
   filter: invert( var(--sidebar-menu-icon-hover-color, 80%) );
 }
 /* Sidebar menu border */
