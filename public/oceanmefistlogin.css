@@ -17,6 +17,7 @@
 }
 /* === HEADINGS === */
 .login-card-heading h2 {
+  font-size: var(--login-headline-font-size,25px);
   color: var(--login-headline-text-color,#f7f7f7) !important;
 }
 /* Card centering */

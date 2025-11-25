@@ -2,7 +2,7 @@
 
 /* Fullscreen animated gradient background */
 .hl_login {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #b8860b 100%) !important;
+  background: var(--login-background-active, linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #b8860b 100%)) !important;
   height: 100vh !important;
   width: 100%;
   display: flex;
@@ -38,8 +38,8 @@
 
 /* Login Card Box */
 .hl_login--body .card {
-  background: rgba(25, 25, 25, 0.95) !important;
-  border-radius: 14px;
+  background: var(--login-card-bg-gradient,rgba(25, 25, 25, 0.95));
+  border-radius: var(--login-button-border-radius,14px);
   border: 1px solid rgba(255, 215, 0, 0.3);
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.15);
   padding: 2.5rem 2rem;
@@ -68,11 +68,11 @@
 .hl_login--body .card::before {
   content: "";
   position: absolute;
-  top: -110px;
+  top: -21px;
   left: 50%;
   transform: translateX(-50%);
   width: 140px;
-  height: 80px;
+  height: 110px;
   background: var(--login-company-logo)
     no-repeat center;
   background-size: contain;
@@ -91,7 +91,8 @@
 
 /* Form Heading */
 .login-card-heading h2 {
-  color: #ffd700;
+  font-size: var(--login-headline-font-size,35px);
+  color: var(--login-headline-text-color,#ffd700) !important;
   font-weight: 600;
   margin-bottom: 25px;
   letter-spacing: 1px;
@@ -129,9 +130,9 @@
 
 /* Golden Sign In Button */
 .hl-btn {
-  background: linear-gradient(90deg, #b8860b, #ffd700, #b8860b) !important;
+  background-color: var(--login-button-bg-color,linear-gradient(90deg, #b8860b, #ffd700, #b8860b)) !important;
+  color: var(--login-button-text-color,#000) !important;
   background-size: 200% 100%;
-  color: #000 !important;
   border: none !important;
   border-radius: 8px !important;
   padding: 12px 0 !important;
@@ -161,7 +162,7 @@
 
 /* Forgot Password Link */
 .forgot-password {
-  color: #ffd700 !important;
+  color: var(--login-link-text-color,#ffd700) !important;
   font-size: 13px;
   text-decoration: none;
   transition: 0.3s ease;
@@ -179,7 +180,7 @@
 }
 
 .foot-note a {
-  color: #ffd700 !important;
+  color: var(--login-link-text-color,#ffd700) !important;
   text-decoration: none;
 }
 

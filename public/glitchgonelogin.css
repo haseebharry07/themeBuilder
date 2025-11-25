@@ -86,6 +86,7 @@
 
 /* === HEADINGS === */
 .login-card-heading h2 {
+  font-size: var(--login-headline-font-size,25px);
   color: var(--login-headline-text-color,#00c853) !important;
   font-weight: 700;
   font-size: 26px;
