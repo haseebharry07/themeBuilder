@@ -1990,7 +1990,7 @@ nav a#sb_location-mobile-app,
   background-image: var(--header-icon-bg-gradient) !important;
   background-repeat: no-repeat !important;
   background-position: center center !important;
-  border-radius: 9999px !important;
+  border-radius: 8px !important;
 }
 
 #hl_header--help-icon:hover::after {
