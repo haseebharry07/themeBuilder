@@ -1919,7 +1919,7 @@ nav a#sb_location-mobile-app,
 }
 
 #recent_activities-toggle:hover::before {
-  background-color: var(--header-icon-hover); /* hover */
+  background-color: var(--header-icon-hover) !important; /* hover */
 }
 
 #recent_activities-toggle:active::before,
