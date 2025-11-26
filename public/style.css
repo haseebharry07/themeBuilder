@@ -1991,7 +1991,8 @@ nav a#sb_location-mobile-app,
 }
 
 #hl_header--help-icon:hover::after {
-  background-color: var(--header-icon-hover-bg) !important;
+  /* background-color: var(--header-icon-hover-bg) !important; */
+  background-color: #ffffff; /* hover color */
 }
 
 #hl_header--help-icon::before {
