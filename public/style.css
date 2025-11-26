@@ -2148,6 +2148,7 @@ nav a#sb_location-mobile-app,
 }
 
 #canny_logs-toggle::before {
+  left: 6px !important;
   content: "" !important;
   mask-image: var(--header-menu-icon-changelog);
   -webkit-mask-image: var(--header-menu-icon-changelog);
