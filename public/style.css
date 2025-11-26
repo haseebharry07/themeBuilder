@@ -409,7 +409,8 @@ html body::after {
  --header-menu-icon-help-hover: url("data:image/svg+xml,%3Csvg%20data-v-e087307f%3D%22%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23e7e9eaff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-badge-help%20lucide-icon%20customizable%22%3E%3Cpath%20d%3D%22M3.85%208.62a4%204%200%200%201%204.78-4.77%204%204%200%200%201%206.74%200%204%204%200%200%201%204.78%204.78%204%204%200%200%201%200%206.74%204%204%200%200%201-4.77%204.78%204%204%200%200%201-6.75%200%204%204%200%200%201-4.78-4.77%204%204%200%200%201%200-6.76Z%22%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203%22%3E%3C%2Fpath%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2217%22%20y2%3D%2217%22%3E%3C%2Fline%3E%3C%2Fsvg%3E");
  --header-menu-icon-help-active: url("data:image/svg+xml,%3Csvg%20data-v-e087307f%3D%22%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-badge-help%20lucide-icon%20customizable%22%3E%3Cpath%20d%3D%22M3.85%208.62a4%204%200%200%201%204.78-4.77%204%204%200%200%201%206.74%200%204%204%200%200%201%204.78%204.78%204%204%200%200%201%200%206.74%204%204%200%200%201-4.77%204.78%204%204%200%200%201-6.75%200%204%204%200%200%201-4.78-4.77%204%204%200%200%201%200-6.76Z%22%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203%22%3E%3C%2Fpath%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2217%22%20y2%3D%2217%22%3E%3C%2Fline%3E%3C%2Fsvg%3E"); 
 --header-menu-icon-changelog: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 17V5a2 2 0 0 0-2-2H4'/%3E%3Cpath d='M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3'/%3E%3C/svg%3E");
- 
+  --header-menu-icon-copilot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='none' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='16' fill='%23000000'/%3E%3Cg stroke='%23000000' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' clip-path='url(%23clip0)'%3E%3Cpath d='m11.417 16.833.653 1.308c.222.442.332.664.48.855q.198.256.454.454c.192.148.413.259.855.48l1.308.653-1.308.654c-.442.221-.663.332-.855.48q-.256.196-.454.454c-.148.191-.258.413-.48.855l-.653 1.307-.654-1.307c-.221-.442-.332-.664-.48-.855a2.5 2.5 0 0 0-.453-.454c-.192-.148-.413-.259-.856-.48l-1.307-.654 1.307-.653c.443-.221.664-.332.856-.48q.256-.198.453-.454c.148-.191.259-.413.48-.855zM18.5 7.667l.982 2.553c.235.611.353.917.535 1.174q.245.344.59.589c.256.182.562.3 1.173.535l2.553.982-2.553.982c-.611.235-.917.353-1.174.536a2.5 2.5 0 0 0-.589.588c-.182.257-.3.563-.535 1.174l-.982 2.553-.982-2.553c-.235-.611-.353-.917-.535-1.174a2.5 2.5 0 0 0-.589-.588c-.257-.183-.562-.3-1.174-.536l-2.553-.982 2.553-.982c.611-.235.917-.353 1.174-.535q.344-.245.589-.59c.182-.256.3-.562.535-1.173z'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0'%3E%3Cpath fill='%23fff' d='M6 6h20v20H6z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+
 }
 /* Theme market order: 1 */
 
@@ -1781,6 +1782,66 @@ nav a#sb_location-mobile-app {
 #sb_settings.active::after {
   background-image: var(-sidebar-menu-icon-settings-active);
 } */
+/* COPILOT ICON BUTTON GENERAL */
+#hl_header--copilot-icon {
+  border-radius: 100% !important;
+  position: relative !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+/* Remove inline SVG */
+#hl_header--copilot-icon svg {
+  display: none !important;
+}
+
+/* Background Circle */
+#hl_header--copilot-icon::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  background-color: var(--header-icon-bg);
+  background-image: var(--header-icon-bg-gradient);
+}
+
+/* Background Hover */
+#hl_header--copilot-icon:hover::after {
+  background-color: var(--header-icon-hover-bg);
+}
+
+/* MAIN MASKED ICON */
+#hl_header--copilot-icon::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  mask-image: var(--header-menu-icon-copilot);
+  -webkit-mask-image: var(--header-menu-icon-copilot);
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  background-color: var(--header-icon-color); /* icon color */
+}
+
+/* Hover icon color */
+#hl_header--copilot-icon:hover::before {
+  background-color: var(--header-icon-hover);
+}
+
+/* Active */
+#hl_header--copilot-icon:active::before,
+#hl_header--copilot-icon.active::before {
+  background-color: var(--header-icon-hover);
+}
+
+
+
 
 /* Side bar menu icon end */
 
