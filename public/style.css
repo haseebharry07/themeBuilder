@@ -1828,7 +1828,7 @@ nav a#sb_location-mobile-app {
   mask-size: contain;
   -webkit-mask-size: contain;
   background-color: var(--header-icon-color); /* icon color */
-    z-index: 2 !important; /* icon above */
+    z-index: 3 !important; /* icon above */
 }
 
 /* Hover icon color */
