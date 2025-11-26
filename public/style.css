@@ -408,6 +408,8 @@ html body::after {
  /* --header-menu-icon-help: url("data:image/svg+xml,%3Csvg%20data-v-e087307f%3D%22%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-badge-help%20lucide-icon%20customizable%22%3E%3Cpath%20d%3D%22M3.85%208.62a4%204%200%200%201%204.78-4.77%204%204%200%200%201%206.74%200%204%204%200%200%201%204.78%204.78%204%204%200%200%201%200%206.74%204%204%200%200%201-4.77%204.78%204%204%200%200%201-6.75%200%204%204%200%200%201-4.78-4.77%204%204%200%200%201%200-6.76Z%22%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203%22%3E%3C%2Fpath%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2217%22%20y2%3D%2217%22%3E%3C%2Fline%3E%3C%2Fsvg%3E"); */
  --header-menu-icon-help-hover: url("data:image/svg+xml,%3Csvg%20data-v-e087307f%3D%22%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23e7e9eaff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-badge-help%20lucide-icon%20customizable%22%3E%3Cpath%20d%3D%22M3.85%208.62a4%204%200%200%201%204.78-4.77%204%204%200%200%201%206.74%200%204%204%200%200%201%204.78%204.78%204%204%200%200%201%200%206.74%204%204%200%200%201-4.77%204.78%204%204%200%200%201-6.75%200%204%204%200%200%201-4.78-4.77%204%204%200%200%201%200-6.76Z%22%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203%22%3E%3C%2Fpath%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2217%22%20y2%3D%2217%22%3E%3C%2Fline%3E%3C%2Fsvg%3E");
  --header-menu-icon-help-active: url("data:image/svg+xml,%3Csvg%20data-v-e087307f%3D%22%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-badge-help%20lucide-icon%20customizable%22%3E%3Cpath%20d%3D%22M3.85%208.62a4%204%200%200%201%204.78-4.77%204%204%200%200%201%206.74%200%204%204%200%200%201%204.78%204.78%204%204%200%200%201%200%206.74%204%204%200%200%201-4.77%204.78%204%204%200%200%201-6.75%200%204%204%200%200%201-4.78-4.77%204%204%200%200%201%200-6.76Z%22%3E%3C%2Fpath%3E%3Cpath%20d%3D%22M9.09%209a3%203%200%200%201%205.83%201c0%202-3%203-3%203%22%3E%3C%2Fpath%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2217%22%20y2%3D%2217%22%3E%3C%2Fline%3E%3C%2Fsvg%3E"); 
+--header-menu-icon-changelog: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19 17V5a2 2 0 0 0-2-2H4'/%3E%3Cpath d='M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3'/%3E%3C/svg%3E");
+ 
 }
 /* Theme market order: 1 */
 
@@ -2147,6 +2149,45 @@ nav a#sb_location-mobile-app,
 
 #canny_logs-toggle::before {
   content: "" !important;
+  mask-image: var(--header-menu-icon-changelog);
+  -webkit-mask-image: var(--header-menu-icon-changelog);
+
+  mask-repeat: no-repeat !important;
+  -webkit-mask-repeat: no-repeat !important;
+
+  mask-position: center !important;
+  -webkit-mask-position: center !important;
+
+  mask-size: contain !important;
+  -webkit-mask-size: contain !important;
+
+  background-color: var(--sidebar-menu-icon-color); /* default icon color */
+
+  position: absolute !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  width: 20px !important;
+  height: 20px !important;
+
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: auto !important;
+  z-index: 999 !important;
+}
+
+/* Hover (change icon color) */
+#canny_logs-toggle:hover::before {
+  background-color: #b9b9b9 !important; /* hover color */
+}
+
+/* Active (change icon color) */
+#canny_logs-toggle:active::before {
+  background-color: #ffffff !important; /* active color */
+}
+
+/* #canny_logs-toggle::before {
+  content: "" !important;
   background-image: var(
     --header-menu-icon-changelog,
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-scroll%22%3E%3Cpath%20d%3D%22M19%2017V5a2%202%200%200%200-2-2H4%22%2F%3E%3Cpath%20d%3D%22M8%2021h12a2%202%200%200%200%202-2v-1a1%201%200%200%200-1-1H11a1%201%200%200%200-1%201v1a2%202%200%201%201-4%200V5a2%202%200%201%200-4%200v2a1%201%200%200%200%201%201h3%22%2F%3E%3C%2Fsvg%3E")
@@ -2177,7 +2218,7 @@ nav a#sb_location-mobile-app,
     --header-menu-icon-changelog-active,
     url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-scroll%22%3E%3Cpath%20d%3D%22M19%2017V5a2%202%200%200%200-2-2H4%22%2F%3E%3Cpath%20d%3D%22M8%2021h12a2%202%200%200%200%202-2v-1a1%201%200%200%200-1-1H11a1%201%200%200%200-1%201v1a2%202%200%201%201-4%200V5a2%202%200%201%200-4%200v2a1%201%200%200%200%201%201h3%22%2F%3E%3C%2Fsvg%3E")
   ) !important;
-}
+} */
 
 /* header icons end */
 
