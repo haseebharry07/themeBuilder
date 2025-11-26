@@ -2004,7 +2004,7 @@ nav a#sb_location-mobile-app,
   content: "" !important;
   mask-image: var(--header-menu-icon-help);
   -webkit-mask-image: var(--header-menu-icon-help);
-  background-color: var(--header-icon-color) !important; /* default icon color */
+  background-color: var(--header-icon-color) !important;
   background-repeat: no-repeat !important;
   background-position: center center !important;
   position: absolute !important;
