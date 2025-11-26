@@ -1763,7 +1763,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_settings:hover::after {
-  background-color: #ffffff; /* hover color */
+  background-color: #020202; /* hover color */
 }
 
 #sb_settings.active::after {
