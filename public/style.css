@@ -1955,80 +1955,54 @@ nav a#sb_location-mobile-app,
 /* Help icon */
 
 #hl_header--help-icon {
-  border-radius: 100% !important;
-}
-
-#hl_header--help-icon::before {
-  background-color: var(--header-icon-bg) !important;
-  border-radius: 8px !important;
-}
-
-#hl_header--help-icon:hover::before {
-  /* background-color: var(--header-icon-hover-bg) !important; */
-  background-color: var(--header-icon-hover-bg) !important; /* hover color */
+  position: relative !important;
+  border: 0 !important;
+  outline: 0 !important;
 }
 
 #hl_header--help-icon i {
   display: none !important;
 }
 
-#hl_header--help-icon {
-  position: relative !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  border: 0 !important;
-  outline: 0 !important;
-}
-
+/* Background layer */
 #hl_header--help-icon::after {
   content: "" !important;
-  width: 100% !important;
-  height: 100% !important;
-  position: absolute !important;
-  background: var(--header-icon-bg) !important;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 9999px;
+  background-color: var(--header-icon-bg) !important;
   background-image: var(--header-icon-bg-gradient) !important;
-  background-repeat: no-repeat !important;
-  background-position: center center !important;
-  border-radius: 9999px !important;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
+/* Background hover */
 #hl_header--help-icon:hover::after {
+  background-image: none !important;
   background-color: var(--header-icon-hover-bg) !important;
-  /* background-color: #ffffff !important;  */
 }
 
+/* Icon layer */
 #hl_header--help-icon::before {
-  width: 20px !important;
-  height: 20px !important;
-  content: "" !important;
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
   mask-image: var(--header-menu-icon-help);
   -webkit-mask-image: var(--header-menu-icon-help);
   background-color: var(--header-icon-color) !important;
-  background-repeat: no-repeat !important;
-  background-position: center center !important;
-  position: absolute !important;
-  top: 0 !important;
-  bottom: 0 !important;
-  z-index: 999 !important;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-  margin: auto !important;
-    mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
-  mask-size: contain;      /* prevent repeating */
-  -webkit-mask-size: contain;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
+/* Icon hover */
 #hl_header--help-icon:hover::before {
-  background-color: var(--header-icon-hover-bg) !important; /* hover color */
+  background-color: var(--header-icon-color) !important;
 }
 
-#hl_header--help-icon:active::before,
-#hl_header--help-icon.active::before {
-  background-color: var(--header-icon-hover-bg) !important; /* hover color */
-}
 
 
 /* #hl_header--help-icon::before {
