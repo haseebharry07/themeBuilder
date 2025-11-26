@@ -1994,8 +1994,8 @@ nav a#sb_location-mobile-app,
 }
 
 #hl_header--help-icon:hover::after {
-  /* background-color: var(--header-icon-hover-bg) !important; */
-  background-color: #ffffff !important; /* hover color */
+  background-color: var(--header-icon-hover-bg) !important;
+  /* background-color: #ffffff !important;  */
 }
 
 #hl_header--help-icon::before {
@@ -2004,7 +2004,7 @@ nav a#sb_location-mobile-app,
   content: "" !important;
   mask-image: var(--header-menu-icon-help);
   -webkit-mask-image: var(--header-menu-icon-help);
-  background-color: var(--sidebar-menu-icon-color) !important; /* default icon color */
+  background-color: var(--header-icon-color) !important; /* default icon color */
   background-repeat: no-repeat !important;
   background-position: center center !important;
   position: absolute !important;
@@ -2027,7 +2027,7 @@ nav a#sb_location-mobile-app,
 
 #hl_header--help-icon:active::before,
 #hl_header--help-icon.active::before {
-  background-color: #d6d6d6; /* active color */
+  background-color: var(--header-icon-hover-bg) !important; /* hover color */
 }
 
 
