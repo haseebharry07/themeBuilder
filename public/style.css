@@ -1807,6 +1807,8 @@ nav a#sb_location-mobile-app {
   border-radius: 9999px;
   background-color: var(--header-icon-bg);
   background-image: var(--header-icon-bg-gradient);
+  z-index: 1 !important;  /* background */
+
 }
 
 /* Background Hover */
@@ -1827,6 +1829,7 @@ nav a#sb_location-mobile-app {
   mask-size: contain;
   -webkit-mask-size: contain;
   background-color: var(--header-icon-color); /* icon color */
+    z-index: 2 !important; /* icon above */
 }
 
 /* Hover icon color */
