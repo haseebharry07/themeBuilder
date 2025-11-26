@@ -3608,7 +3608,7 @@ div.sidebar-v2-location .hl_topbar-tabs.notification-banner-wrapper {
 }
 
 #template-power-dialer button:hover svg {
-  stroke: var(--header-icon-hover-color) !important;
+  stroke: var(--header-icon-hover) !important;
 }
 /* Header Dailer Icon color */
 
