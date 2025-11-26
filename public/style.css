@@ -1899,7 +1899,7 @@ nav a#sb_location-mobile-app,
   content: "" !important;
   mask-image: var(--header-menu-icon-notifications);
   -webkit-mask-image: var(--header-menu-icon-notifications);
-  background-color: var(--sidebar-menu-icon-color) !important; /* default icon color */
+  background-color: var(--header-icon-color) !important; /* default icon color */
   background-repeat: no-repeat !important;
   background-position: center center !important;
   position: absolute !important;
@@ -1919,12 +1919,12 @@ nav a#sb_location-mobile-app,
 }
 
 #recent_activities-toggle:hover::before {
-  background-color: #ffffff; /* hover */
+  background-color: var(--header-icon-hover); /* hover */
 }
 
 #recent_activities-toggle:active::before,
 #recent_activities-toggle.active::before {
-  background-color: #e2e2e2; /* active */
+  background-color: var(--header-icon-color) !important; /* default icon color */
 }
 
 /* #recent_activities-toggle::before {
@@ -1963,10 +1963,10 @@ nav a#sb_location-mobile-app,
   border-radius: 8px !important;
 }
 
-#hl_header--help-icon:hover::before {
-  /* background-color: var(--header-icon-hover-bg) !important; */
-  background-color: var(--header-icon-hover) !important; /* hover color */
-}
+/* #hl_header--help-icon:hover::before {
+
+  background-color: var(--header-icon-hover) !important; 
+} */
 
 #hl_header--help-icon i {
   display: none !important;
@@ -2162,7 +2162,7 @@ nav a#sb_location-mobile-app,
   mask-size: contain !important;
   -webkit-mask-size: contain !important;
 
-  background-color: var(--sidebar-menu-icon-color); /* default icon color */
+  background-color: var(--header-icon-color); /* default icon color */
 
   position: absolute !important;
   top: 0 !important;
@@ -2179,12 +2179,12 @@ nav a#sb_location-mobile-app,
 
 /* Hover (change icon color) */
 #canny_logs-toggle:hover::before {
-  background-color: #b9b9b9 !important; /* hover color */
+  background-color: var(--header-icon-hover) !important; /* hover color */
 }
 
 /* Active (change icon color) */
 #canny_logs-toggle:active::before {
-  background-color: #ffffff !important; /* active color */
+  background-color: var(--header-icon-color); /* default icon color */
 }
 
 /* #canny_logs-toggle::before {
