@@ -1965,7 +1965,7 @@ nav a#sb_location-mobile-app,
 
 #hl_header--help-icon:hover::before {
   /* background-color: var(--header-icon-hover-bg) !important; */
-  background-color: #1b1b1b !important; /* hover color */
+  background-color: var(--header-icon-hover-bg) !important; /* hover color */
 }
 
 #hl_header--help-icon i {
@@ -2022,7 +2022,7 @@ nav a#sb_location-mobile-app,
 }
 
 #hl_header--help-icon:hover::before {
-  background-color: #ffffff; /* hover color */
+  background-color: var(--header-icon-hover-bg) !important; /* hover color */
 }
 
 #hl_header--help-icon:active::before,
