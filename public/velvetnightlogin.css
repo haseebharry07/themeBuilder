@@ -67,7 +67,19 @@
 .hl_login--header img {
   max-height: 70px;
 }
-
+/* Add new custom logo above form */
+.hl_login--body::before {
+  z-index: 3 !important;
+  content: "";
+  display: block;
+  width: 110px;
+  height: 100px;
+  margin: 0 auto -17px auto;
+  background-image: var(--login-company-logo);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
 /* ============================
    TEXT + HEADINGS
 ============================ */
