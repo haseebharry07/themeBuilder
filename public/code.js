@@ -356,89 +356,34 @@ function applyStoredSidebarTitles() {
     console.warn("[ThemeBuilder] Sidebar not found within retry window");
     return false;
   }
-function reorderMenu(order, containerSelector) {
-
-    // 🛑 Prevent recursion FIRST
-    if (window.__TB_REORDERING) return;
-
-    // 🛑 Prevent issues during drag
-    if (window.__tb_dragging_now__) return;
-    if (window.isPerformingProgrammaticReorder) return;
-
-    // ✅ Only set the lock AFTER early returns
-    window.__TB_REORDERING = true;
-
-    let container = document.querySelector(containerSelector);
-
-    function getRealSubAccountSidebar() {
-        return document.querySelector("#subAccountSidebar")
-            || document.querySelector('nav[data-testid="sidebar-nav"]')
-            || document.querySelector('.hl-app .sidebar');
-    }
-
-    // Subaccount sidebar
-    if (!container && containerSelector === "#subAccountSidebar") {
-        container = getRealSubAccountSidebar();
-    }
-
-    // Agency sidebar
-    if (!container && containerSelector === "#agencySidebar") {
-        container =
-            document.querySelector("#sidebarMenu") ||
-            document.querySelector("#sidebar-nav") ||
-            document.querySelector(".hl_nav-header nav[aria-label='header']") ||
-            document.querySelector(".hl_nav-header nav") ||
-            document.querySelector(".hl_nav-header");
-    }
-
-    if (!container) {
-        window.__TB_REORDERING = false; // 🔓 release lock on failure
-        return;
-    }
-
-    // ------------------------------------------------------------------
-    //  Perform reorder safely
-    // ------------------------------------------------------------------
-    window.isPerformingProgrammaticReorder = true;
-
-    order.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) container.appendChild(el);
-    });
-
-    window.isPerformingProgrammaticReorder = false;
-    window.__TB_REORDERING = false;  // 🔓 release lock at the end
-}
-
-
-  // function reorderMenu(order, containerSelector) {
-  //     // Try the exact selector first (keeps agency behavior unchanged)
-  //     let container = document.querySelector(containerSelector);
+  function reorderMenu(order, containerSelector) {
+      // Try the exact selector first (keeps agency behavior unchanged)
+      let container = document.querySelector(containerSelector);
   
-  //     // If selector not found, attempt to infer the container from the first existing menu item
-  //     if (!container) {
-  //         for (let i = 0; i < order.length; i++) {
-  //             const id = order[i];
-  //             const el = document.getElementById(id);
-  //             if (el && el.parentElement) {
-  //                 container = el.parentElement;
-  //                 break;
-  //             }
-  //         }
-  //     }
+      // If selector not found, attempt to infer the container from the first existing menu item
+      if (!container) {
+          for (let i = 0; i < order.length; i++) {
+              const id = order[i];
+              const el = document.getElementById(id);
+              if (el && el.parentElement) {
+                  container = el.parentElement;
+                  break;
+              }
+          }
+      }
   
-  //     // If still not found, try a common sub-account selector (safe fallback)
-  //     if (!container) {
-  //         container = document.querySelector(".hl_nav-header nav") || document.querySelector(".hl_nav-header");
-  //     }
+      // If still not found, try a common sub-account selector (safe fallback)
+      if (!container) {
+          container = document.querySelector(".hl_nav-header nav") || document.querySelector(".hl_nav-header");
+      }
   
-  //     if (!container) return;
+      if (!container) return;
   
-  //     order.forEach(id => {
-  //         const el = document.getElementById(id);
-  //         if (el) container.appendChild(el);
-  //     });
-  // }
+      order.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) container.appendChild(el);
+      });
+  }
   // ---- Core reapply logic ----
   function _doReapplyTheme() {
     const savedRaw = localStorage.getItem(STORAGE.userTheme);
