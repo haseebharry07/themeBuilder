@@ -356,29 +356,32 @@ function applyStoredSidebarTitles() {
     console.warn("[ThemeBuilder] Sidebar not found within retry window");
     return false;
   }
- function reorderMenu(order, containerSelector) {
+function reorderMenu(order, containerSelector) {
 
-    // 🛑 Prevent infinite loops or freezing during drag operations
+    // 🛑 Prevent recursion FIRST
+    if (window.__TB_REORDERING) return;
+
+    // 🛑 Prevent issues during drag
     if (window.__tb_dragging_now__) return;
     if (window.isPerformingProgrammaticReorder) return;
 
+    // ✅ Only set the lock AFTER early returns
+    window.__TB_REORDERING = true;
+
     let container = document.querySelector(containerSelector);
+
     function getRealSubAccountSidebar() {
         return document.querySelector("#subAccountSidebar")
             || document.querySelector('nav[data-testid="sidebar-nav"]')
             || document.querySelector('.hl-app .sidebar');
     }
-    // -------------------------------------------------------------------------s
-    // 1️⃣ Special handling for sub-account sidebar
-    // -------------------------------------------------------------------------
+
+    // Subaccount sidebar
     if (!container && containerSelector === "#subAccountSidebar") {
-        container = getRealSubAccountSidebar();  // your safe subaccount lookup
+        container = getRealSubAccountSidebar();
     }
 
-    // -------------------------------------------------------------------------
-    // 2️⃣ Special handling for agency-level sidebar
-    // (Never use these for sub-account!)
-    // -------------------------------------------------------------------------
+    // Agency sidebar
     if (!container && containerSelector === "#agencySidebar") {
         container =
             document.querySelector("#sidebarMenu") ||
@@ -388,14 +391,14 @@ function applyStoredSidebarTitles() {
             document.querySelector(".hl_nav-header");
     }
 
-    // -------------------------------------------------------------------------
-    // 3️⃣ If container still not found → STOP safely
-    // -------------------------------------------------------------------------
-    if (!container) return;
+    if (!container) {
+        window.__TB_REORDERING = false; // 🔓 release lock on failure
+        return;
+    }
 
-    // -------------------------------------------------------------------------
-    // 4️⃣ Perform reorder safely
-    // -------------------------------------------------------------------------
+    // ------------------------------------------------------------------
+    //  Perform reorder safely
+    // ------------------------------------------------------------------
     window.isPerformingProgrammaticReorder = true;
 
     order.forEach(id => {
@@ -404,7 +407,9 @@ function applyStoredSidebarTitles() {
     });
 
     window.isPerformingProgrammaticReorder = false;
+    window.__TB_REORDERING = false;  // 🔓 release lock at the end
 }
+
 
   // function reorderMenu(order, containerSelector) {
   //     // Try the exact selector first (keeps agency behavior unchanged)
