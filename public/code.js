@@ -356,34 +356,107 @@ function applyStoredSidebarTitles() {
     console.warn("[ThemeBuilder] Sidebar not found within retry window");
     return false;
   }
-  
-function reorderMenu(order, containerSelector) {
+  function reorderMenu(order, containerSelector) {
 
-    // 🛑 Prevent freezing during user drag or internal drag
+    // ⛔ Prevent recursion or interfering with user drag
     if (window.__tb_dragging_now__) return;
     if (window.isPerformingProgrammaticReorder) return;
 
-    // original lookup
-    let container = document.querySelector(containerSelector);
+    let container = null;
 
-    // fallback ONLY for real subaccount sidebar
-    if (!container && containerSelector === "#subAccountSidebar") {
-        container = getRealSubAccountSidebar();
+    /*
+     * -----------------------------------------------------
+     * 1️⃣ First: Try EXACT selector (keeps Agency behavior perfect)
+     * -----------------------------------------------------
+     */
+    if (containerSelector) {
+        container = document.querySelector(containerSelector);
     }
 
-    if (!container) return;
+    /*
+     * -----------------------------------------------------
+     * 2️⃣ If container not found:
+     *    Auto-detect by using the FIRST existing menu item
+     * -----------------------------------------------------
+     */
+    if (!container) {
+        for (let id of order) {
+            const el = document.getElementById(id);
+            if (el && el.parentElement) {
+                container = el.parentElement;
+                break;
+            }
+        }
+    }
 
-    // Now reorder safely
+    /*
+     * -----------------------------------------------------
+     * 3️⃣ Special fallback ONLY for real subaccount sidebar
+     * -----------------------------------------------------
+     */
+    if (!container && containerSelector === "#subAccountSidebar") {
+        container = getRealSubAccountSidebar?.();
+    }
+
+    /*
+     * -----------------------------------------------------
+     * 4️⃣ FINAL fallback (very safe – does NOT override agency)
+     * -----------------------------------------------------
+     */
+    if (!container) {
+        container =
+            document.querySelector("#sidebarMenu") ||
+            document.querySelector("#sidebar-nav") ||
+            document.querySelector(".hl_nav-header nav[aria-label='header']") ||
+            document.querySelector(".hl_nav-header nav") ||
+            document.querySelector(".hl_nav-header");
+    }
+
+    if (!container) return; // If nothing found → stop safely
+
+    /*
+     * -----------------------------------------------------
+     * 5️⃣ Perform reorder safely
+     * -----------------------------------------------------
+     */
     window.isPerformingProgrammaticReorder = true;
 
-    order.forEach(id => {
+    for (let id of order) {
         const el = document.getElementById(id);
         if (el) container.appendChild(el);
-    });
+    }
 
     window.isPerformingProgrammaticReorder = false;
 }
 
+  // function reorderMenu(order, containerSelector) {
+  //     // Try the exact selector first (keeps agency behavior unchanged)
+  //     let container = document.querySelector(containerSelector);
+  
+  //     // If selector not found, attempt to infer the container from the first existing menu item
+  //     if (!container) {
+  //         for (let i = 0; i < order.length; i++) {
+  //             const id = order[i];
+  //             const el = document.getElementById(id);
+  //             if (el && el.parentElement) {
+  //                 container = el.parentElement;
+  //                 break;
+  //             }
+  //         }
+  //     }
+  
+  //     // If still not found, try a common sub-account selector (safe fallback)
+  //     if (!container) {
+  //         container = document.querySelector(".hl_nav-header nav") || document.querySelector(".hl_nav-header");
+  //     }
+  
+  //     if (!container) return;
+  
+  //     order.forEach(id => {
+  //         const el = document.getElementById(id);
+  //         if (el) container.appendChild(el);
+  //     });
+  // }
   // ---- Core reapply logic ----
   function _doReapplyTheme() {
     const savedRaw = localStorage.getItem(STORAGE.userTheme);
