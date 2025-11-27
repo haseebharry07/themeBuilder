@@ -1,5 +1,5 @@
 /* ============================
-   BASE LAYOUT
+   FULL PAGE LAYOUT
 ============================ */
 .hl_login {
   display: flex;
@@ -9,17 +9,16 @@
   font-family: "Inter", "Poppins", sans-serif;
 }
 
-/* LEFT SIDE IMAGE */
+/* LEFT SIDE (Illustration) */
 .hl_login::before {
   content: "";
-  flex: 1;
-  min-width: 50%;
+  width: 50%;
   background: url(https://theme-builder-delta.vercel.app/images/velvetbgimg.png) center center / cover no-repeat;
 }
 
-/* RIGHT SIDE CONTAINER (with gradient) */
+/* RIGHT SIDE (Gradient background) */
 .hl_login--body {
-  flex: 0 0 460px;
+  width: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -30,100 +29,72 @@
 }
 
 /* ============================
-   LOGIN CARD (WHITE BOX)
+   LOGIN CARD (White Box)
 ============================ */
 .hl_login--body .card {
   width: 100%;
-  background: #ffffff00 !important;
-  padding: 40px 35px;
+  max-width: 380px;
+  background: #ffffff !important;
+  padding: 45px 35px;
   border-radius: 18px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
   border: none;
+  text-align: center;
 }
 
 /* ============================
-   LOGO ABOVE HEADING
+   LOGO INSIDE THE CARD
 ============================ */
-/* === LOGO (Fixed Position on Top of Form) === */
-.hl_login--header {
-  position: absolute !important;
-  top: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 10;
-  display: none !important;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  pointer-events: none; /* so logo doesn’t block inputs */
-}
-
-.hl_login--header img {
-  max-height: 75px !important;
-  width: auto;
-  height: auto;
-  filter: none !important;
-}
-.hl_login--header img {
-  max-height: 70px;
-}
-/* Add new custom logo above form */
-.hl_login--body::before {
-  z-index: 3 !important;
+.hl_login--body .card::before {
   content: "";
   display: block;
-  width: 110px;
-  height: 100px;
-  margin: 0 auto -17px auto;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 15px auto;
   background-image: var(--login-company-logo);
   background-repeat: no-repeat;
-  background-position: center;
   background-size: contain;
+  background-position: center;
 }
+
 /* ============================
-   TEXT + HEADINGS
+   HEADING
 ============================ */
 .login-card-heading h2 {
   font-size: 26px;
   font-weight: 700;
+  margin-bottom: 18px;
   color: #000 !important;
-  text-align: center;
-  margin-top: 10px;
-  margin-bottom: 25px;
 }
 
 /* ============================
-   INPUTS
+   INPUT FIELDS
 ============================ */
-.hl-text-input-container {
-  margin-bottom: 18px;
-}
-
 .hl-text-input {
   width: 100%;
   padding: 13px 14px;
   border-radius: 8px;
-  border: 1px solid #c9c9c9;
+  border: 1px solid #d1d1d1;
   background: #eef2ff;
-  color: #000;
+  margin-bottom: 20px;
   font-size: 14px;
+  color: #000;
 }
 
 .hl-text-input:focus {
   border-color: #6e63ff;
-  outline: none;
   box-shadow: 0 0 0 2px rgba(110, 99, 255, 0.25);
+  outline: none;
 }
 
-/* ============================
-   FORGOT PASSWORD
-============================ */
+/* Forgot Password */
 .forgot-password {
   display: block;
   text-align: right;
   font-size: 13px;
-  color: #646464 !important;
+  margin-top: -10px;
   margin-bottom: 20px;
+  color: #646464 !important;
 }
 
 /* ============================
@@ -151,46 +122,45 @@
    FOOT NOTE
 ============================ */
 .foot-note {
-  text-align: center;
+  margin-top: 22px;
   font-size: 13px;
   color: #666 !important;
-  margin-top: 20px;
+  text-align: center;
 }
 
 .foot-note a {
   color: #4c3aff !important;
   text-decoration: none;
 }
-
 .foot-note a:hover {
   text-decoration: underline;
 }
 
 /* ============================
-   TABLET + MOBILE
+   RESPONSIVE
 ============================ */
 @media (max-width: 1024px) {
   .hl_login {
     flex-direction: column;
     height: auto;
   }
+
   .hl_login::before {
+    width: 100%;
     height: 280px;
-    min-width: 100%;
   }
+
   .hl_login--body {
     width: 100%;
     padding: 30px;
-  }
-  .hl_login--body .card {
-    padding: 30px 25px;
   }
 }
 
 @media (max-width: 600px) {
   .hl_login--body .card {
-    padding: 25px 20px;
+    padding: 30px 25px;
   }
+
   .login-card-heading h2 {
     font-size: 22px;
   }
