@@ -683,10 +683,10 @@ button {
   color: var(--sidebar-menu-color) !important;
 }
 #sidebar-v2 nav a.active span.nav-title {
-  color: var(--sidebar-menu-active-color) !important;
+  color: var(--sidebar-text-active-color,#ffffff) !important;
 }
 #sidebar-v2 nav a:hover span.nav-title {
-  color: var(--sidebar-menu-hover-color) !important;
+  color: var(--sidebar-text-hover-color,#ffffff) !important;
 }
 
 /* Sub menus */
