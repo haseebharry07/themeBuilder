@@ -1,163 +1,83 @@
-/* ============================
-   FULL PAGE WRAPPER
-============================= */
-.hl_login {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  width: 100%;
-  background: #e6e6e6;
-  font-family: "Inter", "Poppins", sans-serif;
-  overflow: hidden;
+/* OUTER WRAPPER (center the whole login box like screenshot) */
+.hl_login .container-fluid {
+    max-width: 900px !important;
+    margin: 80px auto !important;
+    padding: 0 !important;
 }
 
-/* ============================
-   BACKGROUND BIG RECTANGLE
-============================= */
-.hl_login::before {
-  content: "";
-  position: absolute;
-  width: 80%;
-  height: 75%;
-  background: #dfe2e6;
-  border-radius: 8px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
-  z-index: 1;
+/* THE CARD SHOULD TURN INTO A SPLIT SIDE-BY-SIDE BOX */
+.hl_login .card {
+    display: flex !important;
+    flex-direction: row !important;
+    padding: 0 !important;
+    border-radius: 4px !important;
+    overflow: hidden;
+    box-shadow: 0px 4px 18px rgba(0,0,0,0.15);
+    border: none !important;
 }
 
-/* ============================
-   INNER LAYOUT (Login + Image)
-============================= */
-.hl_login--body {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  width: 80%;
-  height: 75%;
-  border-radius: 8px;
-  overflow: hidden;
-  background: transparent !important;
-  padding: 0;
+/* LEFT PANEL (FORM AREA) */
+.hl_login .card-body {
+    width: 50% !important;
+    background: #3e4f5c !important;
+    padding: 50px !important;
+    color: white !important;
 }
 
-/* ============================
-   LEFT LOGIN SIDE
-============================= */
-.login-left {
-  width: 50%;
-  background: #374957;
-  padding: 60px 50px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: #fff;
+/* Make inner text white or light */
+.hl_login .card-body h2,
+.hl_login .card-body label,
+.hl_login .card-body span,
+.hl_login .card-body p {
+    color: #ffffff !important;
 }
 
-/* LOGIN CARD FIX */
-.hl_login--body .card {
-  width: 100%;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  padding: 0 !important;
-}
-
-/* LOGO (TOP) */
-.hl_login--body .card::before {
-  content: "";
-  width: 150px;
-  height: 80px;
-  background-image: var(--login-company-logo);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin-bottom: 20px;
-}
-
-/* Heading */
-.login-card-heading h2 {
-  font-size: 22px !important;
-  font-weight: 600;
-  margin-bottom: 25px;
-  color: #fff !important;
-}
-
-/* INPUTS */
+/* Inputs match screenshot */
 .hl-text-input {
-  width: 100%;
-  background: transparent;
-  border: 1px solid #8795a8;
-  border-radius: 4px !important;
-  padding: 12px 14px;
-  color: #fff !important;
-  margin-bottom: 18px;
+    background: transparent !important;
+    border: 1px solid #9db0bf !important;
+    color: #fff !important;
 }
-
 .hl-text-input::placeholder {
-  color: #d1d5db;
+    color: #dbe4ea !important;
 }
 
-.forgot-password {
-  color: #d1d5db !important;
-  margin-bottom: 25px;
+/* Sign in Button like screenshot */
+.hl-btn {
+    background: #e44b3a !important;
+    border-radius: 4px !important;
+    height: 44px !important;
+    font-weight: 600 !important;
 }
 
-/* BUTTON */
-.hl_login--body button[type="submit"] {
-  width: 100%;
-  background: #e04a3f !important;
-  border-radius: 4px;
-  padding: 12px;
-  font-weight: 600;
-  color: #fff !important;
+/* "Or continue with" separator */
+.hl_login .mt-6 span {
+    background: #3e4f5c !important;
+    color: #cbd5df !important;
 }
 
-.hl_login--body button[type="submit"]:hover {
-  background: #cc3b32 !important;
+/* Google Button container width fixed */
+#g_id_signin {
+    width: 100% !important;
 }
 
-/* FOOTER NOTE */
-.foot-note {
-  margin-top: 20px;
-  font-size: 13px;
-  color: #fff !important;
+/* RIGHT PANEL (IMAGE) */
+.hl_login .card::after {
+    content: "";
+    width: 50%;
+    background-image: url("https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg");
+    background-size: cover;
+    background-position: center;
 }
 
-/* ============================
-   RIGHT IMAGE SIDE
-============================= */
-.login-right {
-  width: 50%;
-  background: url(https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg)
-    center center / cover no-repeat;
+/* REMOVE DEFAULT WHITE BG */
+.hl_login--body {
+    background: transparent !important;
 }
 
-/* ============================
-   RESPONSIVE
-============================= */
-@media (max-width: 1024px) {
-  .hl_login--body {
-    flex-direction: column;
-    width: 90%;
-    height: auto;
-  }
-
-  .login-left,
-  .login-right {
-    width: 100%;
-    height: auto;
-  }
-
-  .login-right {
-    height: 300px;
-  }
-}
-
-@media (max-width: 600px) {
-  .login-left {
-    padding: 40px 25px;
-  }
+/* Fix spacing so the login box is exactly like screenshot */
+.hl_login {
+    background: #dfe0e2 !important; /* light gray page background */
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
 }
