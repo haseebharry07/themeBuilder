@@ -356,80 +356,80 @@ function applyStoredSidebarTitles() {
     console.warn("[ThemeBuilder] Sidebar not found within retry window");
     return false;
   }
- function reorderMenu(order, containerSelector) {
+//  function reorderMenu(order, containerSelector) {
 
-    // 🛑 Prevent infinite loops or freezing during drag operations
-    if (window.__tb_dragging_now__) return;
-    if (window.isPerformingProgrammaticReorder) return;
+//     // 🛑 Prevent infinite loops or freezing during drag operations
+//     if (window.__tb_dragging_now__) return;
+//     if (window.isPerformingProgrammaticReorder) return;
 
-    let container = document.querySelector(containerSelector);
+//     let container = document.querySelector(containerSelector);
 
-    // -------------------------------------------------------------------------
-    // 1️⃣ Special handling for sub-account sidebar
-    // -------------------------------------------------------------------------
-    if (!container && containerSelector === "#subAccountSidebar") {
-        container = getRealSubAccountSidebar();  // your safe subaccount lookup
-    }
+//     // -------------------------------------------------------------------------
+//     // 1️⃣ Special handling for sub-account sidebar
+//     // -------------------------------------------------------------------------
+//     if (!container && containerSelector === "#subAccountSidebar") {
+//         container = getRealSubAccountSidebar();  // your safe subaccount lookup
+//     }
 
-    // -------------------------------------------------------------------------
-    // 2️⃣ Special handling for agency-level sidebar
-    // (Never use these for sub-account!)
-    // -------------------------------------------------------------------------
-    if (!container && containerSelector === "#agencySidebar") {
-        container =
-            document.querySelector("#sidebarMenu") ||
-            document.querySelector("#sidebar-nav") ||
-            document.querySelector(".hl_nav-header nav[aria-label='header']") ||
-            document.querySelector(".hl_nav-header nav") ||
-            document.querySelector(".hl_nav-header");
-    }
+//     // -------------------------------------------------------------------------
+//     // 2️⃣ Special handling for agency-level sidebar
+//     // (Never use these for sub-account!)
+//     // -------------------------------------------------------------------------
+//     if (!container && containerSelector === "#agencySidebar") {
+//         container =
+//             document.querySelector("#sidebarMenu") ||
+//             document.querySelector("#sidebar-nav") ||
+//             document.querySelector(".hl_nav-header nav[aria-label='header']") ||
+//             document.querySelector(".hl_nav-header nav") ||
+//             document.querySelector(".hl_nav-header");
+//     }
 
-    // -------------------------------------------------------------------------
-    // 3️⃣ If container still not found → STOP safely
-    // -------------------------------------------------------------------------
-    if (!container) return;
+//     // -------------------------------------------------------------------------
+//     // 3️⃣ If container still not found → STOP safely
+//     // -------------------------------------------------------------------------
+//     if (!container) return;
 
-    // -------------------------------------------------------------------------
-    // 4️⃣ Perform reorder safely
-    // -------------------------------------------------------------------------
-    window.isPerformingProgrammaticReorder = true;
+//     // -------------------------------------------------------------------------
+//     // 4️⃣ Perform reorder safely
+//     // -------------------------------------------------------------------------
+//     window.isPerformingProgrammaticReorder = true;
 
-    order.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) container.appendChild(el);
-    });
+//     order.forEach(id => {
+//         const el = document.getElementById(id);
+//         if (el) container.appendChild(el);
+//     });
 
-    window.isPerformingProgrammaticReorder = false;
-}
+//     window.isPerformingProgrammaticReorder = false;
+// }
 
-  // function reorderMenu(order, containerSelector) {
-  //     // Try the exact selector first (keeps agency behavior unchanged)
-  //     let container = document.querySelector(containerSelector);
+  function reorderMenu(order, containerSelector) {
+      // Try the exact selector first (keeps agency behavior unchanged)
+      let container = document.querySelector(containerSelector);
   
-  //     // If selector not found, attempt to infer the container from the first existing menu item
-  //     if (!container) {
-  //         for (let i = 0; i < order.length; i++) {
-  //             const id = order[i];
-  //             const el = document.getElementById(id);
-  //             if (el && el.parentElement) {
-  //                 container = el.parentElement;
-  //                 break;
-  //             }
-  //         }
-  //     }
+      // If selector not found, attempt to infer the container from the first existing menu item
+      if (!container) {
+          for (let i = 0; i < order.length; i++) {
+              const id = order[i];
+              const el = document.getElementById(id);
+              if (el && el.parentElement) {
+                  container = el.parentElement;
+                  break;
+              }
+          }
+      }
   
-  //     // If still not found, try a common sub-account selector (safe fallback)
-  //     if (!container) {
-  //         container = document.querySelector(".hl_nav-header nav") || document.querySelector(".hl_nav-header");
-  //     }
+      // If still not found, try a common sub-account selector (safe fallback)
+      if (!container) {
+          container = document.querySelector(".hl_nav-header nav") || document.querySelector(".hl_nav-header");
+      }
   
-  //     if (!container) return;
+      if (!container) return;
   
-  //     order.forEach(id => {
-  //         const el = document.getElementById(id);
-  //         if (el) container.appendChild(el);
-  //     });
-  // }
+      order.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) container.appendChild(el);
+      });
+  }
   // ---- Core reapply logic ----
   function _doReapplyTheme() {
     const savedRaw = localStorage.getItem(STORAGE.userTheme);
