@@ -64,7 +64,7 @@
 /* RIGHT PANEL (IMAGE) */
 .hl_login .card::after {
     content: "";
-    width: 50%;
+    width: 100%;
     background-image: url("https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg");
     background-size: cover;
     background-position: center;
@@ -107,3 +107,10 @@ body, html {
   height: auto !important;
 }
 
+.hl_login--body .card .card-body{
+    max-width: 430px;
+    width: 100% !important;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
