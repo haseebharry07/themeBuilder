@@ -227,6 +227,7 @@
 
 /* Add new custom logo above form */
 .hl_login--body::before {
+  z-index: 3 !important;
   content: "";
   display: block;
   width: 110px;
