@@ -356,54 +356,26 @@ function applyStoredSidebarTitles() {
     console.warn("[ThemeBuilder] Sidebar not found within retry window");
     return false;
   }
-  function reorderMenu(order, containerSelector) {
+ function reorderMenu(order, containerSelector) {
 
-    // ⛔ Prevent recursion or interfering with user drag
+    // 🛑 Prevent infinite loops or freezing during drag operations
     if (window.__tb_dragging_now__) return;
     if (window.isPerformingProgrammaticReorder) return;
 
-    let container = null;
+    let container = document.querySelector(containerSelector);
 
-    /*
-     * -----------------------------------------------------
-     * 1️⃣ First: Try EXACT selector (keeps Agency behavior perfect)
-     * -----------------------------------------------------
-     */
-    if (containerSelector) {
-        container = document.querySelector(containerSelector);
-    }
-
-    /*
-     * -----------------------------------------------------
-     * 2️⃣ If container not found:
-     *    Auto-detect by using the FIRST existing menu item
-     * -----------------------------------------------------
-     */
-    if (!container) {
-        for (let id of order) {
-            const el = document.getElementById(id);
-            if (el && el.parentElement) {
-                container = el.parentElement;
-                break;
-            }
-        }
-    }
-
-    /*
-     * -----------------------------------------------------
-     * 3️⃣ Special fallback ONLY for real subaccount sidebar
-     * -----------------------------------------------------
-     */
+    // -------------------------------------------------------------------------
+    // 1️⃣ Special handling for sub-account sidebar
+    // -------------------------------------------------------------------------
     if (!container && containerSelector === "#subAccountSidebar") {
-        container = getRealSubAccountSidebar?.();
+        container = getRealSubAccountSidebar();  // your safe subaccount lookup
     }
 
-    /*
-     * -----------------------------------------------------
-     * 4️⃣ FINAL fallback (very safe – does NOT override agency)
-     * -----------------------------------------------------
-     */
-    if (!container) {
+    // -------------------------------------------------------------------------
+    // 2️⃣ Special handling for agency-level sidebar
+    // (Never use these for sub-account!)
+    // -------------------------------------------------------------------------
+    if (!container && containerSelector === "#agencySidebar") {
         container =
             document.querySelector("#sidebarMenu") ||
             document.querySelector("#sidebar-nav") ||
@@ -412,19 +384,20 @@ function applyStoredSidebarTitles() {
             document.querySelector(".hl_nav-header");
     }
 
-    if (!container) return; // If nothing found → stop safely
+    // -------------------------------------------------------------------------
+    // 3️⃣ If container still not found → STOP safely
+    // -------------------------------------------------------------------------
+    if (!container) return;
 
-    /*
-     * -----------------------------------------------------
-     * 5️⃣ Perform reorder safely
-     * -----------------------------------------------------
-     */
+    // -------------------------------------------------------------------------
+    // 4️⃣ Perform reorder safely
+    // -------------------------------------------------------------------------
     window.isPerformingProgrammaticReorder = true;
 
-    for (let id of order) {
+    order.forEach(id => {
         const el = document.getElementById(id);
         if (el) container.appendChild(el);
-    }
+    });
 
     window.isPerformingProgrammaticReorder = false;
 }
