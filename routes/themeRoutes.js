@@ -178,7 +178,7 @@ router.get("/merged-css", async (req, res) => {
       "BlueWave Theme": "bluewavelogin.css",
       "OceanMist Theme": "oceanmefistlogin.css",
       "OceanMist Light Theme": "oceanmefistlogin.css",
-      "GlitchGone Theme": "whitegreenlogin.css",
+      "VelvetNight Theme": "whitegreenlogin.css",
       "GlitchGone Light Theme": "whitegreenlogin.css",
       "JetBlack Luxury Gold Theme": "jetblacklogin.css",
       "JetBlack Luxury Gold Theme - Light": "jetblacklogin.css",
