@@ -121,14 +121,14 @@ html body::after {
  #location-dashboard_banner--wordpress-promo-container{display: none !important};
  #location-dashboard_banner--yext-promo-container{display: none !important};
  .hl_error.hl_alert_twilio{display: block !important};
- --launchpad-order: 1;
- --dashboard-order: 0;
- --conversations-order: 3;
+ --launchpad-order: 0;
+ --dashboard-order: 1;
+ --conversations-order: 2;
  --sub-conversations-order: 0;
  --sub-manual-actions-order: 1;
  --sub-templates-snippets-conversations-order: 2;
  --sub-trigger-links-conversations-order: 3;
- --calendars-order: 2;
+ --calendars-order: 3;
  --sub-calendars-order: 0;
  --sub-appointments-order: 1;
  --sub-calendar-settings-order: 4;
