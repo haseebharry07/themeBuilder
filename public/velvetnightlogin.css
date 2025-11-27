@@ -1,180 +1,139 @@
-/* === BASE WRAPPER === */
+/* ============================
+   BASE LAYOUT
+============================ */
 .hl_login {
   display: flex;
-  align-items: stretch;
   height: 100vh;
   width: 100%;
-  background: #ecebff;
-  font-family: "Inter", "Poppins", sans-serif;
-  color: #000;
   overflow: hidden;
+  font-family: "Inter", "Poppins", sans-serif;
 }
 
-/* === LEFT HALF (Illustration Image) === */
+/* LEFT SIDE IMAGE */
 .hl_login::before {
   content: "";
   flex: 1;
   min-width: 50%;
-  background: url(https://theme-builder-delta.vercel.app/images/velvetbgimg.png) center center/cover no-repeat;
-  border-right: none;
+  background: url(https://theme-builder-delta.vercel.app/images/velvetbgimg.png) center center / cover no-repeat;
 }
 
-/* === RIGHT HALF (Login Form Panel) === */
+/* RIGHT SIDE CONTAINER (with gradient) */
 .hl_login--body {
-  flex: 0 0 520px;
-  background: linear-gradient(135deg, #cfd4ff, #9fa8ff);
-  padding: 60px;
+  flex: 0 0 460px;
   display: flex;
-  flex-direction: column;
   justify-content: center;
-  border-top-left-radius: 40px;
-  border-bottom-left-radius: 40px;
-  box-shadow: -10px 0px 30px rgba(0, 0, 0, 0.15);
+  align-items: center;
+  background: linear-gradient(135deg, #d6d8ff 0%, #b7afff 100%);
+  padding: 40px;
   position: relative;
-  z-index: 10;
+  z-index: 5;
 }
 
-/* === LOGO (Centered top) === */
+/* ============================
+   LOGIN CARD (WHITE BOX)
+============================ */
+.hl_login--body .card {
+  width: 100%;
+  background: #ffffff !important;
+  padding: 40px 35px;
+  border-radius: 18px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border: none;
+}
+
+/* ============================
+   LOGO ABOVE HEADING
+============================ */
 .hl_login--header {
   display: flex !important;
   justify-content: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
+
 .hl_login--header img {
-  max-height: 70px;
+  width: 130px;
+  height: auto;
 }
 
-/* === FORM HEADINGS === */
+/* ============================
+   TEXT + HEADINGS
+============================ */
 .login-card-heading h2 {
-  font-size: 30px;
-  font-weight: 800;
-  text-align: center;
-  margin-bottom: 6px;
+  font-size: 26px;
+  font-weight: 700;
   color: #000 !important;
-}
-
-.login-card-heading p {
   text-align: center;
-  color: #333;
-  font-size: 15px;
-  margin-bottom: 30px;
+  margin-top: 10px;
+  margin-bottom: 25px;
 }
 
-/* === INPUTS === */
+/* ============================
+   INPUTS
+============================ */
 .hl-text-input-container {
   margin-bottom: 18px;
 }
 
 .hl-text-input {
   width: 100%;
-  padding: 12px 15px;
-  border-radius: 50px;
-  border: 1px solid #d6d6d6;
-  background: #fff;
-  font-size: 15px;
-  color: #333;
-  transition: 0.3s;
+  padding: 13px 14px;
+  border-radius: 8px;
+  border: 1px solid #c9c9c9;
+  background: #eef2ff;
+  color: #000;
+  font-size: 14px;
 }
 
 .hl-text-input:focus {
-  border-color: #6b63ff;
-  box-shadow: 0 0 0 3px rgba(107, 99, 255, 0.3);
+  border-color: #6e63ff;
   outline: none;
+  box-shadow: 0 0 0 2px rgba(110, 99, 255, 0.25);
 }
 
-/* === FORGOT PASSWORD LINK === */
+/* ============================
+   FORGOT PASSWORD
+============================ */
 .forgot-password {
+  display: block;
   text-align: right;
-  font-size: 14px;
-  margin-top: -10px;
+  font-size: 13px;
+  color: #646464 !important;
   margin-bottom: 20px;
-  color: #666 !important;
 }
 
-.forgot-password:hover {
-  color: #4c4cff;
-}
-
-/* === SIGN IN BUTTON === */
+/* ============================
+   BUTTON
+============================ */
 .hl_login--body button[type="submit"] {
-  background: #6b63ff !important;
-  padding: 12px;
-  border: none;
   width: 100%;
-  color: #fff !important;
-  border-radius: 50px;
-  font-weight: 600;
+  background: #5b4bff !important;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
   font-size: 15px;
-  margin-top: 10px;
-  box-shadow: 0 4px 12px rgba(107, 99, 255, 0.4);
-  transition: 0.2s ease;
+  font-weight: 600;
+  color: #fff !important;
+  cursor: pointer;
+  transition: 0.25s;
 }
 
 .hl_login--body button[type="submit"]:hover {
-  background: #564ff7 !important;
-  transform: translateY(-2px);
+  background: #4c3aff !important;
+  transform: translateY(-1px);
 }
 
-/* === DIVIDER === */
-.divider {
-  text-align: center;
-  font-size: 13px;
-  color: #666;
-  margin: 18px 0;
-  position: relative;
-}
-
-.divider::before,
-.divider::after {
-  content: "";
-  height: 1px;
-  width: 40%;
-  background: #ccc;
-  position: absolute;
-  top: 50%;
-}
-
-.divider::before {
-  left: 0;
-}
-.divider::after {
-  right: 0;
-}
-
-/* === GOOGLE BUTTON === */
-.google-btn {
-  background: #ffffff;
-  border-radius: 50px;
-  padding: 12px;
-  width: 100%;
-  border: 1px solid #dcdcdc;
-  font-weight: 600;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.google-btn img {
-  height: 20px;
-}
-
-.google-btn:hover {
-  background: #f5f5f5;
-}
-
-/* === FOOTER === */
+/* ============================
+   FOOT NOTE
+============================ */
 .foot-note {
   text-align: center;
-  margin-top: 25px;
   font-size: 13px;
-  color: #555 !important;
+  color: #666 !important;
+  margin-top: 20px;
 }
 
 .foot-note a {
-  color: #4c4cff !important;
+  color: #4c3aff !important;
   text-decoration: none;
 }
 
@@ -182,33 +141,32 @@
   text-decoration: underline;
 }
 
-/* === RESPONSIVE STYLES === */
+/* ============================
+   TABLET + MOBILE
+============================ */
 @media (max-width: 1024px) {
   .hl_login {
     flex-direction: column;
+    height: auto;
   }
-
   .hl_login::before {
-    height: 40vh;
+    height: 280px;
     min-width: 100%;
   }
-
   .hl_login--body {
-    flex: none;
     width: 100%;
-    border-radius: 0;
-    padding: 40px 30px;
+    padding: 30px;
+  }
+  .hl_login--body .card {
+    padding: 30px 25px;
   }
 }
 
 @media (max-width: 600px) {
-  .hl-login--body {
-    padding: 30px 20px;
+  .hl_login--body .card {
+    padding: 25px 20px;
   }
   .login-card-heading h2 {
-    font-size: 24px;
-  }
-  .hl-text-input {
-    padding: 10px 14px;
+    font-size: 22px;
   }
 }
