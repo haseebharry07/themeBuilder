@@ -1,4 +1,7 @@
 /* FULL PAGE BACKGROUND */
+.hl_login--body{
+  width: 100% !important;
+}
 .hl_login {
     min-height: 100vh !important;
     display: flex;
