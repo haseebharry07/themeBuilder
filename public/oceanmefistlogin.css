@@ -1,166 +1,163 @@
 /* ============================
-   FULL PAGE LAYOUT
+   FULL PAGE WRAPPER
 ============================= */
 .hl_login {
-  display: flex;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-  font-family: "Inter", "Poppins", sans-serif;
-  background: #dcdcdc; /* Light gray outer background like screenshot */
-}
-
-/* ============================
-   LEFT SIDE (Form Panel)
-============================= */
-.hl_login--body {
-  width: 50%;
-  background: #3b4a55; /* Dark blue/gray block like screenshot */
-  color: #fff;
-  padding: 70px 60px;
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-}
-
-/* Center container */
-.hl_login--body .card {
+  height: 100vh;
   width: 100%;
-  max-width: 420px;
-  text-align: center;
-  background: transparent !important;
-  padding: 0;
-  border: none;
-  box-shadow: none;
+  background: #e6e6e6;
+  font-family: "Inter", "Poppins", sans-serif;
+  overflow: hidden;
 }
 
 /* ============================
-   LOGO (Should appear above heading)
-============================= */
-.hl_login--body .card::before {
-  content: "";
-  display: block;
-  width: 120px;
-  height: 120px;
-  margin: 0 auto 25px auto;
-  background-image: var(--login-company-logo);
-  background-repeat: no-repeat;
-  background-size: contain;
-  background-position: center;
-}
-
-/* Remove the old GHL header */
-.hl_login--header {
-  display: none !important;
-}
-
-/* ============================
-   HEADING
-============================= */
-.login-card-heading h2 {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 25px;
-  color: #ffffff !important;
-}
-
-/* ============================
-   INPUT FIELDS
-============================= */
-.hl-text-input {
-  width: 100%;
-  padding: 14px 15px;
-  border-radius: 4px !important;
-  border: 1px solid #7b8791;
-  background: #3f4d58;
-  margin-bottom: 20px;
-  font-size: 14px;
-  color: #fff;
-}
-
-.hl-text-input:focus {
-  border-color: #fff;
-  background: #465762;
-  outline: none;
-}
-
-/* Forgot password */
-.forgot-password {
-  display: block;
-  text-align: right;
-  font-size: 13px;
-  margin-top: -10px;
-  margin-bottom: 25px;
-  color: #ffffff !important;
-}
-
-/* ============================
-   SIGN-IN BUTTON
-============================= */
-.hl_login--body button[type="submit"] {
-  width: 100%;
-  background: #df4b40 !important; /* red button like screenshot */
-  border: none;
-  padding: 13px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #fff !important;
-  cursor: pointer;
-  transition: 0.2s;
-}
-
-.hl_login--body button[type="submit"]:hover {
-  background: #c63d32 !important;
-}
-
-/* ============================
-   FOOT NOTE
-============================= */
-.foot-note {
-  margin-top: 22px;
-  font-size: 13px;
-  color: #ffffff !important;
-  text-align: center;
-}
-
-.foot-note a {
-  color: #ffffff !important;
-  text-decoration: underline;
-}
-
-/* ============================
-   RIGHT SIDE IMAGE
+   BACKGROUND BIG RECTANGLE
 ============================= */
 .hl_login::before {
   content: "";
+  position: absolute;
+  width: 80%;
+  height: 75%;
+  background: #dfe2e6;
+  border-radius: 8px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+  z-index: 1;
+}
+
+/* ============================
+   INNER LAYOUT (Login + Image)
+============================= */
+.hl_login--body {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 80%;
+  height: 75%;
+  border-radius: 8px;
+  overflow: hidden;
+  background: transparent !important;
+  padding: 0;
+}
+
+/* ============================
+   LEFT LOGIN SIDE
+============================= */
+.login-left {
   width: 50%;
-  background: url(https://img.freepik.com/premium-photo/two-businessmen-discussing-work-using-laptop-office_236854-47685.jpg) center center / cover no-repeat;
+  background: #374957;
+  padding: 60px 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+/* LOGIN CARD FIX */
+.hl_login--body .card {
+  width: 100%;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* LOGO (TOP) */
+.hl_login--body .card::before {
+  content: "";
+  width: 150px;
+  height: 80px;
+  background-image: var(--login-company-logo);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 20px;
+}
+
+/* Heading */
+.login-card-heading h2 {
+  font-size: 22px !important;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #fff !important;
+}
+
+/* INPUTS */
+.hl-text-input {
+  width: 100%;
+  background: transparent;
+  border: 1px solid #8795a8;
+  border-radius: 4px !important;
+  padding: 12px 14px;
+  color: #fff !important;
+  margin-bottom: 18px;
+}
+
+.hl-text-input::placeholder {
+  color: #d1d5db;
+}
+
+.forgot-password {
+  color: #d1d5db !important;
+  margin-bottom: 25px;
+}
+
+/* BUTTON */
+.hl_login--body button[type="submit"] {
+  width: 100%;
+  background: #e04a3f !important;
+  border-radius: 4px;
+  padding: 12px;
+  font-weight: 600;
+  color: #fff !important;
+}
+
+.hl_login--body button[type="submit"]:hover {
+  background: #cc3b32 !important;
+}
+
+/* FOOTER NOTE */
+.foot-note {
+  margin-top: 20px;
+  font-size: 13px;
+  color: #fff !important;
+}
+
+/* ============================
+   RIGHT IMAGE SIDE
+============================= */
+.login-right {
+  width: 50%;
+  background: url(https://images.pexels.com/photos/3184639/pexels-photo-3184639.jpeg)
+    center center / cover no-repeat;
 }
 
 /* ============================
    RESPONSIVE
 ============================= */
 @media (max-width: 1024px) {
-  .hl_login {
+  .hl_login--body {
     flex-direction: column;
+    width: 90%;
     height: auto;
   }
 
-  .hl_login::before {
+  .login-left,
+  .login-right {
     width: 100%;
-    height: 350px;
+    height: auto;
   }
 
-  .hl_login--body {
-    width: 100%;
-    padding: 40px 30px;
+  .login-right {
+    height: 300px;
   }
 }
 
 @media (max-width: 600px) {
-  .login-card-heading h2 {
-    font-size: 23px;
+  .login-left {
+    padding: 40px 25px;
   }
 }
