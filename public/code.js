@@ -363,8 +363,12 @@ function applyStoredSidebarTitles() {
     if (window.isPerformingProgrammaticReorder) return;
 
     let container = document.querySelector(containerSelector);
-
-    // -------------------------------------------------------------------------
+    function getRealSubAccountSidebar() {
+        return document.querySelector("#subAccountSidebar")
+            || document.querySelector('nav[data-testid="sidebar-nav"]')
+            || document.querySelector('.hl-app .sidebar');
+    }
+    // -------------------------------------------------------------------------s
     // 1️⃣ Special handling for sub-account sidebar
     // -------------------------------------------------------------------------
     if (!container && containerSelector === "#subAccountSidebar") {
