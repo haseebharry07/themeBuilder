@@ -1,112 +1,166 @@
-/* === Blue Modern Login Page Redesign === */
-
-/* Full page background */
+/* ============================
+   FULL PAGE LAYOUT
+============================= */
 .hl_login {
-  background: var(--login-background-active ,linear-gradient(135deg, #0288d1 0%, #01579b 100%)) !important;
-  height: 100vh !important;
-  width: 100%;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  height: 100vh;
+  width: 100%;
   overflow: hidden;
+  font-family: "Inter", "Poppins", sans-serif;
+  background: #dcdcdc; /* Light gray outer background like screenshot */
 }
 
-/* Remove old header spacing */
-.hl_login--header {
-  display: none !important;
-}
-/* === HEADINGS === */
-.login-card-heading h2 {
-  font-size: var(--login-headline-font-size,25px);
-  color: var(--login-headline-text-color,#f7f7f7) !important;
-}
-/* Card centering */
-.hl_login--body .container-fluid {
+/* ============================
+   LEFT SIDE (Form Panel)
+============================= */
+.hl_login--body {
+  width: 50%;
+  background: #3b4a55; /* Dark blue/gray block like screenshot */
+  color: #fff;
+  padding: 70px 60px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
+  position: relative;
 }
 
-/* Card design */
+/* Center container */
 .hl_login--body .card {
-  background: var(--login-card-bg-gradient,rgba(255, 255, 255, 0.08));
-  border-radius: 20px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  backdrop-filter: blur(10px);
-  padding: 3rem 2.5rem;
   width: 100%;
-  max-width: 500px;
+  max-width: 420px;
   text-align: center;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  background: transparent !important;
+  padding: 0;
+  border: none;
+  box-shadow: none;
 }
 
-/* Company logo on top (instead of header) */
+/* ============================
+   LOGO (Should appear above heading)
+============================= */
 .hl_login--body .card::before {
   content: "";
   display: block;
-  background:var(--login-company-logo);
-  background-size: 120px;
   width: 120px;
   height: 120px;
-  margin: 0 auto -28px;
-  border-radius: 50%;
+  margin: 0 auto 25px auto;
+  background-image: var(--login-company-logo);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
 }
 
-/* Input fields */
+/* Remove the old GHL header */
+.hl_login--header {
+  display: none !important;
+}
+
+/* ============================
+   HEADING
+============================= */
+.login-card-heading h2 {
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  color: #ffffff !important;
+}
+
+/* ============================
+   INPUT FIELDS
+============================= */
 .hl-text-input {
-  background: rgba(255, 255, 255, 0.15) !important;
-  color: #fff !important;
-  border: 1px solid rgba(255, 255, 255, 0.3) !important;
-  border-radius: 8px !important;
-  padding: 10px 12px !important;
+  width: 100%;
+  padding: 14px 15px;
+  border-radius: 4px !important;
+  border: 1px solid #7b8791;
+  background: #3f4d58;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: #fff;
 }
 
-.hl-text-input::placeholder {
-  color: rgba(255,255,255,0.7) !important;
+.hl-text-input:focus {
+  border-color: #fff;
+  background: #465762;
+  outline: none;
 }
 
-/* Labels */
-.hl-text-input-label {
-  color: #fff !important;
-  font-weight: 500 !important;
+/* Forgot password */
+.forgot-password {
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  margin-top: -10px;
+  margin-bottom: 25px;
+  color: #ffffff !important;
 }
 
-/* Button */
-.hl-btn {
-  background: transparent !important;
-  border: 1px solid #fff !important;
-  color: #fff !important;
+/* ============================
+   SIGN-IN BUTTON
+============================= */
+.hl_login--body button[type="submit"] {
+  width: 100%;
+  background: #df4b40 !important; /* red button like screenshot */
+  border: none;
+  padding: 13px;
+  border-radius: 4px;
+  font-size: 14px;
   font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  color: #fff !important;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
-.hl-btn:hover {
-  background: rgba(255,255,255,0.2) !important;
+.hl_login--body button[type="submit"]:hover {
+  background: #c63d32 !important;
 }
 
-/* Forgot password + remember me */
-.forgot-password,
-.foot-note a {
-  color: var(--login-link-text-color) !important;
-}
-
+/* ============================
+   FOOT NOTE
+============================= */
 .foot-note {
-  color: var(--login-link-text-color) !important;
+  margin-top: 22px;
+  font-size: 13px;
+  color: #ffffff !important;
+  text-align: center;
 }
 
-/* Responsive fix */
-@media (max-width: 768px) {
-  .hl_login--body .card {
-    padding: 2rem 1.5rem;
-    max-width: 90%;
+.foot-note a {
+  color: #ffffff !important;
+  text-decoration: underline;
+}
+
+/* ============================
+   RIGHT SIDE IMAGE
+============================= */
+.hl_login::before {
+  content: "";
+  width: 50%;
+  background: url(https://img.freepik.com/premium-photo/two-businessmen-discussing-work-using-laptop-office_236854-47685.jpg) center center / cover no-repeat;
+}
+
+/* ============================
+   RESPONSIVE
+============================= */
+@media (max-width: 1024px) {
+  .hl_login {
+    flex-direction: column;
+    height: auto;
   }
-  .hl_login--body .card::before {
-    background-size: 90px;
-    width: 90px;
-    height: 90px;
+
+  .hl_login::before {
+    width: 100%;
+    height: 350px;
+  }
+
+  .hl_login--body {
+    width: 100%;
+    padding: 40px 30px;
   }
 }
 
+@media (max-width: 600px) {
+  .login-card-heading h2 {
+    font-size: 23px;
+  }
+}
