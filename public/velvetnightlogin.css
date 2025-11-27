@@ -13,7 +13,7 @@
 .hl_login::before {
   content: "";
   width: 50%;
-  background: var(--login-background-image,url(https://theme-builder-delta.vercel.app/images/velvetbgimg.png)) center center / cover no-repeat;
+  background:url(https://theme-builder-delta.vercel.app/images/velvetbgimg.png) center center / cover no-repeat;
 }
 
 /* RIGHT SIDE (Gradient background) */
