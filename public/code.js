@@ -261,34 +261,6 @@ function applyHiddenMenus() { restoreHiddenMenus(); }
     document.body.appendChild(overlay);
   }
 
-function reorderMenu(order, containerSelector) {
-    // Try the exact selector first (keeps agency behavior unchanged)
-    let container = document.querySelector(containerSelector);
-
-    // If selector not found, attempt to infer the container from the first existing menu item
-    if (!container) {
-        for (let i = 0; i < order.length; i++) {
-            const id = order[i];
-            const el = document.getElementById(id);
-            if (el && el.parentElement) {
-                container = el.parentElement;
-                break;
-            }
-        }
-    }
-
-    // If still not found, try a common sub-account selector (safe fallback)
-    if (!container) {
-        container = document.querySelector(".hl_nav-header nav") || document.querySelector(".hl_nav-header");
-    }
-
-    if (!container) return;
-
-    order.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) container.appendChild(el);
-    });
-}
   // ---- Logo injection ----
   async function applyAgencyLogo(attempt = 1) {
     const savedRaw = localStorage.getItem(STORAGE.userTheme);
@@ -384,6 +356,33 @@ function applyStoredSidebarTitles() {
     console.warn("[ThemeBuilder] Sidebar not found within retry window");
     return false;
   }
+  
+function reorderMenu(order, containerSelector) {
+
+    // 🛑 Prevent freezing during user drag or internal drag
+    if (window.__tb_dragging_now__) return;
+    if (window.isPerformingProgrammaticReorder) return;
+
+    // original lookup
+    let container = document.querySelector(containerSelector);
+
+    // fallback ONLY for real subaccount sidebar
+    if (!container && containerSelector === "#subAccountSidebar") {
+        container = getRealSubAccountSidebar();
+    }
+
+    if (!container) return;
+
+    // Now reorder safely
+    window.isPerformingProgrammaticReorder = true;
+
+    order.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) container.appendChild(el);
+    });
+
+    window.isPerformingProgrammaticReorder = false;
+}
 
   // ---- Core reapply logic ----
   function _doReapplyTheme() {
