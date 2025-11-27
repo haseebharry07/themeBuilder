@@ -402,34 +402,34 @@ function applyStoredSidebarTitles() {
 //     window.isPerformingProgrammaticReorder = false;
 // }
 
-  // function reorderMenu(order, containerSelector) {
-  //     // Try the exact selector first (keeps agency behavior unchanged)
-  //     let container = document.querySelector(containerSelector);
+  function reorderMenu(order, containerSelector) {
+      // Try the exact selector first (keeps agency behavior unchanged)
+      let container = document.querySelector(containerSelector);
   
-  //     // If selector not found, attempt to infer the container from the first existing menu item
-  //     if (!container) {
-  //         for (let i = 0; i < order.length; i++) {
-  //             const id = order[i];
-  //             const el = document.getElementById(id);
-  //             if (el && el.parentElement) {
-  //                 container = el.parentElement;
-  //                 break;
-  //             }
-  //         }
-  //     }
+      // If selector not found, attempt to infer the container from the first existing menu item
+      if (!container) {
+          for (let i = 0; i < order.length; i++) {
+              const id = order[i];
+              const el = document.getElementById(id);
+              if (el && el.parentElement) {
+                  container = el.parentElement;
+                  break;
+              }
+          }
+      }
   
-  //     // If still not found, try a common sub-account selector (safe fallback)
-  //     if (!container) {
-  //         container = document.querySelector(".hl_nav-header nav") || document.querySelector(".hl_nav-header");
-  //     }
+      // If still not found, try a common sub-account selector (safe fallback)
+      if (!container) {
+          container = document.querySelector(".hl_nav-header nav") || document.querySelector(".hl_nav-header");
+      }
   
-  //     if (!container) return;
+      if (!container) return;
   
-  //     order.forEach(id => {
-  //         const el = document.getElementById(id);
-  //         if (el) container.appendChild(el);
-  //     });
-  // }
+      order.forEach(id => {
+          const el = document.getElementById(id);
+          if (el) container.appendChild(el);
+      });
+  }
   // ---- Core reapply logic ----
   function _doReapplyTheme() {
     const savedRaw = localStorage.getItem(STORAGE.userTheme);
@@ -454,14 +454,14 @@ function applyStoredSidebarTitles() {
     //   }
     // } catch (e) { console.error("[ThemeBuilder] reorder submenu failed", e); }
 
-    // try {
-    //   if (saved.themeData["--agencyMenuOrder"]) {
-    //     const order = JSON.parse(saved.themeData["--agencyMenuOrder"]);
-    //     reorderMenu(order, "#agencySidebar");
-    //     // const agencyOrder = safeJsonParse(saved.themeData["--agencyMenuOrder"]) || [];
-    //     // reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
-    //   }
-    // } catch (e) { console.error("[ThemeBuilder] reorder agency menus failed", e); }
+    try {
+      if (saved.themeData["--agencyMenuOrder"]) {
+        const order = JSON.parse(saved.themeData["--agencyMenuOrder"]);
+        reorderMenu(order, "#agencySidebar");
+        // const agencyOrder = safeJsonParse(saved.themeData["--agencyMenuOrder"]) || [];
+        // reorderAgencyFromOrder(agencyOrder.filter(m => m && m.trim() !== "sb_agency-accounts"));
+      }
+    } catch (e) { console.error("[ThemeBuilder] reorder agency menus failed", e); }
   }
 async function waitForStableSidebar(selector = '#sidebar-v2 nav.flex-1.w-full', timeout = 5000) {
   const start = Date.now();
