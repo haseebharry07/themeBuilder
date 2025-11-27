@@ -1,89 +1,116 @@
-/* FULL PAGE BACKGROUND */
-.hl_login {
-    min-height: 100vh !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #dfe0e2 !important; /* Light grey like screenshot #2 */
-    padding: 0 !important;
-}
-
-/* WRAPPER → Controls card width */
+/* OUTER WRAPPER (center the whole login box like screenshot) */
 .hl_login .container-fluid {
-    max-width: 1200px !important;
-    width: 100% !important;
+    max-width: 900px !important;
+    margin: 80px auto !important;
     padding: 0 !important;
-    margin: 0 auto !important;
 }
 
-/* THE CARD → Two panels side-by-side */
+/* THE CARD SHOULD TURN INTO A SPLIT SIDE-BY-SIDE BOX */
 .hl_login .card {
     display: flex !important;
     flex-direction: row !important;
-    width: 100% !important;
-    height: 600px !important; /* SAME HEIGHT AS screenshot #2 */
-    border-radius: 4px !important;
-    overflow: hidden !important;
-    border: none !important;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
     padding: 0 !important;
+    border-radius: 4px !important;
+    overflow: hidden;
+    box-shadow: 0px 4px 18px rgba(0,0,0,0.15);
+    border: none !important;
 }
 
-/* LEFT PANEL (FORM) */
+/* LEFT PANEL (FORM AREA) */
 .hl_login .card-body {
-    background: #3e4f5c !important;
     width: 50% !important;
-    padding: 60px !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background: #3e4f5c !important;
+    padding: 50px !important;
     color: white !important;
 }
 
-/* LOGO + TITLE */
-.hl_login .card-body h1,
+/* Make inner text white or light */
 .hl_login .card-body h2,
 .hl_login .card-body label,
-.hl_login .card-body p,
-.hl_login .card-body span {
+.hl_login .card-body span,
+.hl_login .card-body p {
     color: #ffffff !important;
 }
 
-/* INPUTS */
+/* Inputs match screenshot */
 .hl-text-input {
     background: transparent !important;
     border: 1px solid #9db0bf !important;
-    color: white !important;
+    color: #fff !important;
 }
 .hl-text-input::placeholder {
     color: #dbe4ea !important;
 }
 
-/* SIGN IN BUTTON */
+/* Sign in Button like screenshot */
 .hl-btn {
     background: #e44b3a !important;
-    border-radius: 3px !important;
-    height: 46px !important;
+    border-radius: 4px !important;
+    height: 44px !important;
     font-weight: 600 !important;
 }
 
-/* RIGHT PANEL IMAGE */
+/* "Or continue with" separator */
+.hl_login .mt-6 span {
+    background: #3e4f5c !important;
+    color: #cbd5df !important;
+}
+
+/* Google Button container width fixed */
+#g_id_signin {
+    width: 100% !important;
+}
+
+/* RIGHT PANEL (IMAGE) */
 .hl_login .card::after {
     content: "";
-    width: 50% !important;
+    width: 100%;
     background-image: url("https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg");
     background-size: cover;
     background-position: center;
 }
 
-/* REMOVE HEADER */
-.hl_login--header {
-    display: none !important;
+/* REMOVE DEFAULT WHITE BG */
+.hl_login--body {
+    background: transparent !important;
 }
 
-/* FIX WHITE SPACE UNDER PAGE */
+/* Fix spacing so the login box is exactly like screenshot */
+.hl_login {
+    background: #dfe0e2 !important; /* light gray page background */
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+}
+.hl_login--header{
+  display: none !important;
+}
+/* Make the whole login page always full height */
 body, html {
-    height: 100%;
-    margin: 0;
-    background: #dfe0e2 !important;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #e5e8ec; /* your global background color */
+}
+
+/* Wrap the login card in a full-height container */
+.hl_login {
+  min-height: 100vh !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e5e8ec; /* same background as screenshot */
+  padding: 40px 0; /* prevent overflow on mobile */
+}
+
+/* Ensure no white space appears below */
+.hl_login--body {
+  height: auto !important;
+}
+
+.hl_login--body .card .card-body{
+    max-width: 430px;
+    width: 100% !important;
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
