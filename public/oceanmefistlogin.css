@@ -1,116 +1,89 @@
-/* OUTER WRAPPER (center the whole login box like screenshot) */
-.hl_login .container-fluid {
-    max-width: 900px !important;
-    margin: 80px auto !important;
+/* FULL PAGE BACKGROUND */
+.hl_login {
+    min-height: 100vh !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #dfe0e2 !important; /* Light grey like screenshot #2 */
     padding: 0 !important;
 }
 
-/* THE CARD SHOULD TURN INTO A SPLIT SIDE-BY-SIDE BOX */
+/* WRAPPER → Controls card width */
+.hl_login .container-fluid {
+    max-width: 1200px !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+}
+
+/* THE CARD → Two panels side-by-side */
 .hl_login .card {
     display: flex !important;
     flex-direction: row !important;
-    padding: 0 !important;
+    width: 100% !important;
+    height: 600px !important; /* SAME HEIGHT AS screenshot #2 */
     border-radius: 4px !important;
-    overflow: hidden;
-    box-shadow: 0px 4px 18px rgba(0,0,0,0.15);
+    overflow: hidden !important;
     border: none !important;
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
+    padding: 0 !important;
 }
 
-/* LEFT PANEL (FORM AREA) */
+/* LEFT PANEL (FORM) */
 .hl_login .card-body {
-    width: 50% !important;
     background: #3e4f5c !important;
-    padding: 50px !important;
+    width: 50% !important;
+    padding: 60px !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     color: white !important;
 }
 
-/* Make inner text white or light */
+/* LOGO + TITLE */
+.hl_login .card-body h1,
 .hl_login .card-body h2,
 .hl_login .card-body label,
-.hl_login .card-body span,
-.hl_login .card-body p {
+.hl_login .card-body p,
+.hl_login .card-body span {
     color: #ffffff !important;
 }
 
-/* Inputs match screenshot */
+/* INPUTS */
 .hl-text-input {
     background: transparent !important;
     border: 1px solid #9db0bf !important;
-    color: #fff !important;
+    color: white !important;
 }
 .hl-text-input::placeholder {
     color: #dbe4ea !important;
 }
 
-/* Sign in Button like screenshot */
+/* SIGN IN BUTTON */
 .hl-btn {
     background: #e44b3a !important;
-    border-radius: 4px !important;
-    height: 44px !important;
+    border-radius: 3px !important;
+    height: 46px !important;
     font-weight: 600 !important;
 }
 
-/* "Or continue with" separator */
-.hl_login .mt-6 span {
-    background: #3e4f5c !important;
-    color: #cbd5df !important;
-}
-
-/* Google Button container width fixed */
-#g_id_signin {
-    width: 100% !important;
-}
-
-/* RIGHT PANEL (IMAGE) */
+/* RIGHT PANEL IMAGE */
 .hl_login .card::after {
     content: "";
-    width: 100%;
+    width: 50% !important;
     background-image: url("https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg");
     background-size: cover;
     background-position: center;
 }
 
-/* REMOVE DEFAULT WHITE BG */
-.hl_login--body {
-    background: transparent !important;
+/* REMOVE HEADER */
+.hl_login--header {
+    display: none !important;
 }
 
-/* Fix spacing so the login box is exactly like screenshot */
-.hl_login {
-    background: #dfe0e2 !important; /* light gray page background */
-    padding-top: 40px !important;
-    padding-bottom: 40px !important;
-}
-.hl_login--header{
-  display: none !important;
-}
-/* Make the whole login page always full height */
+/* FIX WHITE SPACE UNDER PAGE */
 body, html {
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  background: #e5e8ec; /* your global background color */
-}
-
-/* Wrap the login card in a full-height container */
-.hl_login {
-  min-height: 100vh !important;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #e5e8ec; /* same background as screenshot */
-  padding: 40px 0; /* prevent overflow on mobile */
-}
-
-/* Ensure no white space appears below */
-.hl_login--body {
-  height: auto !important;
-}
-
-.hl_login--body .card .card-body{
-    max-width: 430px;
-    width: 100% !important;
-    margin: 0 auto;
-    padding-top: 50px;
-    padding-bottom: 50px;
+    height: 100%;
+    margin: 0;
+    background: #dfe0e2 !important;
 }
