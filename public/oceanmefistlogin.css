@@ -81,5 +81,29 @@
     padding-top: 40px !important;
     padding-bottom: 40px !important;
 }
+.hl_login--header{
+  display: none !important;
+}
+/* Make the whole login page always full height */
+body, html {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: #e5e8ec; /* your global background color */
+}
 
+/* Wrap the login card in a full-height container */
+.hl_login {
+  min-height: 100vh !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e5e8ec; /* same background as screenshot */
+  padding: 40px 0; /* prevent overflow on mobile */
+}
+
+/* Ensure no white space appears below */
+.hl_login--body {
+  height: auto !important;
+}
 
