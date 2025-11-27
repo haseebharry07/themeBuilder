@@ -1216,7 +1216,7 @@ nav a#sb_location-mobile-app {
 }
 /* Hover */
 #sb_launchpad:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_launchpad.active::after {
@@ -1247,7 +1247,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_dashboard:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_dashboard.active::after {
@@ -1282,7 +1282,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_conversations:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_conversations.active::after {
@@ -1321,7 +1321,7 @@ nav a#sb_location-mobile-app {
 }
 
 .hl_nav-header #sb_calendars:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff);/* hover color */
 }
 
 .hl_nav-header #sb_calendars.active::after {
@@ -1360,7 +1360,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_contacts:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_contacts.active::after {
@@ -1397,7 +1397,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_opportunities:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_opportunities.active::after {
@@ -1435,7 +1435,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_payments:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_payments.active::after {
@@ -1473,7 +1473,7 @@ nav a#sb_location-mobile-app {
 
 /* hover and active colors (example values — change as needed) */
 #sb_email-marketing:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_email-marketing.active::after {
@@ -1509,7 +1509,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_automation:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+ background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_automation.active::after {
@@ -1545,7 +1545,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_sites:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_sites.active::after {
@@ -1581,7 +1581,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_memberships:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_memberships.active::after {
@@ -1617,7 +1617,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_reputation:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_reputation.active::after {
@@ -1653,7 +1653,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_reporting:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_reporting.active::after {
@@ -1689,7 +1689,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_app-marketplace:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_app-marketplace.active::after {
@@ -1725,7 +1725,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_location-mobile-app:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_location-mobile-app.active::after {
@@ -1763,7 +1763,7 @@ nav a#sb_location-mobile-app {
 }
 
 #sb_settings:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color), #ffffff; /* hover color */
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
 }
 
 #sb_settings.active::after {
