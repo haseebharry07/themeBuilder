@@ -44,15 +44,28 @@
 /* ============================
    LOGO ABOVE HEADING
 ============================ */
+/* === LOGO (Fixed Position on Top of Form) === */
 .hl_login--header {
-  display: flex !important;
+  position: absolute !important;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: none !important;
   justify-content: center;
-  margin-bottom: 10px;
+  align-items: center;
+  width: 100%;
+  pointer-events: none; /* so logo doesn’t block inputs */
 }
 
 .hl_login--header img {
-  width: 130px;
+  max-height: 75px !important;
+  width: auto;
   height: auto;
+  filter: none !important;
+}
+.hl_login--header img {
+  max-height: 70px;
 }
 
 /* ============================
