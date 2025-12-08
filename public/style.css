@@ -1926,7 +1926,12 @@ nav a#sb_location-mobile-app,
   color: var(--card-dec-font-color) !important;
   font-size: var(--card-dec-font-size) !important;
 }
-
+#location-dashboard .hl-card {
+    background: var(--card-body-bg-color,#1c1c1c) !important;
+    border: 1px solid var(--gray-200);
+    box-shadow: var(--shadow-md);
+    border-radius: 8px;
+}
 #location-dashboard .hl-card-content .text-gray-500,
 #location-dashboard .hl-card-content .text-gray-900,
 #location-dashboard .hl-card-content .no-data-message,
@@ -2912,7 +2917,7 @@ button:active {
 }
 
 #location-dashboard .location-dashboard-lead-source-report .hl-card-content {
-  background-color: var(--white-color) !important;
+  background-color: var(--card-body-bg-color) !important;
 }
 
 /* quick actions */
