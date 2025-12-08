@@ -2735,7 +2735,7 @@ body textarea:focus {
 .n-button.n-button--primary-type.n-button--medium-type,
 .n-button--large-type,
 .hl-btn {
-  border-radius: 16px !important;
+  border-radius: 12px !important;
 }
 
 /* hide original */
