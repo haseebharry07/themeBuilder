@@ -39,7 +39,7 @@ html, body {
   overflow: hidden !important;
   border: none !important;
   background: transparent !important;
-  box-shadow: 0 8px 30px rgba(0,0,0,.18);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.842);
 }
 
 /* ===============================
