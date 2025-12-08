@@ -47,7 +47,7 @@ html, body {
 ================================ */
 .hl_login .card-body {
   position: relative;
-  left: -252px !important;
+  left: -400px !important;
   max-width: 546px !important;
   width: 52% !important;
   padding: 70px 60px !important;
@@ -63,7 +63,7 @@ html, body {
 .hl_login .heading2 {
   color: #fff !important;
   font-size: 28px;
-  margin-bottom: 30px;
+  margin-bottom: 3px;
 }
 
 /* Inputs */
@@ -81,10 +81,13 @@ html, body {
    LOGO INSIDE THE CARD
 ============================ */
 .hl_login--body .card::before {
+  left: 117px;
+  position: relative;
+  z-index: 9;
   content: "";
   display: block;
-  width: 90px;
-  height: 90px;
+  width: 91px;
+  height: 107px;
   margin: 0 auto -25px auto;
   background-image: var(--login-company-logo);
   background-repeat: no-repeat;
