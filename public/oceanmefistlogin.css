@@ -47,7 +47,7 @@ html, body {
 ================================ */
 .hl_login .card-body {
   position: relative;
-  left: -400px !important;
+  left: -401px !important;
   max-width: 546px !important;
   width: 52% !important;
   padding: 70px 60px !important;
