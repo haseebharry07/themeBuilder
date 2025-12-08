@@ -77,7 +77,23 @@ html, body {
 .hl-text-input::placeholder {
   color: rgba(255,255,255,.75) !important;
 }
-
+/* ============================
+   LOGO INSIDE THE CARD
+============================ */
+.hl_login--body .card::before {
+  content: "";
+  display: block;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto -25px auto;
+  background-image: var(--login-company-logo);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+}
+.hl_login--header{
+    display: none !important;
+}
 /* Forgot password */
 .forgot-password {
   color: #9dd1ea !important;
