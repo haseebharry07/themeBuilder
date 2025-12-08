@@ -1,92 +1,175 @@
-/* FULL PAGE BACKGROUND */
-.hl_login--body{
-  width: 100% !important;
+/* PAGE & WRAPPER */
+body, html {
+  height: 100%;
+  margin: 0;
+  background: #dfe0e2 !important; /* page background like your screenshots */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
+
 .hl_login {
-    min-height: 100vh !important;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: #dfe0e2 !important; /* Light grey like screenshot #2 */
-    padding: 0 !important;
+  min-height: 100vh !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px !important;
+  box-sizing: border-box;
 }
 
-/* WRAPPER → Controls card width */
+/* limit overall card width so it looks like screenshot 1 */
 .hl_login .container-fluid {
-    max-width: 1200px !important;
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 auto !important;
+  max-width: 1000px !important; /* tweak to taste (900-1200) */
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
 }
 
-/* THE CARD → Two panels side-by-side */
+/* MAIN CARD: use positioned pseudo-element for image panel,
+   and set explicit widths for the left (form) and right (image) panels */
 .hl_login .card {
-    display: flex !important;
-    flex-direction: row !important;
-    width: 100% !important;
-    height: 600px !important; /* SAME HEIGHT AS screenshot #2 */
-    border-radius: 4px !important;
-    overflow: hidden !important;
-    border: none !important;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
-    padding: 0 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  position: relative;            /* required for the ::after absolute image */
+  width: 100% !important;
+  height: 600px !important;     /* matches screenshot 1 — adjust if needed */
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  border: none !important;
+  box-shadow: 0 6px 22px rgba(0,0,0,0.18);
+  padding: 0 !important;
+  background: transparent;
 }
 
-/* LEFT PANEL (FORM) */
+/* LEFT PANEL (the real form area) */
 .hl_login .card-body {
-    background: #3e4f5c !important;
-    width: 50% !important;
-    padding: 60px !important;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: white !important;
+  position: relative;
+  z-index: 2;                   /* keep above the background image */
+  width: 55% !important;        /* 55% form / 45% image ratio from screenshot */
+  min-width: 360px;             /* prevent form getting too narrow */
+  padding: 64px 60px !important;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #fff !important;
+  background: #3e4f5c !important; /* dark slate from your CSS */
+  box-sizing: border-box;
 }
 
-/* LOGO + TITLE */
+/* RIGHT PANEL IMAGE (using pseudo-element to avoid changing HTML) */
+.hl_login .card::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 45% !important;        /* complements .card-body width */
+  background-image: url("https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg");
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  /* subtle overlay to slightly darken image so text contrast remains */
+  box-shadow: inset 0 0 0 1000px rgba(0,0,0,0.06);
+}
+
+/* HEADINGS, TEXT, LOGO */
 .hl_login .card-body h1,
 .hl_login .card-body h2,
 .hl_login .card-body label,
 .hl_login .card-body p,
-.hl_login .card-body span {
-    color: #ffffff !important;
+.hl_login .card-body span,
+.hl_login .card-body .heading2 {
+  color: #ffffff !important;
 }
 
-/* INPUTS */
-.hl-text-input {
-    background: transparent !important;
-    border: 1px solid #9db0bf !important;
-    color: white !important;
+/* Form inputs: full width inside the left panel */
+.hl-text-input, .hl-text-input.shadow-sm {
+  background: rgba(255,255,255,0.04) !important; /* subtle translucent */
+  border: 1px solid rgba(157,176,191,0.6) !important;
+  color: #fff !important;
+  padding: 10px 12px !important;
+  border-radius: 4px !important;
+  width: 100% !important;
+  box-sizing: border-box;
 }
+
+/* placeholder color */
 .hl-text-input::placeholder {
-    color: #dbe4ea !important;
+  color: rgba(219,228,234,0.9) !important;
+}
+
+/* forgot password link alignment */
+.forgot-password {
+  display: inline-block;
+  margin-top: 8px;
+  color: #8cc7e6 !important; /* brighter blue */
+  font-weight: 600;
+  text-decoration: none;
 }
 
 /* SIGN IN BUTTON */
 .hl-btn {
-    background: #e44b3a !important;
-    border-radius: 3px !important;
-    height: 46px !important;
-    font-weight: 600 !important;
+  background: #e44b3a !important; /* coral / warm red */
+  border-radius: 6px !important;
+  height: 46px !important;
+  font-weight: 700 !important;
+  letter-spacing: .3px;
+  width: 100% !important;
+  box-shadow: 0 2px 0 rgba(0,0,0,0.08);
 }
 
-/* RIGHT PANEL IMAGE */
-.hl_login .card::after {
-    content: "";
-    width: 50% !important;
-    background-image: url("https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg");
-    background-size: cover;
-    background-position: center;
+/* small horiz rule "Or continue with" centered */
+.hl_login .mt-6 .relative .w-full.border-t {
+  border-color: rgba(255,255,255,0.12) !important;
+}
+.hl_login .mt-6 .relative .text-gray-500 {
+  color: rgba(255,255,255,0.7) !important;
+  background: transparent !important;
 }
 
-/* REMOVE HEADER */
-.hl_login--header {
-    display: none !important;
+/* foot note center & link color */
+.foot-note {
+  margin-top: 18px;
+  color: rgba(255,255,255,0.75);
+  font-size: 12px;
+  text-align: left;
+}
+.foot-note a {
+  color: #8cc7e6 !important;
+  font-weight: 700;
 }
 
-/* FIX WHITE SPACE UNDER PAGE */
-body, html {
-    height: 100%;
-    margin: 0;
-    background: #dfe0e2 !important;
+/* hide header logo (like your current rule) */
+.hl_login--header { display: none !important; }
+
+/* make form fields and button spacing a little tighter */
+.form-group { margin-bottom: 18px !important; }
+
+/* small devices: stack into a tall card with image on top or bottom */
+@media (max-width: 900px) {
+  .hl_login .card {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .hl_login .card-body {
+    width: 100% !important;
+    min-width: 0;
+    padding: 48px 28px !important;
+  }
+  .hl_login .card::after {
+    position: relative;
+    width: 100% !important;
+    height: 240px;
+    right: auto;
+    top: auto;
+    box-shadow: none;
+  }
+}
+
+/* very small screens: slightly smaller paddings */
+@media (max-width: 420px) {
+  .hl_login .card-body {
+    padding: 28px 18px !important;
+  }
+  .hl_login .card::after { height: 200px; }
 }
