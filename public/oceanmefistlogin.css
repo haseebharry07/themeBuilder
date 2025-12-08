@@ -46,6 +46,9 @@ html, body {
    LEFT SIDE – LOGIN FORM
 ================================ */
 .hl_login .card-body {
+  position: relative;
+  left: -252px !important;
+  max-width: 546px !important;
   width: 52% !important;
   padding: 70px 60px !important;
   background: #445663 !important;
