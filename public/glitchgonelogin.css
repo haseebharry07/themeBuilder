@@ -124,20 +124,39 @@
   border-color: #00c853;
   box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.25);
 }
-
-/* === BUTTON === */
+/* Hide original button text */
 .hl_login--body button[type="submit"] {
-  background: var(--login-button-bg-gradient,#00c853) !important;
-  border: none;
-   border-radius: var(--login-button-border-radius,8px) !important;
-  padding: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  color:var(--login-button-text-color,#000) !important ;
-  cursor: pointer;
-  width: 100%;
-  transition: all 0.3s ease;
+    color: transparent; /* hide original text */
+    position: relative; /* needed for ::after positioning */
 }
+/* === BUTTON === */
+/* Hide original button text */
+.hl_login--body button[type="submit"] {
+    color: transparent; /* hide original text */
+    position: relative; /* needed for ::after positioning */
+    background: var(--login-button-bg-gradient,#00c853) !important;
+    border: none;
+    border-radius: var(--login-button-border-radius,8px) !important;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+/* Add text via CSS variable */
+.hl_login--body button[type="submit"]::after {
+    content: var(--login-button-text, "Sign In"); /* ✅ correct way */
+    color: var(--login-button-text-color, #000);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+    font-weight: 600;
+}
+
 .hl_login--body button[type="submit"]:hover {
   color: var(--login-button-hover-text-color, #000) !important;
   background-color:var(--login-button-hover-bg-color,#00e676) !important;
