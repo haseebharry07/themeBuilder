@@ -99,7 +99,8 @@
 
 .login-card-heading h2.heading2::after {
     content: var(--login-headline-text);
-    color: var(--login-headline-text-color,rgb(9, 255, 0)); /* text color */
+    font-size: var(--login-headline-font-size,25px);
+    color: var(--login-headline-text-color,#00c853) !important;
     position: absolute;
     left: 0;
     top: 0;
