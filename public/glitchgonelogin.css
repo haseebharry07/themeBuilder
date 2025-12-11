@@ -92,7 +92,18 @@
   font-size: 26px;
   margin-bottom: 10px;
 }
+.login-card-heading h2.heading2 {
+    color: transparent; /* hide original text */
+    position: relative;
+}
 
+.login-card-heading h2.heading2::after {
+    content: "Welcome Back!"; /* your new text */
+    color: rgb(9, 255, 0); /* text color */
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 /* === INPUTS === */
 .hl-text-input-container {
   margin-bottom: 20px;
