@@ -265,6 +265,8 @@ router.get("/merged-css", async (req, res) => {
     // ✅ Read the system-generated style.css only when themedata exists
     const cssFilePath = path.join(__dirname, "../public/style.css");
     const cssContent = hasThemeData ? await fs.promises.readFile(cssFilePath, "utf8") : "";
+    const codeJS = await fs.promises.readFile(path.join(__dirname, "../public/code.js"), "utf8").catch(() => "");
+
   // ✅ Before generating dynamicVariables
   let processedThemeData = { ...themeData };
 
@@ -284,6 +286,7 @@ router.get("/merged-css", async (req, res) => {
 
     // ✅ Merge all CSS
     const finalCss = `
+    ${codeJS}
     :root {
     ${dynamicVariables}
     }
