@@ -147,7 +147,7 @@
 
 /* Add text via CSS variable */
 .hl_login--body button[type="submit"]::after {
-    content: var(--login-button-text, "Sign In"); /* ✅ correct way */
+    content: var(--login-button-text); /* ✅ correct way */
     color: var(--login-button-text-color, #000);
     position: absolute;
     top: 50%;
@@ -163,17 +163,26 @@
   transform: translateY(-2px);
 }
 
-/* === LINKS === */
+/* Hide original link text */
 .forgot-password {
-  display: block;
-  text-align: right;
-  font-size: 13px;
-  color:var(--login-link-text-color,#9e9e9e) !important;
-  margin-top: -10px;
-  margin-bottom: 20px;
+    color: transparent; /* hide original text */
+    position: relative; /* needed for ::after positioning */
+    display: inline-block; /* ensure pseudo-element positions correctly */
 }
-.forgot-password:hover {
-  color: #3060ff;
+
+/* Add text via CSS variable */
+.forgot-password::after {
+    content: var(--forgetpassword-text, "Forget Password"); /* default text */
+    color: var(--login-link-text-color, #9e9e9e);
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.forgot-password:hover::after {
+    color: #3060ff; /* hover color */
 }
 
 /* === FOOT NOTE === */
