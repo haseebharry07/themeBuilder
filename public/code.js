@@ -162,7 +162,10 @@ function applySidebarLogoFromTheme() {
     if (!el && attempt < 20) return setTimeout(() => updateElementText(selector, newText, attempt + 1), 300);
     if (el) el.textContent = newText;
   }
-
+  function stripQuotes(str) {
+      if (!str) return str;
+      return str.replace(/^"(.*)"$/, "$1");  // remove first+last quote ONLY
+  }
   // ---- Theme data injection ----
   function injectThemeData(themeData) {
     if (!themeData || typeof themeData !== "object") return;
@@ -181,9 +184,9 @@ function applySidebarLogoFromTheme() {
     });
 
     // Optional text updates
-    if (mergedTheme["--login-button-text"]) updateElementText("button.hl-btn.bg-curious-blue-500", mergedTheme["--login-button-text"]);
-    if (mergedTheme["--login-headline-text"]) updateElementText("h2.heading2", mergedTheme["--login-headline-text"]);
-    if (mergedTheme["--forgetpassword-text"]) updateElementText("#forgot_passowrd_btn", mergedTheme["--forgetpassword-text"]);
+   if (mergedTheme["--login-button-text"]) {const cleanText = stripQuotes(mergedTheme["--login-button-text"]);updateElementText("button.hl-btn.bg-curious-blue-500", cleanText);}
+   if (mergedTheme["--login-headline-text"]) {const cleanText = stripQuotes(mergedTheme["--login-headline-text"]);updateElementText("h2.heading2", cleanText);}
+   if (mergedTheme["--forgetpassword-text"]) {const cleanText = stripQuotes(mergedTheme["--forgetpassword-text"]);updateElementText("#forgot_passowrd_btn", cleanText);}
   }
 
   // ---- Hidden/Locked menus ----
