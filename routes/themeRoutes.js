@@ -286,7 +286,6 @@ router.get("/merged-css", async (req, res) => {
 
     // ✅ Merge all CSS
     const finalCss = `
-    ${codeJS}
     :root {
     ${dynamicVariables}
     }
