@@ -65,7 +65,9 @@ html, body {
   font-size: 28px;
   margin-bottom: 3px;
 }
-
+.text-gray-700{
+  color: #e5e7ea !important;
+}
 /* Inputs */
 .hl-text-input {
   background: rgba(255,255,255,.06) !important;
