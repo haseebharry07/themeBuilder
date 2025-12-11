@@ -126,7 +126,7 @@
 }
 /* Hide original button text */
 .hl_login--body button[type="submit"] {
-    color: transparent; /* hide original text */
+    color: transparent !important; /* hide original text */
     position: relative; /* needed for ::after positioning */
 }
 /* === BUTTON === */
@@ -165,7 +165,7 @@
 
 /* Hide original link text */
 .forgot-password {
-    color: transparent; /* hide original text */
+    color: transparent !important; /* hide original text */
     position: relative; /* needed for ::after positioning */
     display: inline-block; /* ensure pseudo-element positions correctly */
 }
