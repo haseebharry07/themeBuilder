@@ -92,18 +92,27 @@
   font-size: 26px;
   margin-bottom: 10px;
 }
-.login-card-heading h2.heading2 {
-    color: transparent !important; /* hide original text */
+[data-v-7d68b16e] .login-card-heading h2.heading2 {
+    color: transparent !important;
     position: relative;
 }
 
-.login-card-heading h2.heading2::after {
+[data-v-7d68b16e] .login-card-heading h2.heading2::after {
     content: var(--login-headline-text);
-    font-size: var(--login-headline-font-size,25px);
-    color: var(--login-headline-text-color,#00c853) !important;
+    font-size: var(--login-headline-font-size, 25px);
+    color: var(--login-headline-text-color, #00c853) !important;
     position: absolute;
     left: 0;
     top: 0;
+}
+/* RESET PASSWORD PAGE — DO NOT MODIFY HEADING */
+[data-v-d8e4453b] .login-card-heading h2.heading2 {
+    color: inherit !important;
+    position: relative;
+}
+
+[data-v-d8e4453b] .login-card-heading h2.heading2::after {
+    content: none !important; /* prevent CSS variable replacement */
 }
 /* === INPUTS === */
 .hl-text-input-container {
@@ -131,7 +140,7 @@
 }
 /* === BUTTON === */
 /* Hide original button text */
-.hl_login--body button[type="submit"] {
+.hl_login button[type="submit"] {
     color: transparent; /* hide original text */
     position: relative; /* needed for ::after positioning */
     background: var(--login-button-bg-gradient,#00c853) !important;
@@ -146,7 +155,7 @@
 }
 
 /* Add text via CSS variable */
-.hl_login--body button[type="submit"]::after {
+.hl_login button[type="submit"]::after {
     content: var(--login-button-text); /* ✅ correct way */
     color: var(--login-button-text-color, #000);
     position: absolute;
@@ -157,12 +166,30 @@
     font-weight: 600;
 }
 
-.hl_login--body button[type="submit"]:hover {
+.hl_login button[type="submit"]:hover {
   color: var(--login-button-hover-text-color, #000) !important;
   background-color:var(--login-button-hover-bg-color,#00e676) !important;
   transform: translateY(-2px);
 }
+/* RESET PASSWORD PAGE ONLY */
+.hl_resetPassword button[type="submit"] {
+    color: transparent !important;
+    position: relative;
+    background: var(--reset-btn-bg, #00c853) !important;
+}
 
+.hl_resetPassword button[type="submit"]::after {
+    content: var(--reset-btn-text, "Reset Password") !important;
+    color: var(--reset-btn-text-color, #fff);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+/* FORGOT PASSWORD ONLY */
+.hl_forgotPassword button[type="submit"]::after {
+    content: var(--forgot-btn-text, "Send Reset Link") !important;
+}
 /* Hide original link text */
 .forgot-password {
     color: transparent !important; /* hide original text */
