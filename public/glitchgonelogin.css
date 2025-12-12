@@ -176,16 +176,10 @@
   border-color: #00c853;
   box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.25);
 }
-/* Hide original button text */
+/* LOGIN BUTTON */
 .hl_login button[type="submit"] {
-    color: transparent !important; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-}
-/* === BUTTON === */
-/* Hide original button text */
-.hl_login button[type="submit"] {
-    color: transparent; /* hide original text */
-    position: relative; /* needed for ::after positioning */
+    color: transparent !important;
+    position: relative;
     background: var(--login-button-bg-gradient,#00c853) !important;
     border: none;
     border-radius: var(--login-button-border-radius,8px) !important;
@@ -197,42 +191,27 @@
     transition: all 0.3s ease;
 }
 
-/* Add text via CSS variable */
+/* Pseudo text */
 .hl_login button[type="submit"]::after {
-    content: var(--login-button-text); /* ✅ correct way */
+    content: var(--login-button-text);
     color: var(--login-button-text-color, #000);
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 15px;
-    font-weight: 600;
 }
 
+/* Hover */
 .hl_login button[type="submit"]:hover {
-  color: var(--login-button-hover-text-color, #000) !important;
-  background-color:var(--login-button-hover-bg-color,#00e676) !important;
-  transform: translateY(-2px);
-}
-/* RESET PASSWORD PAGE ONLY */
-.hl_resetPassword button[type="submit"] {
-    color: transparent !important;
-    position: relative;
-    background: var(--reset-btn-bg, #00c853) !important;
+    color: transparent !important; /* KEEP ORIGINAL TEXT HIDDEN */
+    background-color: var(--login-button-hover-bg-color,#00e676) !important;
+    transform: translateY(-2px);
 }
 
-.hl_resetPassword button[type="submit"]::after {
-    content: var(--reset-btn-text, "Reset Password") !important;
-    color: var(--reset-btn-text-color, #fff);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.hl_login button[type="submit"]:hover::after {
+    color: var(--login-button-hover-text-color, #000);
 }
-/* FORGOT PASSWORD ONLY */
-.hl_forgotPassword button[type="submit"]::after {
-    content: var(--forgot-btn-text, "Send Reset Link") !important;
-}
+
 /* Hide original link text */
 .forgot-password {
     color: transparent !important; /* hide original text */
