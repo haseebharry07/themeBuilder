@@ -62,11 +62,25 @@
 /* ============================
    HEADING
 ============================ */
-.login-card-heading h2 {
+/* .login-card-heading h2 {
   font-size: 26px;
   font-weight: 700;
   margin-bottom: 18px;
   color: #000 !important;
+} */
+
+[data-v-7d68b16e] .login-card-heading h2.heading2 {
+    color: transparent !important;
+    position: relative;
+}
+
+[data-v-7d68b16e] .login-card-heading h2.heading2::after {
+    content: var(--login-headline-text);
+    font-size: var(--login-headline-font-size, 25px);
+    color: var(--login-headline-text-color, #000000) !important;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 /* ============================
@@ -90,19 +104,22 @@
 }
 
 /* Forgot Password */
-.forgot-password {
+/* .forgot-password {
   display: block;
   text-align: right;
   font-size: 13px;
   margin-top: -10px;
   margin-bottom: 20px;
   color: #646464 !important;
-}
+} */
+
+
+
 
 /* ============================
    BUTTON
 ============================ */
-.hl_login--body button[type="submit"] {
+/* .hl_login--body button[type="submit"] {
   width: 100%;
   background:var(--login-button-bg-color, #5b4bff )!important;
   border: none;
@@ -118,13 +135,52 @@
 .hl_login--body button[type="submit"]:hover {
   background: #4c3aff !important;
   transform: translateY(-1px);
+} */
+/* LOGIN BUTTON */
+.hl_login button[type="submit"] {
+    color: transparent !important;
+    position: relative;
+    background: var(--login-button-bg-gradient,#c84900) !important;
+    border: none;
+    border-radius: var(--login-button-border-radius,6px) !important;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
 }
+
+/* Pseudo text */
+.hl_login button[type="submit"]::after {
+    content: var(--login-button-text);
+    color: var(--login-button-text-color, #ffffff);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Hover */
+.hl_login button[type="submit"]:hover {
+    background: var(--login-button-hover-bg-color, #e6bc00) !important;
+    transform: translateY(-2px);
+}
+
+/* Hover text color */
+.hl_login button[type="submit"]:hover::after {
+    color: var(--login-button-hover-text-color, #ffffff);
+}
+
+
+
+
 
 /* ============================
    FOOT NOTE
 ============================ */
 /* === LINKS === */
-.forgot-password {
+/* .forgot-password {
   display: block;
   text-align: right;
   font-size: 13px;
@@ -134,7 +190,28 @@
 }
 .forgot-password:hover {
   color: #3060ff;
+} */
+ /* Hide original link text */
+.forgot-password {
+    color: transparent !important; /* hide original text */
+    position: relative; /* needed for ::after positioning */
+    display: inline-block; /* ensure pseudo-element positions correctly */
 }
+
+/* Add text via CSS variable */
+.forgot-password::after {
+    content: var(--forgetpassword-text, "Forget Password"); /* default text */
+    color: var(--login-link-text-color, #9dd1ea ) !important;
+    position: absolute;
+     margin-top: -10px;
+     margin-bottom: 20px;
+    font-size: 13px;
+}
+
+.forgot-password:hover::after {
+    color: #75e3ff; /* hover color */
+}
+
 .foot-note {
   margin-top: 22px;
   font-size: 13px;
@@ -143,7 +220,7 @@
 }
 
 .foot-note a {
-  color: #4c3aff !important;
+  color: var(--login-link-text-color, #4c3aff ) !important;
   text-decoration: none;
 }
 .foot-note a:hover {
