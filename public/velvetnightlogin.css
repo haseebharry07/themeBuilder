@@ -203,8 +203,8 @@
     content: var(--forgetpassword-text, "Forget Password"); /* default text */
     color: var(--login-link-text-color, #9dd1ea ) !important;
     position: absolute;
-     margin-top: -10px;
-     margin-bottom: 20px;
+     top: 0px;
+     left: 0px;
     font-size: 13px;
 }
 
