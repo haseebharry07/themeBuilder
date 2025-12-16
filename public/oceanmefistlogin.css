@@ -121,12 +121,34 @@ html, body {
 }
 
 /* Sign In Button */
-.hl-btn {
+/* .hl-btn {
   height: 46px !important;
   border-radius: 6px !important;
   background: #e54b3b !important;
   font-weight: 700 !important;
+} */
+
+/* Hide original button text */
+[data-v-d8e4453b] .hl_login button[type="submit"] {
+    color: transparent !important; /* hide original text */
+    position: relative; /* needed for ::after positioning */
 }
+/* === BUTTON === */
+/* Hide original button text */
+[data-v-d8e4453b] .hl_login button[type="submit"] {
+    color: transparent; /* hide original text */
+    position: relative; /* needed for ::after positioning */
+    background: var(--login-button-bg-gradient,#00c853) !important;
+    border: none;
+    border-radius: var(--login-button-border-radius,8px) !important;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
 
 /* ===============================
    RIGHT SIDE – IMAGE PANEL
