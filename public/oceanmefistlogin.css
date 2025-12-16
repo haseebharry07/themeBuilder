@@ -60,10 +60,24 @@ html, body {
 }
 
 /* Headings */
-.hl_login .heading2 {
+/* .hl_login .heading2 {
   color: #fff !important;
   font-size: 28px;
   margin-bottom: 3px;
+} */
+
+[data-v-7d68b16e] .login-card-heading h2.heading2 {
+    color: transparent !important;
+    position: relative;
+}
+
+[data-v-7d68b16e] .login-card-heading h2.heading2::after {
+    content: var(--login-headline-text);
+    font-size: var(--login-headline-font-size, 25px);
+    color: var(--login-headline-text-color, #00c853) !important;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 .text-gray-700{
   color: #e5e7ea !important;

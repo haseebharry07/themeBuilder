@@ -107,13 +107,17 @@
 }
 /* RESET PASSWORD PAGE — DO NOT MODIFY HEADING */
 [data-v-d8e4453b] .login-card-heading h2.heading2 {
-    color: var(--login-headline-text-color, #00c853) !important;
+    color: transparent !important;
     position: relative;
-
 }
 
 [data-v-d8e4453b] .login-card-heading h2.heading2::after {
-    content: none !important; /* prevent CSS variable replacement */
+     content: var(--reset-headline-text,"Reset Password");
+    font-size: var(--login-headline-font-size, 25px);
+    color: var(--login-headline-text-color, #00c853) !important;
+    position: absolute;
+    left: 0;
+    top: 0;
 }
 
 
