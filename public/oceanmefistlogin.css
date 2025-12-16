@@ -4,7 +4,7 @@
 html, body {
   height: 100%;
   margin: 0;
-  background: #e5e7ea !important;
+  background: var(--login-background-active,#e5e7ea) !important;
 }
 
 /* ===============================
