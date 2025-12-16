@@ -149,6 +149,41 @@ html, body {
     transition: all 0.3s ease;
 }
 
+/* LOGIN BUTTON */
+.hl_login button[type="submit"] {
+    color: transparent !important;
+    position: relative;
+    background: var(--login-button-bg-gradient,#c84900) !important;
+    border: none;
+    border-radius: var(--login-button-border-radius,8px) !important;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+/* Pseudo text */
+.hl_login button[type="submit"]::after {
+    content: var(--login-button-text);
+    color: var(--login-button-text-color, #ffffff);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Hover */
+.hl_login button[type="submit"]:hover {
+    color: transparent !important; /* KEEP ORIGINAL TEXT HIDDEN */
+    background-color: var(--login-button-hover-bg-color,#e6bc00) !important;
+    transform: translateY(-2px);
+}
+
+.hl_login button[type="submit"]:hover::after {
+    color: var(--login-button-hover-text-color, #ffffff);
+}
 
 /* ===============================
    RIGHT SIDE – IMAGE PANEL
