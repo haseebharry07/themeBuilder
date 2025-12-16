@@ -214,7 +214,7 @@
   transition: background 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
   animation: shimmer 3s linear infinite;
 }
-.hl_login button[type="submit"] ::after {
+.hl_login button[type="submit"]::after {
   content: var(--login-button-text, "SIGN IN");
   color: var(--login-button-text-color, #000);
   position: absolute;
