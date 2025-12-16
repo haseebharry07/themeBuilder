@@ -199,12 +199,11 @@ html, body {
 
 /* Hover */
 .hl_login button[type="submit"]:hover {
-    content: var(--login-button-text);
-    color: var(--login-button-hover-text-color,#ffffff) !important; /* KEEP ORIGINAL TEXT HIDDEN */
-    background: var(--login-button-hover-bg-color,#e6bc00) !important;
+    background: var(--login-button-hover-bg-color, #e6bc00) !important;
     transform: translateY(-2px);
 }
 
+/* Hover text color */
 .hl_login button[type="submit"]:hover::after {
     color: var(--login-button-hover-text-color, #ffffff);
 }
