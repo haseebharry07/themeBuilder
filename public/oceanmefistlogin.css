@@ -199,8 +199,9 @@ html, body {
 
 /* Hover */
 .hl_login button[type="submit"]:hover {
-    color: transparent !important; /* KEEP ORIGINAL TEXT HIDDEN */
-    background-color: var(--login-button-hover-bg-color,#e6bc00) !important;
+    content: var(--login-button-text);
+    color: var(--login-button-hover-text-color,#ffffff) !important; /* KEEP ORIGINAL TEXT HIDDEN */
+    background: var(--login-button-hover-bg-color,#e6bc00) !important;
     transform: translateY(-2px);
 }
 
