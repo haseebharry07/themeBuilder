@@ -136,6 +136,44 @@
   background: #4c3aff !important;
   transform: translateY(-1px);
 } */
+ /* Hide original button text */
+[data-v-d8e4453b] .hl_login button[type="submit"] {
+    color: transparent !important; /* hide original text */
+    position: relative; /* needed for ::after positioning */
+}
+/* === BUTTON === */
+/* Hide original button text */
+[data-v-d8e4453b] .hl_login button[type="submit"] {
+    color: transparent; /* hide original text */
+    position: relative; /* needed for ::after positioning */
+    background: var(--login-button-bg-gradient,#00c853) !important;
+    border: none;
+    border-radius: var(--login-button-border-radius,8px) !important;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+/* Add text via CSS variable */
+[data-v-d8e4453b] .hl_login button[type="submit"]::after {
+    content: "Reset Password"; /* ✅ correct way */
+    color: var(--login-button-text-color, #000);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 15px;
+    font-weight: 600;
+}
+
+[data-v-d8e4453b] .hl_login button[type="submit"]:hover {
+  color: var(--login-button-hover-text-color, #000) !important;
+  background-color:var(--login-button-hover-bg-color,#00e676) !important;
+  transform: translateY(-2px);
+}
 /* LOGIN BUTTON */
 .hl_login button[type="submit"] {
     color: transparent !important;
