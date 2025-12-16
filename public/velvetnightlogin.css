@@ -156,7 +156,34 @@
     width: 100%;
     transition: all 0.3s ease;
 }
+/* RESET PASSWORD PAGE — DO NOT MODIFY HEADING */
+[data-v-d8e4453b] .login-card-heading h2.heading2 {
+    color: transparent !important;
+    position: relative;
+}
 
+[data-v-d8e4453b] .login-card-heading h2.heading2::after {
+     content: var(--reset-headline-text,"Reset Password");
+    font-size: var(--login-headline-font-size, 25px);
+    color: var(--login-headline-text-color, #00c853) !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+/* RESET PASSWORD PAGE — DO NOT MODIFY HEADING */
+[data-v-d8e4453b] .login-card-heading h2.heading2 {
+    color: transparent !important;
+    position: relative;
+}
+
+[data-v-d8e4453b] .login-card-heading h2.heading2::after {
+     content: var(--reset-headline-text,"Reset Password");
+    font-size: var(--login-headline-font-size, 25px);
+    color: var(--login-headline-text-color, #00c853) !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 /* Add text via CSS variable */
 [data-v-d8e4453b] .hl_login button[type="submit"]::after {
     content: "Reset Password"; /* ✅ correct way */
