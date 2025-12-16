@@ -161,12 +161,12 @@ html, body {
 [data-v-d8e4453b] .hl_login button[type="submit"] {
     color: transparent; /* hide original text */
     position: relative; /* needed for ::after positioning */
-    background: var(--login-button-bg-gradient,#00c853) !important;
+    background: var(--login-button-bg-gradient,#c85000) !important;
     border: none;
     border-radius: var(--login-button-border-radius,8px) !important;
     padding: 12px;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     width: 100%;
     transition: all 0.3s ease;
@@ -178,10 +178,10 @@ html, body {
     position: relative;
     background: var(--login-button-bg-gradient,#c84900) !important;
     border: none;
-    border-radius: var(--login-button-border-radius,8px) !important;
+    border-radius: var(--login-button-border-radius,6px) !important;
     padding: 12px;
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 700;
     cursor: pointer;
     width: 100%;
     transition: all 0.3s ease;
