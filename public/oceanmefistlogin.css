@@ -115,10 +115,33 @@ html, body {
     display: none !important;
 }
 /* Forgot password */
-.forgot-password {
+/* .forgot-password {
   color: #9dd1ea !important;
   font-weight: 600;
+} */
+
+/* Hide original link text */
+.forgot-password {
+    color: transparent !important; /* hide original text */
+    position: relative; /* needed for ::after positioning */
+    display: inline-block; /* ensure pseudo-element positions correctly */
 }
+
+/* Add text via CSS variable */
+.forgot-password::after {
+    content: var(--forgetpassword-text, "Forget Password"); /* default text */
+    color: var(--login-link-text-color, #9dd1ea );
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.forgot-password:hover::after {
+    color: #75e3ff; /* hover color */
+}
+
 
 /* Sign In Button */
 /* .hl-btn {
