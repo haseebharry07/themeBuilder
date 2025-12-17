@@ -92,13 +92,29 @@
   font-size: 26px;
   margin-bottom: 10px;
 }
-[data-v-7d68b16e] .login-card-heading h2.heading2 {
+/* [data-v-7d68b16e] .login-card-heading h2.heading2 {
     color: transparent !important;
     position: relative;
 }
 
 [data-v-7d68b16e] .login-card-heading h2.heading2::after {
     content: var(--login-headline-text);
+    font-size: var(--login-headline-font-size, 25px);
+    color: var(--login-headline-text-color, #00c853) !important;
+    position: absolute;
+    left: 0;
+    top: 0;
+} */
+
+/* LOGIN PAGE HEADING ONLY */
+.card-body.login-card-body > .login-card-heading > h2.heading2 {
+    color: transparent !important;      /* Hide original text */
+    position: relative;                  /* Needed for ::after */
+}
+
+/* Pseudo text from CSS variable */
+.card-body.login-card-body > .login-card-heading > h2.heading2::after {
+    content: var(--login-headline-text, "Sign into your account"); /* Fallback text */
     font-size: var(--login-headline-font-size, 25px);
     color: var(--login-headline-text-color, #00c853) !important;
     position: absolute;
