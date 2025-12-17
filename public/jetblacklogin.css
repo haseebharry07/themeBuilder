@@ -101,7 +101,7 @@
     font-size: var(--login-headline-font-size, 25px);
     color: var(--login-headline-text-color, #00c853) !important;
     position: absolute;
-    left: 0;
+    left: 41px;
     top: 0;
 }
 
@@ -115,7 +115,7 @@
     font-size: var(--login-headline-font-size, 25px);
     color: var(--login-headline-text-color, #00c853) !important;
     position: absolute;
-    left: 0;
+    left: 75px;
     top: 0;
 }
 /* Form Heading */
@@ -179,7 +179,7 @@
 
 /* Add text via CSS variable */
 [data-v-d8e4453b] .hl_login button[type="submit"]::after {
-    content: "Reset Password"; /* ✅ correct way */
+    content: ""; /* ✅ correct way */
     color: var(--login-button-text-color, #000);
     position: absolute;
     top: 50%;
