@@ -3639,9 +3639,12 @@ nav a#sb_app-media {
 /* Settings divider border */
 .hl_nav-header-without-footer .divider span {
   background-color: transparent !important;
-  color: var(--sidebar-menu-color) !important;
+  color: var(--tw-text-opacity) !important;
 }
-
+.sidebar-v2-location #sidebar-v2 .menu-title{
+  --tw-text-opacity: 1;
+    color:  var(--tw-text-opacity, #ffffff);
+}
 .hl_nav-header-without-footer .divider > p.border-b {
   border: none !important;
 }
