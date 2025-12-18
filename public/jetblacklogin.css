@@ -34,7 +34,6 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  width: 550px;
 }
 
 /* Login Card Box */
@@ -90,43 +89,15 @@
   }
 }
 
-/* RESET PASSWORD PAGE — DO NOT MODIFY HEADING */
-[data-v-d8e4453b] .login-card-heading h2.heading2 {
-    color: transparent !important;
-    position: relative;
-}
-
-[data-v-d8e4453b] .login-card-heading h2.heading2::after {
-     content: var(--reset-headline-text,"Reset Password");
-    font-size: var(--login-headline-font-size, 25px);
-    color: var(--login-headline-text-color, #00c853) !important;
-    position: absolute;
-    left: 41px;
-    top: 0;
-}
-
-[data-v-7d68b16e] .login-card-heading h2.heading2 {
-    color: transparent !important;
-    position: relative;
-}
-
-[data-v-7d68b16e] .login-card-heading h2.heading2::after {
-    content: var(--login-headline-text);
-    font-size: var(--login-headline-font-size, 25px);
-    color: var(--login-headline-text-color, #00c853) !important;
-    position: absolute;
-    left: 75px;
-    top: 0;
-}
 /* Form Heading */
-/* .login-card-heading h2 {
+.login-card-heading h2 {
   font-size: var(--login-headline-font-size,35px);
   color: var(--login-headline-text-color,#ffd700) !important;
   font-weight: 600;
   margin-bottom: 25px;
   letter-spacing: 1px;
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
-} */
+}
 
 /* Input Field */
 .hl-text-input {
@@ -156,58 +127,9 @@
   font-weight: 500;
   margin-bottom: 5px;
 }
-/* Hide original button text */
-[data-v-d8e4453b] .hl_login button[type="submit"] {
-    color: transparent !important; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-}
-/* === BUTTON === */
-/* Hide original button text */
-[data-v-d8e4453b] .hl_login button[type="submit"] {
-    color: transparent; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-    background: var(--login-button-bg-gradient,#c85000) !important;
-    border: none;
-    border-radius: var(--login-button-border-radius,8px) !important;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s ease;
-}
-
-/* Add text via CSS variable */
-[data-v-d8e4453b] .hl_login button[type="submit"]::after {
-    content: "Reset Password"; /* ✅ correct way */
-    color: var(--login-button-text-color, #000);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 13px;
-    font-weight: 600;
-}
-.bg-curious-blue-500{
-    background: var(--login-button-bg-gradient,#00c853) !important;
-    border: none;
-    border-radius: var(--login-button-border-radius,8px) !important;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s ease;
-}
-[data-v-d8e4453b] .hl_login button[type="submit"]:hover {
-  color: transparent !important;
-  background-color:var(--login-button-hover-bg-color,#00e676) !important;
-  transform: translateY(-2px);
-}
-
 
 /* Golden Sign In Button */
-/* .hl-btn {
+.hl-btn {
   background: var(--login-button-bg-gradient,linear-gradient(90deg, #b8860b, #ffd700, #b8860b)) !important;
   color: var(--login-button-text-color,#000) !important;
   background-size: 200% 100%;
@@ -221,41 +143,7 @@
   margin-top: 15px;
   transition: all 0.4s ease;
   animation: shimmer 3s linear infinite;
-} */
-/* Golden Sign In Button */
-.hl_login button[type="submit"]  {
-  background: var(--login-button-bg-gradient,
-    linear-gradient(90deg, #b8860b, #ffd700, #b8860b)
-  ) !important;
-
-  color: transparent !important; /* HIDE original text */
-  position: relative;
-
-  background-size: 200% 100%;
-  border: none !important;
-  border-radius: var(--login-button-border-radius, 8px) !important;
-  padding: 12px 0 !important;
-  font-weight: 700;
-  text-transform: uppercase !important;
-  letter-spacing: 1px;
-  box-shadow: 0 0 15px rgba(255, 215, 0, 0.3);
-  margin-top: 15px;
-  cursor: pointer;
-
-  transition: background 0.4s ease, transform 0.4s ease, box-shadow 0.4s ease;
-  animation: shimmer 3s linear infinite;
 }
-.hl_login button[type="submit"]::after {
-  content: var(--login-button-text, "SIGN IN");
-  color: var(--login-button-text-color, #000);
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  transition: color 0.3s ease;
-}
-
 
 /* Shimmer animation */
 @keyframes shimmer {
@@ -267,54 +155,15 @@
   }
 }
 
-/* .hl-btn:hover {
+.hl-btn:hover {
   color: var(--login-button-hover-text-color, #000) !important;
   background-color:var(--login-button-hover-bg-color,rgba(255, 215, 0, 0.5)) !important;
   transform: scale(1.05);
   box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
-} */
-
-.hl_login button[type="submit"]:hover {
-  background: var(--login-button-hover-bg-color,
-    rgba(255, 215, 0, 0.5)
-  ) !important;
-
-  transform: scale(1.05);
-  box-shadow: 0 0 25px rgba(255, 215, 0, 0.5);
 }
-
-.hl_login button[type="submit"]:hover::after {
-  color: var(--login-button-hover-text-color, #000);
-}
-
-
-
-/* Hide original link text */
-.forgot-password {
-    color: transparent !important; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-    display: inline-block; /* ensure pseudo-element positions correctly */
-}
-
-/* Add text via CSS variable */
-.forgot-password::after {
-    content: var(--forgetpassword-text, "Forget Password"); /* default text */
-    color: var(--login-link-text-color, #ffd700 );
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 13px;
-    font-weight: 600;
-     transition: 0.3s ease;
-}
-
-.forgot-password:hover::after {
-    text-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
-}
-
 
 /* Forgot Password Link */
-/* .forgot-password {
+.forgot-password {
   color: var(--login-link-text-color,#ffd700) !important;
   font-size: 13px;
   text-decoration: none;
@@ -323,7 +172,7 @@
 
 .forgot-password:hover {
   text-shadow: 0 0 6px rgba(255, 215, 0, 0.8);
-} */
+}
 
 /* Terms and Conditions */
 .foot-note {
