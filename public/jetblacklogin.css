@@ -78,7 +78,17 @@
   background-size: contain;
   animation: floatLogo 3s ease-in-out infinite;
 }
-
+.bg-curious-blue-500{
+    background: var(--login-button-bg-gradient,#00c853) !important;
+    border: none;
+    border-radius: var(--login-button-border-radius,8px) !important;
+    padding: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+}
 /* Subtle floating animation for logo */
 @keyframes floatLogo {
   0%, 100% {
