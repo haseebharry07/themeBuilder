@@ -3643,7 +3643,7 @@ nav a#sb_app-media {
 }
 .sidebar-v2-location #sidebar-v2 .menu-title{
   --tw-text-opacity: 1;
-    color:  var(--tw-text-opacity, #ffffff);
+    color:  var(--tw-text-opacity-color, #ffffff);
 }
 .hl_nav-header-without-footer .divider > p.border-b {
   border: none !important;
