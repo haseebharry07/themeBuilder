@@ -3639,7 +3639,7 @@ nav a#sb_app-media {
 /* Settings divider border */
 .hl_nav-header-without-footer .divider span {
   background-color: transparent !important;
-  color: var(--tw-text-opacity) !important;
+  color: var(--tw-text-opacity-color) !important;
 }
 .sidebar-v2-location #sidebar-v2 .menu-title{
   --tw-text-opacity: 1;
