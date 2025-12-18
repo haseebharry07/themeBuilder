@@ -70,12 +70,12 @@ html, body {
 }
 
 /* Headings */
-/* .hl_login .heading2 {
+.hl_login .heading2 {
   color: #fff !important;
   font-size: 28px;
   margin-bottom: 3px;
-} */
-
+}
+/* 
 [data-v-7d68b16e] .login-card-heading h2.heading2 {
     color: transparent !important;
     position: relative;
@@ -88,7 +88,7 @@ html, body {
     position: absolute;
     left: 0;
     top: 0;
-}
+} */
 .text-gray-700{
   color: #e5e7ea !important;
 }
@@ -125,27 +125,9 @@ html, body {
     display: none !important;
 }
 /* Forgot password */
-/* .forgot-password {
+.forgot-password {
   color: #9dd1ea !important;
   font-weight: 600;
-} */
-
-/* Hide original link text */
-.forgot-password {
-    color: transparent !important; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-    display: inline-block; /* ensure pseudo-element positions correctly */
-}
-
-/* Add text via CSS variable */
-.forgot-password::after {
-    content: var(--forgetpassword-text, "Forget Password"); /* default text */
-    color: var(--login-link-text-color, #9dd1ea );
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 13px;
-    font-weight: 600;
 }
 
 .forgot-password:hover::after {
@@ -154,69 +136,13 @@ html, body {
 
 
 /* Sign In Button */
-/* .hl-btn {
+.hl-btn {
   height: 46px !important;
   border-radius: 6px !important;
   background: #e54b3b !important;
   font-weight: 700 !important;
-} */
-
-/* Hide original button text */
-[data-v-d8e4453b] .hl_login button[type="submit"] {
-    color: transparent !important; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-}
-/* === BUTTON === */
-/* Hide original button text */
-[data-v-d8e4453b] .hl_login button[type="submit"] {
-    color: transparent; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-    background: var(--login-button-bg-gradient,#c85000) !important;
-    border: none;
-    border-radius: var(--login-button-border-radius,8px) !important;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s ease;
 }
 
-/* LOGIN BUTTON */
-.hl_login button[type="submit"] {
-    color: transparent !important;
-    position: relative;
-    background: var(--login-button-bg-gradient,#c84900) !important;
-    border: none;
-    border-radius: var(--login-button-border-radius,6px) !important;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s ease;
-}
-
-/* Pseudo text */
-.hl_login button[type="submit"]::after {
-    content: var(--login-button-text);
-    color: var(--login-button-text-color, #ffffff);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Hover */
-.hl_login button[type="submit"]:hover {
-    background: var(--login-button-hover-bg-color, #e6bc00) !important;
-    transform: translateY(-2px);
-}
-
-/* Hover text color */
-.hl_login button[type="submit"]:hover::after {
-    color: var(--login-button-hover-text-color, #ffffff);
-}
 
 /* ===============================
    RIGHT SIDE – IMAGE PANEL

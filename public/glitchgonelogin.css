@@ -1,4 +1,3 @@
-
 /* === BASE STYLES === */
 .hl_login {
   display: flex;
@@ -8,6 +7,7 @@
   height: 100vh;
   width: 100%;
   overflow: hidden;
+  background-color: #000;
   background-color: var(--login-card-bg-gradient,#000);
   font-family: "Inter", "Poppins", sans-serif;
   color: #fff;
@@ -92,103 +92,6 @@
   font-size: 26px;
   margin-bottom: 10px;
 }
-[data-v-7d68b16e] .login-card-heading h2.heading2 {
-    color: transparent !important;
-    position: relative;
-}
-
-[data-v-7d68b16e] .login-card-heading h2.heading2::after {
-    content: var(--login-headline-text);
-    font-size: var(--login-headline-font-size, 25px);
-    color: var(--login-headline-text-color, #00c853) !important;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-.bg-curious-blue-500{
-    background: var(--login-button-bg-gradient,#00c853) !important;
-    border: none;
-    border-radius: var(--login-button-border-radius,8px) !important;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s ease;
-}
-/* LOGIN PAGE HEADING ONLY */
-
-/* .card-body.login-card-body > .login-card-heading > h2.heading2 {
-    color: transparent !important;     
-    position: relative;                
-}
-
-.card-body.login-card-body > .login-card-heading > h2.heading2::after {
-    content: var(--login-headline-text, "Sign into your account"); 
-    font-size: var(--login-headline-font-size, 25px);
-    color: var(--login-headline-text-color, #00c853) !important;
-    position: absolute;
-    left: 0;
-    top: 0;
-} */
-
-
-
-/* RESET PASSWORD PAGE — DO NOT MODIFY HEADING */
-[data-v-d8e4453b] .login-card-heading h2.heading2 {
-    color: transparent !important;
-    position: relative;
-}
-
-[data-v-d8e4453b] .login-card-heading h2.heading2::after {
-     content: var(--reset-headline-text,"Reset Password");
-    font-size: var(--login-headline-font-size, 25px);
-    color: var(--login-headline-text-color, #00c853) !important;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-
-
-/* Hide original button text */
-[data-v-d8e4453b] .hl_login button[type="submit"] {
-    color: transparent !important; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-}
-/* === BUTTON === */
-/* Hide original button text */
-[data-v-d8e4453b] .hl_login button[type="submit"] {
-    color: transparent; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-    background: var(--login-button-bg-gradient,#00c853) !important;
-    border: none;
-    border-radius: var(--login-button-border-radius,8px) !important;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s ease;
-}
-
-/* Add text via CSS variable */
-[data-v-d8e4453b] .hl_login button[type="submit"]::after {
-    content: "Reset Password"; /* ✅ correct way */
-    color: var(--login-button-text-color, #000);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 15px;
-    font-weight: 600;
-}
-
-[data-v-d8e4453b] .hl_login button[type="submit"]:hover {
-  color: var(--login-button-hover-text-color, #000) !important;
-  background-color:var(--login-button-hover-bg-color,#00e676) !important;
-  transform: translateY(-2px);
-}
-
 
 /* === INPUTS === */
 .hl-text-input-container {
@@ -209,62 +112,37 @@
   border-color: #00c853;
   box-shadow: 0 0 0 2px rgba(0, 200, 83, 0.25);
 }
-/* LOGIN BUTTON */
-.hl_login button[type="submit"] {
-    color: transparent !important;
-    position: relative;
-    background: var(--login-button-bg-gradient,#00c853) !important;
-    border: none;
-    border-radius: var(--login-button-border-radius,8px) !important;
-    padding: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    width: 100%;
-    transition: all 0.3s ease;
+
+/* === BUTTON === */
+.hl_login--body button[type="submit"] {
+  background: var(--login-button-bg-gradient,#00c853) !important;
+  border: none;
+   border-radius: var(--login-button-border-radius,8px) !important;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  color:var(--login-button-text-color,#000) !important ;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+.hl_login--body button[type="submit"]:hover {
+  color: var(--login-button-hover-text-color, #000) !important;
+  background-color:var(--login-button-hover-bg-color,#00e676) !important;
+  transform: translateY(-2px);
 }
 
-/* Pseudo text */
-.hl_login button[type="submit"]::after {
-    content: var(--login-button-text);
-    color: var(--login-button-text-color, #000);
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-
-/* Hover */
-.hl_login button[type="submit"]:hover {
-    color: transparent !important; /* KEEP ORIGINAL TEXT HIDDEN */
-    background-color: var(--login-button-hover-bg-color,#00e676) !important;
-    transform: translateY(-2px);
-}
-
-.hl_login button[type="submit"]:hover::after {
-    color: var(--login-button-hover-text-color, #000);
-}
-
-/* Hide original link text */
+/* === LINKS === */
 .forgot-password {
-    color: transparent !important; /* hide original text */
-    position: relative; /* needed for ::after positioning */
-    display: inline-block; /* ensure pseudo-element positions correctly */
+  display: block;
+  text-align: right;
+  font-size: 13px;
+  color:var(--login-link-text-color,#9e9e9e) !important;
+  margin-top: -10px;
+  margin-bottom: 20px;
 }
-
-/* Add text via CSS variable */
-.forgot-password::after {
-    content: var(--forgetpassword-text, "Forget Password"); /* default text */
-    color: var(--login-link-text-color, #9e9e9e);
-    position: absolute;
-    top: 0;
-    left: 0;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.forgot-password:hover::after {
-    color: #6bff30; /* hover color */
+.forgot-password:hover {
+  color: #3060ff;
 }
 
 /* === FOOT NOTE === */
@@ -335,7 +213,7 @@
     padding: 10px 12px;
   }
 
-  .hl_login button[type="submit"] {
+  .hl_login--body button[type="submit"] {
     font-size: 14px;
     padding: 10px;
   }
