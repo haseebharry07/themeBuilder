@@ -3645,6 +3645,9 @@ nav a#sb_app-media {
   --tw-text-opacity: 1;
     color:  var(--tw-text-opacity-color, #ffffff);
 }
+.sidebar-v2-agency #sidebar-v2 .menu-title{
+   color:  var(--tw-text-opacity-color, #ffffff) !important;
+}
 .hl_nav-header-without-footer .divider > p.border-b {
   border: none !important;
 }
