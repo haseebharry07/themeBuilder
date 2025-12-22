@@ -114,9 +114,9 @@
 ============================ */
 .hl_login--body button[type="submit"] {
   width: 100%;
-  background:var(--login-button-bg-color, #5b4bff )!important;
+  background:var(--login-button-bg-gradient, #5b4bff )!important;
   border: none;
-   border-radius: var(--login-button-border-radius,8px) !important;
+  border-radius: var(--login-button-border-radius,8px) !important;
   padding: 12px;
   font-size: 15px;
   font-weight: 600;
