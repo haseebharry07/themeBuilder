@@ -81,8 +81,8 @@ html, body {
 
 /* Headings */
 .hl_login .heading2 {
-  color: #fff !important;
-  font-size: 28px;
+  color: var(--login-headline-text-color,#fff) !important;
+  font-size: var(--login-headline-font-size, 25px);
   margin-bottom: 3px;
 }
 /* 
@@ -136,12 +136,12 @@ html, body {
 }
 /* Forgot password */
 .forgot-password {
-  color: #9dd1ea !important;
+  color:var(--login-link-text-color, #9dd1ea) !important;
   font-weight: 600;
 }
 
 .forgot-password:hover::after {
-    color: #75e3ff; /* hover color */
+    color: #2883fa; /* hover color */
 }
 
 
