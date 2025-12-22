@@ -153,7 +153,7 @@
 }
 
 .foot-note a {
-  color: var(--login-headline-font-size,#4c3aff) !important;
+  color: var(--login-link-text-color,#4c3aff) !important;
   text-decoration: none;
 }
 .foot-note a:hover {
