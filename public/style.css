@@ -2593,8 +2593,8 @@ body textarea:focus {
 
 .sidebar-v2-agency #sidebar-v2 #backButtonv2,
 #sidebar-v2 --acent {
-  background: var(--dark-color) !important;
-  color: var(--white-color) !important;
+  background: var(--go-back-color) !important;
+  color: var(--go-back-text-color) !important;
 }
 
 .tooltip .tooltip-inner {
@@ -2670,8 +2670,8 @@ body textarea:focus {
   border: none !important;
 }
 .sidebar-v2-location #sidebar-v2 #backButtonv2 {
-  background-color: var(--dark-color) !important;
-  color: var(--white-color) !important;
+  background-color: var(--go-back-color) !important;
+  color: var(--go-back-text-color) !important;
   width: var(--sidebar-menu-width) !important;
   height: var(--sidebar-menu-height) !important;
   margin: 0 auto !important;
