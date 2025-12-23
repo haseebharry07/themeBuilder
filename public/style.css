@@ -2679,6 +2679,10 @@ body textarea:focus {
   align-items: center !important;
   justify-content: center !important;
 }
+body .sidebar-v2-location #sidebar-v2 #backButtonv2 {
+  background-color: var(--go-back-color) !important;
+  color: var(--go-back-text-color) !important;
+}
 .sidebar-v2-location #sidebar-v2 #backButtonv2 + .menu-title {
   padding-left: 20px !important;
 }
