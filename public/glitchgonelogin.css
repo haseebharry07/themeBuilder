@@ -38,7 +38,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color:var(--login-background-active,#0b0b0b);
+  background:var(--login-background-active,#0b0b0b);
   padding: 60px;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
