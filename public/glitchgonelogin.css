@@ -16,8 +16,8 @@
 
 /* === LEFT SIDE IMAGE === */
 .hl_login::before {
-  border-bottom-right-radius: 80px !important;
-  border-top-right-radius: 80px !important;
+  border-bottom-right-radius: 0px !important;
+  border-top-right-radius: 0px !important;
   content: "";
   flex: 1;
   min-width: 50%;
@@ -38,7 +38,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color:var(--login-card-bg-gradient,#0b0b0b);
+  background-color:var(--login-background-active,#0b0b0b);
   padding: 60px;
   border-top-right-radius: 16px;
   border-bottom-right-radius: 16px;
@@ -52,7 +52,7 @@
 .hl_login--body .card {
   background: var(--login-card-bg-gradient,#0b0b0b00) !important;
   width: 100%;
-  background: transparent;
+  background: transparent !important;
   border: none;
   box-shadow: none;
 }
