@@ -1205,7 +1205,11 @@ nav a#sb_location-mobile-app {
 /* #sb_launchpad::after {
    background-image: var(--sidebar-menu-icon-lunchpad) !important;
 } */
-
+.tb-sidebar-icon:hover ::after{
+  color: var(--sidebar-menu-icon-hover-color, #ffffff) !important; 
+}
+.tb-sidebar-icon.active ::after{
+color: var(--sidebar-menu-icon-active-color,#b9b9b9); }
   #sb_launchpad::after {
     content: var(--sidebar-menu-icon-lunchpad) !important;
     /* -webkit-mask-image: var(--sidebar-menu-icon-lunchpad);
