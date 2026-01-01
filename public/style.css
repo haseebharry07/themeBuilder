@@ -1211,6 +1211,7 @@ nav a#sb_location-mobile-app {
 .tb-sidebar-icon.active ::after{
 color: var(--sidebar-menu-icon-active-color,#b9b9b9); }
   #sb_launchpad::after {
+    display: none !important;
     content: var(--sidebar-menu-icon-lunchpad) !important;
     /* -webkit-mask-image: var(--sidebar-menu-icon-lunchpad);
     mask-image: var(--sidebar-menu-icon-lunchpad);
