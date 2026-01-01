@@ -1230,12 +1230,12 @@ color: var(--sidebar-menu-icon-active-color,#b9b9b9); }
   }
 /* Hover */
 #sb_launchpad:hover::after {
-  content: var(--sidebar-menu-icon-lunchpad) !important;
+  /* content: var(--sidebar-menu-icon-lunchpad) !important; */
   color: var(--sidebar-menu-icon-hover-color, #ffffff); 
 }
 
 #sb_launchpad.active::after {
-    content: var(--sidebar-menu-icon-lunchpad) !important;
+    /* content: var(--sidebar-menu-icon-lunchpad) !important; */
     color: var(--sidebar-menu-icon-active-color,#b9b9b9); 
 }
 /* #sb_launchpad:hover::after {
