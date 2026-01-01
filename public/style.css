@@ -4007,11 +4007,14 @@ input[type="submit"],
   font-variant: normal;
   text-rendering: auto;
 }
-.tb-sidebar-icon:hover {
-  color: var(--sidebar-menu-icon-hover-color, #ffffff) !important; 
+/* Hover icon when ANY sidebar menu is hovered */
+[id^="sb_"]:hover .tb-sidebar-icon {
+  color: var(--sidebar-menu-icon-hover-color, #ffffff) !important;
 }
-.tb-sidebar-icon.active {
-color: var(--sidebar-menu-icon-active-color,#b9b9b9); 
+
+/* Active menu icon */
+[id^="sb_"].active .tb-sidebar-icon {
+  color: var(--sidebar-menu-icon-active-color, #b9b9b9) !important;
 }
 /* Optional: Image-based icons */
 .tb-sidebar-icon-img {
