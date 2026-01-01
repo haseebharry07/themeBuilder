@@ -156,6 +156,24 @@ function applySidebarLogoFromTheme() {
     head.appendChild(link);
     log("Favicon changed:", url);
   }
+  const SUBACCOUNT_ORDER_MAP = {
+              "sb_launchpad": "launchpad",
+              "sb_dashboard": "dashboard",
+              "sb_conversations": "conversations",
+              "sb_opportunities": "opportunities",
+              "sb_calendars": "calendars",
+              "sb_contacts": "contacts",
+              "sb_payments": "payments",
+              "sb_reporting": "reporting",
+              "sb_email-marketing": "marketing",
+              "sb_automation": "automation",
+              "sb_sites": "sites",
+              "sb_app-media": "media-storage",
+              "sb_memberships": "memberships",
+              "sb_reputation": "reputation",
+              "sb_app-marketplace": "app-marketplace",
+              "sb_location-mobile-app": "mobile-app"
+            };
  (function applySavedSubAccountOrderOnLoad() {
             if (!location.pathname.includes("/location/")) return;
 
