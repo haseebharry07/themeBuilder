@@ -27,6 +27,9 @@ body {
 html body::after {
   display: none !important;
 }
+.tb-has-fa-icon::after {
+    content: none !important;
+}
 /* Remove loading */
 :root {
  --headline-font: Poppins;
@@ -1198,22 +1201,22 @@ nav a#sb_location-mobile-app {
 /* #sb_launchpad::after {
    background-image: var(--sidebar-menu-icon-lunchpad) !important;
 } */
-#sb_launchpad::after {
-  -webkit-mask-image: var(--sidebar-menu-icon-lunchpad);
-  mask-image: var(--sidebar-menu-icon-lunchpad);
+  #sb_launchpad::after {
+    -webkit-mask-image: var(--sidebar-menu-icon-lunchpad);
+    mask-image: var(--sidebar-menu-icon-lunchpad);
 
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
 
-  -webkit-mask-size: contain;
-  mask-size: contain;
+    -webkit-mask-size: contain;
+    mask-size: contain;
 
-  background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
-  content: "";
-  width: 20px;
-  height: 20px;
-  display: inline-block;
-}
+    background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+    content: "";
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+  }
 /* Hover */
 #sb_launchpad:hover::after {
   background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */

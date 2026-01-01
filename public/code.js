@@ -156,7 +156,27 @@ function applySidebarLogoFromTheme() {
     head.appendChild(link);
     log("Favicon changed:", url);
   }
+ (function applySavedSubAccountOrderOnLoad() {
+            if (!location.pathname.includes("/location/")) return;
 
+            const saved = JSON.parse(localStorage.getItem("userTheme") || "{}");
+            const order = saved.themeData?.["--subMenuOrder"]
+                ? JSON.parse(saved.themeData["--subMenuOrder"])
+                : [];
+
+            if (!order.length) return;
+
+            // Apply CSS order
+            order.forEach((menuId, index) => {
+                const cssKey = SUBACCOUNT_ORDER_MAP[menuId];
+                if (!cssKey) return;
+
+                document.documentElement.style.setProperty(
+                    `--${cssKey}-order`,
+                    index
+                );
+            });
+        })();
   function updateElementText(selector, newText, attempt = 1) {
     const el = document.querySelector(selector);
     if (!el && attempt < 20) return setTimeout(() => updateElementText(selector, newText, attempt + 1), 300);
