@@ -27,8 +27,12 @@ body {
 html body::after {
   display: none !important;
 }
+/* Hide the old SVG icon when Font Awesome icon is active */
 .tb-has-fa-icon::after {
     content: none !important;
+}
+.tb-has-svg-icon::after {
+    display: inline-block;
 }
 /* Remove loading */
 :root {
