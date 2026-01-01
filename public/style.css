@@ -313,8 +313,8 @@ html body::after {
  --reporting-new-name: "Reporting";
  --app-marketplace-new-name: "App Marketplace";
  --mobile-app-new-name: "Mobile App";
---sidebar-menu-icon-lunchpad: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='8' x2='12' y2='12'/%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'/%3E%3C/svg%3E");
-
+/* --sidebar-menu-icon-lunchpad: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='12' y1='8' x2='12' y2='12'/%3E%3Cline x1='12' y1='16' x2='12.01' y2='16'/%3E%3C/svg%3E"); */
+-sidebar-menu-icon-lunchpad:"f015";
  /* --sidebar-menu-icon-lunchpad: url("data:image/svg+xml,%3Csvg%20data-v-e087307f%3D%22%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-alert-circle%20lucide-icon%20customizable%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%3E%3C%2Fcircle%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%228%22%20y2%3D%2212%22%3E%3C%2Fline%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2216%22%20y2%3D%2216%22%3E%3C%2Fline%3E%3C%2Fsvg%3E"); */
 /* --sidebar-menu-icon-lunchpad-hover: url("data:image/svg+xml,%3Csvg%20data-v-e087307f%3D%22%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-alert-circle%20lucide-icon%20customizable%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%3E%3C%2Fcircle%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%228%22%20y2%3D%2212%22%3E%3C%2Fline%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2216%22%20y2%3D%2216%22%3E%3C%2Fline%3E%3C%2Fsvg%3E"); */
 /* --sidebar-menu-icon-lunchpad-active: url("data:image/svg+xml,%3Csvg%20data-v-e087307f%3D%22%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%23ffffffff%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%20class%3D%22lucide%20lucide-alert-circle%20lucide-icon%20customizable%22%3E%3Ccircle%20cx%3D%2212%22%20cy%3D%2212%22%20r%3D%2210%22%3E%3C%2Fcircle%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212%22%20y1%3D%228%22%20y2%3D%2212%22%3E%3C%2Fline%3E%3Cline%20x1%3D%2212%22%20x2%3D%2212.01%22%20y1%3D%2216%22%20y2%3D%2216%22%3E%3C%2Fline%3E%3C%2Fsvg%3E"); */
@@ -1205,7 +1205,33 @@ nav a#sb_location-mobile-app {
 /* #sb_launchpad::after {
    background-image: var(--sidebar-menu-icon-lunchpad) !important;
 } */
-  #sb_launchpad::after {
+#sb_launchpad::after {
+    content: var(--sidebar-menu-icon-lunchpad);
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900; /* solid icons */
+    
+    color: var(--sidebar-menu-icon-color);
+    
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Hover */
+#sb_launchpad:hover::after {
+    color: var(--sidebar-menu-icon-hover-color, #ffffff);
+}
+
+/* Active */
+#sb_launchpad.active::after {
+    color: var(--sidebar-menu-icon-active-color, #b9b9b9);
+}
+
+
+  /* #sb_launchpad::after {
     -webkit-mask-image: var(--sidebar-menu-icon-lunchpad);
     mask-image: var(--sidebar-menu-icon-lunchpad);
 
@@ -1215,20 +1241,20 @@ nav a#sb_location-mobile-app {
     -webkit-mask-size: contain;
     mask-size: contain;
 
-    background-color:var(--sidebar-menu-icon-color); /* <— the icon color */
+    background-color:var(--sidebar-menu-icon-color); 
     content: "";
     width: 20px;
     height: 20px;
     display: inline-block;
-  }
+  } */
 /* Hover */
-#sb_launchpad:hover::after {
-  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); /* hover color */
+/* #sb_launchpad:hover::after {
+  background-color: var(--sidebar-menu-icon-hover-color, #ffffff); 
 }
 
 #sb_launchpad.active::after {
-  background-color: var(--sidebar-menu-icon-active-color,#b9b9b9); /* active color */
-}
+  background-color: var(--sidebar-menu-icon-active-color,#b9b9b9); 
+} */
 /* #sb_launchpad:hover::after {
   background-image: var(--sidebar-menu-icon-lunchpad-hover) !important;
 }
