@@ -125,6 +125,7 @@ html body::after {
  --top-nav-title-font-size: 24px;
  --top-nav-bg-color: #31249600;
  --top-nav-bg-gradient:  linear-gradient(250deg, #00000000 88%, #00000000 100%);
+ --sidebar-menu-icon-lunchpad:"\f06a";
  #location-dashboard_banner--wordpress-promo-container{display: none !important};
  #location-dashboard_banner--yext-promo-container{display: none !important};
  .hl_error.hl_alert_twilio{display: block !important};
@@ -3279,7 +3280,7 @@ button:active {
   --agency-ideas-icon: "\f672";
   --agency-mobileapp-icon: "\f10b";
   --agency-settings-icon: "\f085";
-  --sidebar-menu-icon-lunchpad:"\f06a";
+  
 }
 
 /* Custom Icons */
