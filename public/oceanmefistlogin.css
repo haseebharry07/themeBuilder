@@ -109,7 +109,10 @@ html, body {
   color: #fff !important;
   border-radius: 4px !important;
 }
-
+.hl-text-input:focus {
+  border-color: #379fdb !important;
+  box-shadow: 0 0 10px rgba(0, 132, 255, 0.3);
+}
 .hl-text-input::placeholder {
   color: rgba(255,255,255,.75) !important;
 }

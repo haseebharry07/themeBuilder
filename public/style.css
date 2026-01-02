@@ -45,7 +45,7 @@ html body::after {
  --header-icon-width: 32px;
  --header-icon-height: 32px;
  --primary-color: #212121;
- --second-color: #038c3f;
+ /* --second-color: #038c3f; */
  --grey-color: #fff8f8ff;
  --warning-color: #db0707ff;
  --dark-color: #038c3f;
