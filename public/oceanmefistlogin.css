@@ -143,7 +143,11 @@ html, body {
 .forgot-password:hover::after {
     color: #2883fa; /* hover color */
 }
-
+button:focus,
+button:active {
+  border-color: #9dd1ea !important;
+  outline-color: #9dd1ea !important;
+}
 
 /* Sign In Button */
 .hl-btn {
