@@ -148,6 +148,9 @@ button:active {
   border-color: #9dd1ea !important;
   outline-color: #9dd1ea !important;
 }
+input:focus {
+  border-color: #9dd1ea  !important;
+}
 
 /* Sign In Button */
 .hl-btn {
