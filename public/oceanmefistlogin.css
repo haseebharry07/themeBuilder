@@ -183,7 +183,7 @@ input:focus {
   right: 0;
   width: 48% !important;
   height: 100% !important;
-  background-image: url("https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg");
+  background-image: var(--login-background-image);
   background-size: cover;
   background-position: center;
 }
