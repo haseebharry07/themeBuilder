@@ -124,7 +124,6 @@
   font-size: 16px;
   font-weight: 600;
   color:var(--login-button-text-color,#000) !important ;
-  cursor: var(--custom-cursor), auto !important;
   width: 100%;
   transition: all 0.3s ease;
   text-transform: capitalize; /* ✅ makes text capital */
