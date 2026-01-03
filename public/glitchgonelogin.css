@@ -91,6 +91,8 @@
   font-weight: 700;
   font-size: 26px;
   margin-bottom: 10px;
+  text-transform: capitalize; /* ✅ makes text capital */
+
 }
 
 /* === INPUTS === */
@@ -118,13 +120,14 @@
   background: var(--login-button-bg-gradient,#00c853) !important;
   border: none;
    border-radius: var(--login-button-border-radius,8px) !important;
-  padding: 12px;
-  font-size: 15px;
+  padding: 12px !important;
+  font-size: 16px;
   font-weight: 600;
   color:var(--login-button-text-color,#000) !important ;
-  cursor: pointer;
+  cursor: var(--custom-pointer), auto !important;
   width: 100%;
   transition: all 0.3s ease;
+  text-transform: capitalize; /* ✅ makes text capital */
 }
 .hl_login--body button[type="submit"]:hover {
   color: var(--login-button-hover-text-color, #000) !important;
