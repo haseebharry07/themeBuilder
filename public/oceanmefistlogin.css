@@ -82,7 +82,7 @@ html, body {
 /* Headings */
 .hl_login .heading2 {
   color: var(--login-headline-text-color,#fff) !important;
-  font-size: var(--login-headline-font-size, 25px);
+  font-size: var(--login-headline-font-size, 38px);
   margin-bottom: 3px;
 }
 /* 
